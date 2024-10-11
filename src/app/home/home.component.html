@@ -1,0 +1,97 @@
+<div class="pagetitle">
+	<h1>Search for Preceptors</h1>
+	<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active">Home</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+<section class="section">
+	<div class="row">
+		<div class="col-lg-5">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Filter By</h5>
+					<form [formGroup]="homeForm" role="form">
+						<div class="row d-none">
+							<div class="col-md-auto">
+								<div>Person Type</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="person_type" id="person_typem" value="m" 
+										(click)="PersonTypeClick('m')">
+									<label class="form-check-label" for="person_typem">Mentor</label>
+								</div>
+								<div class="form-check form-check-inline" checked>
+									<input class="form-check-input" type="radio" name="person_type" id="person_typep" value="p" 
+										(click)="PersonTypeClick('p')" >
+									<label class="form-check-label" for="person_typep">Preceptor</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="person_type" id="person_typeb" value="b"
+										(click)="PersonTypeClick('b')">
+									<label class="form-check-label" for="person_typeb">Both</label>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-4">
+							<div class="col-md-auto">
+								<label for="sector_search" class="Sector">Sector</label>
+								<select id="sector_search" formControlName="sector_search" class="form-select" aria-label="Sector Search"
+									(change)="ChangeSector()">
+									<option value=""></option>
+									<option *ngFor="let sec of sectors" [value]="sec['id']">{{sec['sector_name']}}
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="row mt-4">
+							<div class="col-md-auto">
+								<label for="person_name_search" class="col-form-label">Name of Preceptor</label>
+								<div>
+									<input formControlName="person_name_search" type="text" 
+										class="form-control" id="person_name_search" aria-label="Person Name Search"
+										(keyup)="UpdateNameSearch()">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive pt-3">
+						<table class="table table-bordered table-striped table-hover">
+							<thead class="table-dark">
+								<tr>
+									<th>&nbsp;</th>
+									<th>Name</th>
+									<th>Organization</th>
+									<th>Title</th>
+									<th>Sector</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for (mentor of this.mentors; track mentor.guid) {
+									<tr [ngClass]="(mentor.selectedProfile == 'Y') ? '' : 'd-none'">
+										<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenProfile(mentor)">View</button></td>
+										<td>{{mentor.fname}} {{mentor.lname}}, {{this.helperService.ArrayToCSV(mentor.degree)}}</td>
+										<td>{{mentor.organization}}</td>
+										<td [innerHtml]="this.TitleText(mentor)"></td>
+										<td [innerHtml]="this.SectorText(mentor)"></td>
+									</tr>
+								}
+								<tr [ngClass]="(visibleProfileCount < 1) ? '' : 'd-none'">
+									<td colspan="5" class="fst-italic">Zero Records Found</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

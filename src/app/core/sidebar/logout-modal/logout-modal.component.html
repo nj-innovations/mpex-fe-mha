@@ -1,0 +1,11 @@
+<div class="modal-header text-white mpex-modal-header" aria-modal="true">
+	<h5 class="modal-title">Confirmation</h5>
+	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    Are you sure you want to Logout?
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary mr-2 btn-sm"  (click)="clickYes()">Yes</button>
+    <button type="button" class="btn btn-outline-danger ml-2 btn-sm" ngbAutofocus (click)="activeModal.dismiss('Cross click')">Cancel</button>
+</div>

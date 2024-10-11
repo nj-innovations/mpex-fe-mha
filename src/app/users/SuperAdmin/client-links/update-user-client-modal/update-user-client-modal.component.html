@@ -1,0 +1,102 @@
+<div class="modal-header text-white mpex-modal-header">
+	<h5 class="modal-title">Update Client Link</h5>
+	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('')"></button>
+</div>
+<div class="modal-body">
+	<form role="form" [formGroup]="clientForm">
+		<div class="row">
+			<div class="col-12 mb-3">
+				<label for="client">Client</label>
+				<input type="text" readonly class="form-control-plaintext" formControlName="client" >
+			</div>
+			<div class="col-12 mb-3">
+				<label for="role" class="required">Role</label>
+				<select id="role" formControlName="role" class="form-select" aria-label="Role Search">
+					<option value=""></option>
+					<option *ngFor="let r of rolesRS" [value]="r.id">{{r.role_name}}
+					</option>
+				</select>
+			</div>
+			<div class="col-12 mb-3">
+				<label for="role">Sector*</label>
+				<select multiple id="sectors" formControlName="sectors" class="form-select" [size]="sectorsRS.length"
+					aria-label="Sector Search Multi">
+					<option *ngFor="let s of sectorsRS" [value]="s.id">{{s.name}}
+					</option>
+				</select>
+				<div><i>*Hold Shift while clicking to select multiple options</i></div>
+			</div>
+			<div class="row">
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="is_student"
+							formControlName="is_student">
+						<label class="form-check-label" for="is_student">
+							Is Student
+						</label>
+					</div>
+				</div>
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="is_mentor"
+							formControlName="is_mentor">
+						<label class="form-check-label" for="is_mentor">
+							Is Mentor
+						</label>
+					</div>
+				</div>
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="is_preceptor"
+							formControlName="is_preceptor">
+						<label class="form-check-label" for="is_preceptor">
+							Is Preceptor
+						</label>
+					</div>
+				</div>
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="is_alumni"
+							formControlName="is_alumni">
+						<label class="form-check-label" for="is_alumni">
+							Is Alumni
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="open_to_mentoring"
+							formControlName="open_to_mentoring">
+						<label class="form-check-label" for="open_to_mentoring">
+							Open to Mentoring
+						</label>
+					</div>
+				</div>
+				<div class="col-auto">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"  id="open_to_precepting"
+							formControlName="open_to_precepting">
+						<label class="form-check-label" for="open_to_precepting">
+							Open to Precepting
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	@if(alertMessage != '')
+	{
+		<div class="row">
+			<div class="col-12">
+				<ngb-alert type="danger" (closed)="closeAlert()"><strong>Error:</strong> {{alertMessage}}</ngb-alert>
+			</div>
+		</div>
+	}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-dark ml-2 btn-sm"  (click)="activeModal.dismiss('')">Cancel</button>
+	<button type="button" class="btn btn-outline-primary ml-2 btn-sm"  (click)="Save()">Save</button>
+</div>
+

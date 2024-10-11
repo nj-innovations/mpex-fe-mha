@@ -1,0 +1,36 @@
+.program-title{
+    color:#FFF;
+    font-size:26px;
+}
+.banner-organization-name{
+    font-size: 20px;
+    margin-top: 8px;
+    color: #FFF
+}
+
+.ru-header170, .ru-header190{
+    /* background-color:#1f3d7c; */
+    background-color: #293f6f;
+    line-height:21.6px;
+    height:126px;
+    width:100%
+}
+
+.my-header{
+   display: flex;
+}
+
+@media (max-width:767px) and (min-width:498px){
+    /* .program-title{font-size:24px} */
+}
+
+@media (max-width:497px) and (min-width:5px) {
+    /* .program-title{font-size:20px} */
+}
+
+@media (max-width:740px) and (min-width:5px){
+    .ru-header190{height:190px}
+    .ru-header190 .program-title {font-size: 20px}
+    .ru-header170 .program-title {font-size: 24px}
+    .ru-header170{height:170px}
+}

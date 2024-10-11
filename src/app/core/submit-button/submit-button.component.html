@@ -1,0 +1,6 @@
+<button [class]="myClass" type="button" [disabled]="disabled||(isLoading&&isActiveButton())" (click)="pushButton($event)">
+    <div *ngIf="isLoading&&isActiveButton();then is_loading else not_loading"></div>
+    <ng-template #not_loading><i *ngIf="glyph!==''" class="{{glyph}} fa-fw"></i></ng-template>
+    <ng-template #is_loading><i class="fa fa-sync fa-spin fa-fw"></i></ng-template>
+    {{label}}
+</button>

@@ -1,0 +1,33 @@
+<div class="modal-header text-white mpex-modal-header">
+	<h5 class="modal-title">Filter by Sector</h5>
+	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+	@if(this.isLoaded){	
+		<div class="row">
+			<div class="col-6">
+				<div class="h5">Sectors</div>
+				<div>
+					<span style="padding-left:6px"><a href="#" 
+						(click)="CheckAllSector($event)" class="text-decoration-none">[Check All]</a>
+					</span>
+					<span style="padding-left:6px"><a href="#" 
+						(click)="UncheckAllSector($event)" class="text-decoration-none">[Uncheck All]</a>
+					</span>
+				</div>
+				<form [formGroup]="searchMentorForm" role="form">
+					<div formArrayName="sector" *ngFor="let t of mentorFormArray.controls; let i = index" class="form-check">					
+						<label>
+							<input type="checkbox" [formControlName]="i" [checked]="t.value">
+							{{sectorData[i].sector_name}}
+						</label>
+					</div>
+				</form>
+			</div>
+		</div>
+	}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-danger ml-2 btn-sm"  ngbAutofocus (click)="activeModal.close()">Cancel</button>
+	<button type="button" class="btn btn-outline-primary ml-2 btn-sm" (click)="SubmitSearch()">Submit</button>
+</div>

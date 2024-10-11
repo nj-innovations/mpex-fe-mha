@@ -1,0 +1,8 @@
+@for (alert of alertsService.alerts; track alert)
+{
+	<div class="row">
+		<div class="col-12">
+			<ngb-alert [type]="alert.alert_type" (closed)="close(alert)"><strong>{{alert.prefix_message}}:</strong> {{alert.message}}</ngb-alert>
+		</div>
+	</div>
+}

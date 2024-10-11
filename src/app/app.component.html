@@ -1,0 +1,21 @@
+@if(showHeader$ | async)
+{
+	<app-header></app-header>
+	<app-sidebar></app-sidebar>
+	<main id="main" class="main">
+		<app-alerts></app-alerts>
+		<router-outlet></router-outlet>
+	</main>
+	<footer id="footer" class="footer">
+		<div class="copyright">
+			&copy; Copyright <strong><span>NJ Innovations.</span></strong>. All Rights Reserved
+		</div>
+		<div class="credits">
+			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+		</div>
+	</footer>
+}
+@else
+{
+	<router-outlet></router-outlet>
+}

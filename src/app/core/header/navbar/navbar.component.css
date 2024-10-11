@@ -1,0 +1,21 @@
+.navbar-light {
+    font-size: 15px;
+    background-color: rgba(79, 67, 25, 1);
+    border-width: 0px;
+}
+
+.navbar-light a.nav-link,div.dropdown-menu button{
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(248, 248, 248, 0);
+    font-weight:400;
+    font-size: 15px;
+    padding-right:20px;
+}
+
+.navbar-light a.nav-link:hover, div.dropdown-menu button:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(100, 100, 100, 1);
+}
+
+button.dropdown-item, div.dropdown-menu {cursor: pointer;background-color: rgba(79, 67, 25, 1);}
+div.dropdown-menu {border:0px}

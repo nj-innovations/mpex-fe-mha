@@ -1,0 +1,52 @@
+<aside id="sidebar" class="sidebar">
+
+	<ul class="sidebar-nav" id="sidebar-nav">
+
+		<li class="nav-item">
+			<a class="nav-link " [routerLink]="['/home']" [ngClass]="{'collapsed': activeLink[0]}" (click)="clickLink(0)">
+				<fa-icon [icon]="faHouse" class="fa-icon-spacer"></fa-icon>
+				<span>Home</span>
+			</a>
+		</li>
+
+		<li class="nav-item">
+			<a class="nav-link" [routerLink]="['/profile']" [ngClass]="{'collapsed': activeLink[1]}" (click)="clickLink(1)">
+				<fa-icon [icon]="faUserRegular" class="fa-icon-spacer"></fa-icon>
+				<span>My Profile</span>
+			</a>
+		</li>
+
+		@if(hasRole('b525006b-3d8b-4610-94ef-aeb6d4dfed6b'))
+		{
+			<li class="nav-item">
+				<a class="nav-link collapsed"  [routerLink]="['/users']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
+					<fa-icon [icon]="faUsersLight" class="fa-icon-spacer"></fa-icon>
+					<span>Users</span>
+				</a>
+			</li>
+		
+			<li class="nav-item">
+				<a class="nav-link collapsed" [routerLink]="['/clients']" [ngClass]="{'collapsed': activeLink[3]}"  (click)="clickLink(3)">
+					<fa-icon [icon]="faHandshake" class="fa-icon-spacer"></fa-icon>
+					<span>Clients</span>
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link collapsed" [routerLink]="['/organizations']" [ngClass]="{'collapsed': activeLink[4]}"  (click)="clickLink(4)">
+					<fa-icon [icon]="faSitemap" class="fa-icon-spacer"></fa-icon>
+					<span>Organizations</span>
+				</a>
+			</li>
+		}
+
+		<li class="nav-item" style="cursor: pointer">
+			<a class="nav-link collapsed" [ngClass]="{'collapsed': activeLink[5]}"  (click)="Logout()">
+				<fa-icon [icon]="faSignOut" class="fa-icon-spacer"></fa-icon>
+				<span>Sign Out</span>
+			</a>
+		</li>
+	</ul>
+
+</aside><!-- End Sidebar-->
+

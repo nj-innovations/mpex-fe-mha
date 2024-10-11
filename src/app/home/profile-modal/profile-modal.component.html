@@ -1,0 +1,79 @@
+<div class="modal-header text-white mpex-modal-header">
+	<h5 class="modal-title">{{profileName}}</h5>
+	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('')"></button>
+</div>
+<div class="modal-body">
+	<form role="form" [formGroup]="profileForm">
+		<div class="row">
+			<div class="col-md-6 pt-md-0 pt-0">
+				<div>Title</div>
+				<div class="fw-bold">{{profileTitle}}</div>
+			</div>			
+			<div class="col-md-6 pt-md-0 pt-4">
+				<div>Organization</div>
+				<div class="fw-bold">{{profileOrganization}}</div>
+			</div>			
+			<div class="col-md-6 pt-4">
+				<div>Sectors</div>
+				<div class="fw-bold">
+					<ul>
+						@for(s of this.profileSectors; track s){
+							<li>{{s.sector_name}}</li>
+						}
+					</ul>
+				</div>
+			</div>	
+			<div class="col-md-6 pt-4">
+				<div>LinkedIn</div>
+				<div class="fw-bold">{{linkedin}}</div>
+			</div>
+			<div class="col-md-12 pt-4">
+				<div>Current Projects</div>
+				<div class="fw-bold">
+					<ul>
+						@for(s of this.profileMentorProjects; track s){
+							<li>{{s.mentor_project_name}}</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col-12">
+				<button class="btn btn-purple" type="button" (click)="toggleMeetPerson()">I would like to contact this person</button>
+			</div>
+		</div>
+		@if(visibleInternRequest)
+		{
+			<div class="row mt-3">
+				<div class="col-12"><label for="intern_comments" class="col-form-label">Please provide any additional information.  This is optional.</label></div>
+				<div class="col-12">
+					<textarea formControlName="intern_comments" type="text" class="form-control" id="intern_comments" rows="3"></textarea>
+				</div>
+				<div class="col-12 mt-2">
+					<button type="button" class="btn btn-sm btn-primary m-2" (click)="submitForm()">Submit</button>
+					<button type="button" class="btn btn-sm btn-danger m-2" (click)="cancelMeetPerson()">Cancel</button>
+				</div>
+			</div>
+		}
+		@if(this.visibleSuccessAlert)
+		{
+			<div class="row mt-3">
+				<div class="col-12">
+					<ngb-alert type="success" (closed)="closeSuccessAlert()"><strong>Success:</strong> Request successfully submitted</ngb-alert>
+				</div>
+			</div>
+		}
+		@if(this.visibleErrorAlert)
+		{
+			<div class="row mt-3">
+				<div class="col-12">
+					<ngb-alert type="danger" (closed)="closeErrorAlert()"><strong>Error:</strong> Unable to submit request</ngb-alert>
+				</div>
+			</div>
+		}
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-dark ml-2 btn-sm"  ngbAutofocus (click)="activeModal.dismiss('')">Close</button>
+</div>
