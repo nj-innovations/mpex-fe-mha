@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Mentor } from '../../models/Mentor';
-import { IinternRequestRequest } from '../requests/IinternRequestRequest';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IinternRequestResponse } from '../requests/IinternRequestResponse';
+import { IstudentConnectionRequest } from '../requests/IstudentConnectionRequest';
+import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileModalService {
@@ -20,9 +20,9 @@ export class ProfileModalService {
 		return this.profile;
 	}
 
-	submitInternRequest(data: IinternRequestRequest): Observable<IinternRequestResponse>{
-		return this.http.post<IinternRequestResponse>(environment.apiUrl + '/regularuser/intern_request', data).pipe(
-			map((response: IinternRequestResponse) => {
+	submitStudentConnection(data: IstudentConnectionRequest): Observable<IstudentConnectionResponse>{
+		return this.http.post<IstudentConnectionResponse>(environment.apiUrl + '/regularuser/student_connection', data).pipe(
+			map((response: IstudentConnectionResponse) => {
 				return response;
 			}),
 			catchError((error) => {

@@ -1,7 +1,7 @@
-export interface IinternRequestResponse {
-	'intern_id': number;
+export interface IstudentConnectionResponse {
+	'student_id': number;
 	'mentor_id': number;
-	'intern_comments': string;
+	'student_comments': string;
 	'status_by': number;
 	'status': string;
 	'id': string;

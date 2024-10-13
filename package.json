@@ -1,5 +1,5 @@
 {
-  "name": "mpex-app",
+  "name": "mpex-fe-mha",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,9 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build-prod": "ng build --configuration=production",
-    "deploy-prod": "aws s3 sync dist/mpex-app/browser/. s3://mpexchanges-fe-demo --delete --acl public-read --profile=mpexchanges",
-    "invalidate-prod": "aws cloudfront create-invalidation --distribution-id E39KMDGTGV1J69 --paths /. --profile=mpexchanges",
-    "invalidate-index": "aws cloudfront create-invalidation --distribution-id E39KMDGTGV1J69 --paths /index.html --profile=mpexchanges"
+    "deploy-prod": "aws s3 sync dist/mpex-app/browser/. s3://mpexchanges-fe-mha --delete --acl public-read --profile=mpexchanges",
+    "invalidate-prod": "aws cloudfront create-invalidation --distribution-id E3CSVF2W02LKCJ --paths /. --profile=mpexchanges",
+    "invalidate-index": "aws cloudfront create-invalidation --distribution-id E3CSVF2W02LKCJ --paths /index.html --profile=mpexchanges"
   },
   "private": true,
   "dependencies": {

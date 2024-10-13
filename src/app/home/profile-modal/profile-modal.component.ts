@@ -7,7 +7,7 @@ import { IgetMentorProjects, IgetMentorsSector } from '../requests/IgetMentorsRe
 import { HelperService } from '../../core/helper.service';
 import { Mentor } from '../../models/Mentor';
 import { AlertsService } from '../../core/alerts/alerts.service';
-import { IinternRequestResponse } from '../requests/IinternRequestResponse';
+import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
 
 @Component({
 	selector: 'app-profile-modal',
@@ -32,7 +32,7 @@ export class ProfileModalComponent implements OnInit {
 	profileOpenToMentor = 'No';
 	profileMentorProjects: IgetMentorProjects[] = [];
 	linkedin = '';
-	visibleInternRequest = false;
+	visibleStudentComment = false;
 	visibleSuccessAlert = false;
 	visibleErrorAlert = false;
 	
@@ -61,25 +61,25 @@ export class ProfileModalComponent implements OnInit {
 			this.profileOpenToMentor = 'Yes';
 		}
 		this.profileForm = new FormGroup({
-			'intern_comments': new FormControl(null),
+			'student_comments': new FormControl(null),
 			'person_name_search': new FormControl(null)
 		});
 	}
 
 	toggleMeetPerson(): void {
-		this.visibleInternRequest = !this.visibleInternRequest;
+		this.visibleStudentComment = !this.visibleStudentComment;
 	}
 
 	cancelMeetPerson(): void {
-		this.visibleInternRequest = false;
+		this.visibleStudentComment = false;
 	}
 
 	submitForm(): void {
 		this.closeErrorAlert();
 		this.closeSuccessAlert();
-		const postVars = {'mentor_guid': this.mentor_guid, 'intern_comments': this.profileForm.value.intern_comments ?? ''}
-		this.profileModelService.submitInternRequest(postVars).subscribe({
-			next: (response: IinternRequestResponse) => {
+		const postVars = {'mentor_guid': this.mentor_guid, 'student_comments': this.profileForm.value.student_comments ?? ''}
+		this.profileModelService.submitStudentConnection(postVars).subscribe({
+			next: (response: IstudentConnectionResponse) => {
 				this.cancelMeetPerson();
 				this.visibleSuccessAlert = true;
 			},
