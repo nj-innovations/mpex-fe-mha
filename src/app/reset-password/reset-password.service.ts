@@ -47,8 +47,7 @@ export class ResetPasswordService {
 	}
 
 	forgotPassword(email: string) : Observable<IstringMessageResponse>{
-		const postVars = {'email': email};
-		console.log(postVars);
+		const postVars = {'email': email, 'client_id': environment.client_id};
 		return this.http.post<IstringMessageResponse>(environment.apiUrl + '/auth/forgot-password', postVars)
 		.pipe(map(
 			(response: IstringMessageResponse) => {
