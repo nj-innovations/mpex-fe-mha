@@ -22,7 +22,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class UsersComponent implements OnInit{
 	@ViewChild(MatSort) sort!: MatSort;
 	isPageLoading = true;
-	displayedColumns: string[] = ['fname', 'lname', 'organization', 'client_name', 'role_name'];
+	displayedColumns: string[] = ['fname', 'lname', 'organization', 'is_student', 'role_name',];
 	dataSource = new MatTableDataSource<IgetUsersResponse>();
 	faCirclePlus = faCirclePlus;
 	usersForm!: FormGroup;
@@ -95,5 +95,10 @@ export class UsersComponent implements OnInit{
 				break;
 		}
 		this.dataSource = new MatTableDataSource(filteredUsers);
+	}
+
+	convertIsStudent(s: string): string {
+		return s == 'Y' ? 'Yes' : '';
+
 	}
 }
