@@ -16,7 +16,7 @@ export class MentorProjectsService {
 	constructor(private http: HttpClient) { }
 
 	createMentorProject(postvars: IcreateMentorProjectRequest): Observable<IcreateMentorProjectResponse> {
-		return this.http.post<IcreateMentorProjectResponse>(environment.apiUrl + '/superadminuser/mentor_projects', postvars).pipe(
+		return this.http.post<IcreateMentorProjectResponse>(environment.apiUrl + '/clientadminuser/mentor_projects', postvars).pipe(
 			map((response: IcreateMentorProjectResponse) => {
 				return response;
 			}),
@@ -27,7 +27,7 @@ export class MentorProjectsService {
 	}
 
 	updateMentorProject(id: string, putvars: IupdateMentorProjectRequest): Observable<IupdateMentorProjectResponse> {
-		return this.http.put<IupdateMentorProjectResponse>(environment.apiUrl + '/superadminuser/mentor_projects/' + id, putvars).pipe(
+		return this.http.put<IupdateMentorProjectResponse>(environment.apiUrl + '/clientadminuser/mentor_projects/' + id, putvars).pipe(
 			map((response: IupdateMentorProjectResponse) => {
 				return response;
 			}),
@@ -38,7 +38,7 @@ export class MentorProjectsService {
 	}
 
 	deleteMentorProject(id: string): Observable<IstringMessageResponse> {
-		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/superadminuser/mentor_projects/' + id).pipe(
+		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/clientadminuser/mentor_projects/' + id).pipe(
 			map((response: IstringMessageResponse) => {
 				return response;
 			}),

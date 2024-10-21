@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { IgetUsersResponse } from './requests/IgetUsersResponse';
 import { IusersRequest } from './requests/IuserRequest';
+import { IgetClientAdminUserDropdown } from './requests/IgetClientAdminUserDropdown';
+import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
+import { IupdateUsersRequest } from './requests/IupdateUserRequest';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -31,6 +34,26 @@ export class UsersService {
 			})	
 		)
 	}
-	//updateClientLink
-	///superadminuser/clientuserlinks/ac0d4a1d-e465-48e2-85bc-dc7c6479f5f6
+	
+	getDropdowns(): Observable<IgetClientAdminUserDropdown>{
+		return this.http.get<IgetClientAdminUserDropdown>(environment.apiUrl + '/clientadminuser/dropdowns').pipe(
+			map((response: IgetClientAdminUserDropdown) => {
+				return response;
+			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
+
+	updateUser(id: number, putvars: IupdateUsersRequest): Observable<IstringMessageResponse> {
+		return this.http.put<IstringMessageResponse>(environment.apiUrl + '/clientadminuser/users/' + id, putvars).pipe(
+			map((response: IstringMessageResponse) => {
+				return response;
+			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
 }

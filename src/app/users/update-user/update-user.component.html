@@ -7,7 +7,7 @@
 		</ol>
 	</nav>
 </div><!-- End Page Title -->
-@if(isPageLoading > 0)
+@if(isPageLoading > 1)
 {
 	<section class="section">
 		<form [formGroup]="usersForm" role="form">
@@ -17,15 +17,23 @@
 						<div class="card-body pt-3">
 							<h5 class="card-title">User Demographics</h5>
 							<div class="col-12 mb-3">
-								<label for="fname" class="form-label">First Name</label>
+								<label for="fname" class="required form-label">First Name</label>
 								<div><input formControlName="fname" type="text" class="form-control" id="fname"></div>
 							</div>
 							<div class="col-12 mb-3">
-								<label for="lname" class="form-label">Last Name</label>
+								<label for="lname" class="required form-label">Last Name</label>
 								<div><input formControlName="lname" type="text" class="form-control" id="lname"></div>
 							</div>
 							<div class="col-12 mb-3">
-								<label for="email" class="form-label">E-Mail</label>
+								<label for="role" class="required form-label">Role</label>
+								<select id="role" formControlName="role" class="form-select" aria-label="Role Search">
+									<option value=""></option>
+									<option *ngFor="let r of rolesRS" [value]="r.id">{{r.role_name}}
+									</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3">
+								<label for="email" class="form-label required">E-Mail</label>
 								<div><input formControlName="email" type="text" class="form-control" id="email"></div>
 							</div>
 							<div class="col-12 mb-3">
@@ -44,14 +52,65 @@
 								<label for="linkedin" class="form-label">LinkedIn profile</label>
 								<div><input formControlName="linkedin" type="text" class="form-control" id="linkedin"></div>
 							</div>
+							<div class="row">
+								<div class="col-auto">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"  id="is_student"
+											formControlName="is_student">
+										<label class="form-check-label" for="is_student">
+											Is Student
+										</label>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"  id="is_mentor"
+											formControlName="is_mentor">
+										<label class="form-check-label" for="is_mentor">
+											Is Mentor
+										</label>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"  id="is_preceptor"
+											formControlName="is_preceptor">
+										<label class="form-check-label" for="is_preceptor">
+											Is Preceptor
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-auto">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"  id="open_to_mentoring"
+											formControlName="open_to_mentoring">
+										<label class="form-check-label" for="open_to_mentoring">
+											Open to Mentoring
+										</label>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"  id="open_to_precepting"
+											formControlName="open_to_precepting">
+										<label class="form-check-label" for="open_to_precepting">
+											Open to Precepting
+										</label>
+									</div>
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-8">
 					<div class="row">
 						<div class="col-12">
-							<!-- <app-mentor-projects [user_id]="this.user.id" [mentorProjects]="this.user.mentor_projects">
-							</app-mentor-projects> -->
+							<app-mentor-projects [user_id]="this.user.id" [mentorProjects]="this.user.mentor_projects">
+							</app-mentor-projects>
 						</div>
 					</div>
 					<div class="row">
@@ -100,7 +159,30 @@
 							</div>
 						</div>
 					</div>
-				</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body pt-3">
+									<h5 class="card-title">Sectors</h5>
+									<div class="row">
+									@for(cb of sectorCheckBoxes; track $index)
+									{
+										<div class="col-4">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="{{cb.value}}" id="sectorCB{{$index}}"
+												[checked]="cb.checked" (click)="checkSectorCb($index)">
+												<label class="form-check-label" for="sectorCB{{$index}}">
+													{{cb.label}}
+												</label>
+											</div>
+										</div>
+									}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>				
+				</div>				
 			</div>
 
 			<div class="row">

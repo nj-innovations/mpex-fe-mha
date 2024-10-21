@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IupdateMentorProjectResponse } from './request/IupdateMentorProjectResponse';
 import { MentorProjectsService } from '../mentor-projects.service';
-import { SuperAdminUserMentorProject } from '../../requests/IgetSuperAdminUserResponse';
+import { ImentorProjectRequest } from '../../requests/IuserRequest';
 
 @Component({
 	selector: 'app-update-mentor-project-modal',
@@ -15,7 +15,7 @@ import { SuperAdminUserMentorProject } from '../../requests/IgetSuperAdminUserRe
 	styleUrl: './update-mentor-project-modal.component.css'
 })
 export class UpdateMentorProjectModalComponent {
-	@Input() project?: SuperAdminUserMentorProject;
+	@Input() project?: ImentorProjectRequest;
 	projectForm!: FormGroup;
 	alertMessage = '';
 	user_id = 0;

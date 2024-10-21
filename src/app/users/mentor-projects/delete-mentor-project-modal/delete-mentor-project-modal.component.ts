@@ -4,9 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { IstringMessageResponse } from '../../../../core/requests/IstringMessageResponse';
 import { MentorProjectsService } from '../mentor-projects.service';
-import { SuperAdminUserMentorProject } from '../../requests/IgetSuperAdminUserResponse';
+import { ImentorProjectRequest } from '../../requests/IuserRequest';
+import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
+
 
 @Component({
 	selector: 'app-delete-mentor-project-modal',
@@ -16,7 +17,7 @@ import { SuperAdminUserMentorProject } from '../../requests/IgetSuperAdminUserRe
 	styleUrl: './delete-mentor-project-modal.component.css'
 })
 export class DeleteMentorProjectModalComponent {
-	@Input() project?: SuperAdminUserMentorProject;
+	@Input() project?: ImentorProjectRequest;
 	faThumbsUp = faThumbsUp;
 	faThumbsDown = faThumbsDown;
 	alertMessage = '';
