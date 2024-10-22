@@ -37,7 +37,7 @@
 								<div><input formControlName="email" type="text" class="form-control" id="email"></div>
 							</div>
 							<div class="col-12 mb-3">
-								<label for="organization" class="form-label">Organization</label>
+								<label for="organization" class="form-label required">Organization</label>
 								<div><input formControlName="organization" type="text" class="form-control" id="organization"></div>
 							</div>
 							<div class="col-12 mb-3">
@@ -187,7 +187,7 @@
 
 			<div class="row">
 				<div class="col-12 text-center">
-						<button class="btn btn-primary" type="button" (click)="saveUser()">Save User</button>
+						<button class="btn btn-primary" type="button" (click)="saveUser()" [disabled]="!usersForm.valid">Save User</button>
 				</div>
 			</div>
 		</form>

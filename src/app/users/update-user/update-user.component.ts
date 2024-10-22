@@ -5,7 +5,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilePen, faFileCirclePlus, faSpinner, faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import { faFileXmark } from '@fortawesome/pro-regular-svg-icons';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IusersRequest } from '../requests/IuserRequest';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { PermissionsService } from '../../core/permissions.service';
@@ -29,9 +28,6 @@ export class UpdateUserComponent implements OnInit {
 	faFilePen = faFilePen;
 	faFileCirclePlus = faFileCirclePlus;
 	faSpinner = faSpinner;
-	clientModalRef?: NgbModalRef;
-	deleteClientModalRef?: NgbModalRef;
-	createClientModalRef?: NgbModalRef;
 	dropdowns!: IgetClientAdminUserDropdown;
 	isPageLoading = 0;
 	faFileXmark = faFileXmark;
@@ -51,7 +47,7 @@ export class UpdateUserComponent implements OnInit {
 			'lname': new FormControl(null, Validators.required),
 			'email': new FormControl(null, [Validators.required, Validators.email]),
 			'role': new FormControl(null, Validators.required),
-			'organization': new FormControl(null, null),
+			'organization': new FormControl(null, Validators.required),
 			'new_title': new FormControl(null, null),
 			'new_degree': new FormControl(null, null),
 			'city': new FormControl(null, null),

@@ -62,6 +62,8 @@ export class UsersComponent implements OnInit{
 				this.alertsService.addSuccessAlert('User Successfully Updated');
 				break;
 			case '2':
+				this.alertsService.addSuccessAlert('User Successfully Created');
+				break;
 			default:
 				break;
 		}
