@@ -19,10 +19,10 @@ export const authErrorInterceptor: HttpInterceptorFn = (req, next) => {
 		  if (err instanceof HttpErrorResponse) {
 			switch(err.status){
 				case 401:
-					//router.navigate(
-					//	['/'],
-					//	{ queryParams: { msg: 2}}
-					//);
+					router.navigate(
+						['/'],
+						{ queryParams: { msg: 4}}
+					);
 					break;
 				case 403: 
 					router.navigate(['/forbidden']);

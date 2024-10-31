@@ -6,6 +6,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SubmitButtonComponent } from '../core/submit-button/submit-button.component';
 import { ProfileService } from './profile.service';
 import { IgetProfileResponse } from './requests/IgetProfileResponse';
+import { LocalStorageService } from '../core/local-storage.service';
+import { AvatarService } from '../core/service/avatar.service';
 
 @Component({
 	selector: 'app-profile',
@@ -16,15 +18,21 @@ import { IgetProfileResponse } from './requests/IgetProfileResponse';
 })
 export class ProfileComponent implements OnInit {
 	profileForm!: FormGroup;
-	
-	constructor(private profileService: ProfileService, private alertsService: AlertsService) {
-	}
+	avatarForm!: FormGroup;
+	avatarFile!: File;
+
+	constructor(private profileService: ProfileService, private alertsService: AlertsService,
+		public avatarService: AvatarService, public sessionsSerivce: LocalStorageService
+	) {}
 
 	ngOnInit() {
 		this.profileForm = new FormGroup({
 			'fname': new FormControl(null, Validators.required),
 			'lname': new FormControl(null, Validators.required),
 			'email': new FormControl(null, [Validators.required, Validators.email])
+		});
+		this.avatarForm = new FormGroup({
+			'avatar_file': new FormControl(null, Validators.required),
 		});
 		this.profileService.getProfile().subscribe({
 			next: (data: IgetProfileResponse) => {
@@ -34,7 +42,6 @@ export class ProfileComponent implements OnInit {
 					'email': data['email']
 				}
 				this.profileForm.patchValue(patchValues);
-				console.log(data);
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);
@@ -43,5 +50,23 @@ export class ProfileComponent implements OnInit {
 				//this.isPageLoading = false;
 			}
 		});
+	}
+
+	saveAvatar(){
+		this.profileService.uploadAvatar(this.avatarFile).subscribe({
+			next: (data: any) => {
+				this.avatarService.setAvatarLink(data.link);
+				this.sessionsSerivce.setValue('avatar_link', data.link);
+			},
+			error: (error: string) => {
+				this.alertsService.addErrorAlert(error);
+			},
+			complete: () => {
+			}
+		});
+	}
+
+	onFilechange(event: any) {
+		this.avatarFile = event.target.files[0]
 	}
 }

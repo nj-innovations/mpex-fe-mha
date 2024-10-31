@@ -66,7 +66,10 @@ export class IndexComponent implements OnInit {
 					}
 				});
 				break;
-			default:
+				case '4':
+					this.alertsService.addErrorAlert('You are not authenicated');
+					break;
+				default:
 				break;
 		}
 	}

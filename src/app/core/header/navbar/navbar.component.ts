@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
@@ -11,6 +11,7 @@ import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { faSignOut } from '@fortawesome/pro-regular-svg-icons';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../local-storage.service';
+import { AvatarService } from '../../service/avatar.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -31,9 +32,20 @@ export class NavbarComponent implements OnInit {
 	avatarImage = '';
 	userName = '';
 
-	constructor(public navbarService: NavbarService,  public sessionStorage: LocalStorageService) {
+	constructor(public navbarService: NavbarService,  public sessionStorage: LocalStorageService,
+		public avatarService: AvatarService) {
+		
 		this.avatarImage = this.sessionStorage.getValue('avatar_link') ?? '';
 		this.userName = (this.sessionStorage.getValue('fname') ?? '') + ' ' + (this.sessionStorage.getValue('lname') ?? '');
+
+		effect(() => {
+			const avatarLink = this.avatarService.getAvatarLink();
+			if(avatarLink.length < 10){
+				this.avatarImage = this.sessionStorage.getValue('avatar_link') ?? '';
+			} else {
+				this.avatarImage = avatarLink;
+			}
+		});
 	}
 
 	ngOnInit() {}

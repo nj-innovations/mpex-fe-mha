@@ -34,5 +34,21 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-5">
+			<div class="card">
+				<div class="card-body pt-3">
+					<form [formGroup]="avatarForm" role="form">
+						<h5 class="card-title">Profile Image</h5>
+						<label for="avatar_file" class="form-label">Select a file to upload</label>
+						<div class="input-group mb-3">
+							<input type="file" class="form-control" aria-label="Profile Image upload"
+								aria-describedby="saveAvatarBtn" formControlName="avatar_file" (change)="this.onFilechange($event)">
+							<button class="btn btn-primary" type="button" id="saveAvatarBtn" (click)="saveAvatar()"
+								[disabled]="!avatarForm.valid">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
