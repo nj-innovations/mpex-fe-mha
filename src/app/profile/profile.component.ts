@@ -8,11 +8,12 @@ import { ProfileService } from './profile.service';
 import { IgetProfileResponse } from './requests/IgetProfileResponse';
 import { LocalStorageService } from '../core/local-storage.service';
 import { AvatarService } from '../core/service/avatar.service';
+import { AvatarUploadComponent } from '../core/avatar-upload/avatar-upload.component';
 
 @Component({
 	selector: 'app-profile',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, SubmitButtonComponent, FontAwesomeModule],
+	imports: [CommonModule, ReactiveFormsModule, SubmitButtonComponent, FontAwesomeModule, AvatarUploadComponent],
 	templateUrl: './profile.component.html',
 	styleUrl: './profile.component.css'
 })
@@ -31,9 +32,6 @@ export class ProfileComponent implements OnInit {
 			'lname': new FormControl(null, Validators.required),
 			'email': new FormControl(null, [Validators.required, Validators.email])
 		});
-		this.avatarForm = new FormGroup({
-			'avatar_file': new FormControl(null, Validators.required),
-		});
 		this.profileService.getProfile().subscribe({
 			next: (data: IgetProfileResponse) => {
 				const patchValues = {
@@ -50,23 +48,5 @@ export class ProfileComponent implements OnInit {
 				//this.isPageLoading = false;
 			}
 		});
-	}
-
-	saveAvatar(){
-		this.profileService.uploadAvatar(this.avatarFile).subscribe({
-			next: (data: any) => {
-				this.avatarService.setAvatarLink(data.link);
-				this.sessionsSerivce.setValue('avatar_link', data.link);
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			},
-			complete: () => {
-			}
-		});
-	}
-
-	onFilechange(event: any) {
-		this.avatarFile = event.target.files[0]
 	}
 }

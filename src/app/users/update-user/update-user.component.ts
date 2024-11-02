@@ -12,11 +12,14 @@ import { UsersService } from '../users.service';
 import { MentorProjectsComponent } from '../mentor-projects/mentor-projects.component';
 import { IgetClientAdminUserDropdown, IgetRoleDropdown } from '../requests/IgetClientAdminUserDropdown';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
+import { AvatarUploadComponent } from '../../core/avatar-upload/avatar-upload.component';
 
 @Component({
 	selector: 'app-update-user',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink, MentorProjectsComponent],
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink, MentorProjectsComponent,
+		AvatarUploadComponent
+	],
 	templateUrl: './update-user.component.html',
 	styleUrl: './update-user.component.css'
 })

@@ -19,17 +19,4 @@ export class ProfileService {
 			})	
 		)
 	}
-	
-	public uploadAvatar(file: File) {
-		let formParams = new FormData();
-		formParams.append('avatar_image', file)
-		return this.http.post(environment.apiUrl + '/regularuser/profile/avatar', formParams).pipe(
-			map((response: any) => {
-				return response;
-			}),
-			catchError((error) => {
-				return throwError(() => new Error(error.error.message))
-			})
-		)
-	}
 }

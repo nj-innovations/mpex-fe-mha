@@ -1,4 +1,4 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
@@ -11,7 +11,7 @@ import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { faSignOut } from '@fortawesome/pro-regular-svg-icons';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../local-storage.service';
-import { AvatarService } from '../../service/avatar.service';
+import { AvatarUploadService } from '../../avatar-upload/avatar-upload.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -20,7 +20,7 @@ import { AvatarService } from '../../service/avatar.service';
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 	faUser = faUser;
 	faKey = faKey;
 	faBars = faBars;
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
 	userName = '';
 
 	constructor(public navbarService: NavbarService,  public sessionStorage: LocalStorageService,
-		public avatarService: AvatarService) {
+		public avatarService: AvatarUploadService) {
 		
 		this.avatarImage = this.sessionStorage.getValue('avatar_link') ?? '';
 		this.userName = (this.sessionStorage.getValue('fname') ?? '') + ' ' + (this.sessionStorage.getValue('lname') ?? '');
@@ -47,6 +47,4 @@ export class NavbarComponent implements OnInit {
 			}
 		});
 	}
-
-	ngOnInit() {}
 }
