@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LocalStorageService } from '../core/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { HeaderService } from '../core/header/header.service';
 import { IndexService } from './index.service';
@@ -10,7 +9,6 @@ import { SubmitButtonComponent } from '../core/submit-button/submit-button.compo
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { IdropdownsResponse } from './requests/IdropdownsResponse';
 import { IloginResponse } from './requests/IloginResponse';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -21,9 +19,10 @@ import { IstringMessageResponse } from '../core/requests/IstringMessageResponse'
 @Component({
 	selector: 'app-index',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule,
-	SubmitButtonComponent, FontAwesomeModule, NgbCollapseModule,
-	NgbAlertModule, AlertsComponent],
+	imports: [CommonModule, ReactiveFormsModule, SubmitButtonComponent,
+		FontAwesomeModule, NgbCollapseModule, NgbAlertModule,
+		AlertsComponent
+	],
 	templateUrl: './index.component.html',
 	styleUrl: './index.component.css'
 })
@@ -36,8 +35,7 @@ export class IndexComponent implements OnInit {
 	visiblePasswordReset = false;
 
 	constructor(public headerService: HeaderService, public alertsService: AlertsService,
-		public sessionsSerivce: LocalStorageService, public router: Router, public route: ActivatedRoute,
-		public indexService: IndexService, public sessionStorage: LocalStorageService,
+		public route: ActivatedRoute, public indexService: IndexService,
 		public resetService: ResetPasswordService) { }
 
 	ngOnInit(): void {
@@ -78,29 +76,11 @@ export class IndexComponent implements OnInit {
 		this.alertsService.clearAlerts();
 		this.indexService.login({'email':this.loginForm?.value.email, 'password':this.loginForm?.value.password}).subscribe({
 			next: (response: IloginResponse) => {
-				this.SuccessfulLogin(response);
+				this.indexService.SuccessfulLogin(response);
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);
 			}
-		});
-	}
-
-	SuccessfulLogin(response: IloginResponse) {
-		this.sessionStorage.setToken(response.token);
-		this.sessionsSerivce.setValue('fname', response.fname);
-		this.sessionsSerivce.setValue('lname', response.lname);
-		this.sessionsSerivce.setValue('email', response.email);
-		this.sessionsSerivce.setValue('role', response.role);
-		this.sessionsSerivce.setValue('avatar_link', response.avatar_link);
-		this.indexService.getDropdowns().subscribe({
-			next: (res: IdropdownsResponse[]) => {
-				this.sessionsSerivce.setValue('sectors', JSON.stringify(res));
-				this.router.navigate(['/', 'home']);
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			}					
 		});
 	}
 

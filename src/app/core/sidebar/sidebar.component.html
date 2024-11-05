@@ -24,6 +24,12 @@
 					<span>Users</span>
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link collapsed"  [routerLink]="['/connections']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
+					<fa-icon [icon]="faLinkRegular" class="fa-icon-spacer"></fa-icon>
+					<span>Connections</span>
+				</a>
+			</li>
 		}
 
 		<li class="nav-item" style="cursor: pointer">

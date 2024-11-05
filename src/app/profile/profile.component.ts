@@ -7,7 +7,6 @@ import { SubmitButtonComponent } from '../core/submit-button/submit-button.compo
 import { ProfileService } from './profile.service';
 import { IgetProfileResponse } from './requests/IgetProfileResponse';
 import { LocalStorageService } from '../core/local-storage.service';
-import { AvatarService } from '../core/service/avatar.service';
 import { AvatarUploadComponent } from '../core/avatar-upload/avatar-upload.component';
 
 @Component({
@@ -23,7 +22,7 @@ export class ProfileComponent implements OnInit {
 	avatarFile!: File;
 
 	constructor(private profileService: ProfileService, private alertsService: AlertsService,
-		public avatarService: AvatarService, public sessionsSerivce: LocalStorageService
+		public avatarService: AvatarUploadComponent, public sessionsSerivce: LocalStorageService
 	) {}
 
 	ngOnInit() {

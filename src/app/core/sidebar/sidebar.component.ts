@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faUser as faUserRegular } from '@fortawesome/pro-regular-svg-icons';
 import { faUsers as faUsersRegular } from '@fortawesome/pro-regular-svg-icons';
+import { faLink as faLinkRegular } from '@fortawesome/pro-regular-svg-icons';
 import { faSignOut } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUsers as faUsersLight } from '@fortawesome/pro-solid-svg-icons';
@@ -21,6 +22,7 @@ import { LocalStorageService } from '../local-storage.service';
 	styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+	faLinkRegular = faLinkRegular;
 	faUserRegular = faUserRegular;
 	faSignOut = faSignOut;
 	faUsersRegular = faUsersRegular;
