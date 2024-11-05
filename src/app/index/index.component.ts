@@ -15,6 +15,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AlertsComponent } from '../core/alerts/alerts.component';
 import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
+import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
 	selector: 'app-index',
@@ -36,7 +37,7 @@ export class IndexComponent implements OnInit {
 
 	constructor(public headerService: HeaderService, public alertsService: AlertsService,
 		public route: ActivatedRoute, public indexService: IndexService,
-		public resetService: ResetPasswordService) { }
+		public resetService: ResetPasswordService, public sessionService: LocalStorageService) { }
 
 	ngOnInit(): void {
 		this.loginForm = new FormGroup({
@@ -57,6 +58,7 @@ export class IndexComponent implements OnInit {
 			case '3':
 				this.indexService.logout().subscribe({
 					next: () => {
+						this.sessionService.clear();
 						this.alertsService.addSuccessAlert('Logout Complete');
 					},
 					error: (error: string) => {
