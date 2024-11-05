@@ -6,7 +6,6 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from "../sidebar/sidebar.component";
-import { LocalStorageService } from '../local-storage.service';
 
 @Component({
 	selector: 'app-header',

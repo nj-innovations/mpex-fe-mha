@@ -3,13 +3,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faUser as faUserRegular} from '@fortawesome/pro-regular-svg-icons';
-import { faGear } from '@fortawesome/pro-regular-svg-icons';
-import { faSignOut } from '@fortawesome/pro-regular-svg-icons';
-import { faKey } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faUser, faKey, faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faSignOut, faUser as faUserRegular } from '@fortawesome/pro-regular-svg-icons';
 import { LocalStorageService } from '../../local-storage.service';
 import { AvatarUploadService } from '../../avatar-upload/avatar-upload.service';
 
@@ -28,6 +23,7 @@ export class NavbarComponent {
 	faUserRegular = faUserRegular;
 	faGear = faGear;
 	faSignOut = faSignOut;
+	faHandshake = faHandshake;
 	navbarCollapsed = false;
 	avatarImage = '';
 	userName = '';

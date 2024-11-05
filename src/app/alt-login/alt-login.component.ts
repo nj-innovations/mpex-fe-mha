@@ -25,7 +25,7 @@ export class AltLoginComponent implements OnInit {
 				this.indexService.SuccessfulLogin(response);
 			},
 			error: (error: string) => {
-				//this.alertsService.addErrorAlert(error);
+				this.alertsService.addErrorAlert(error);
 			}
 		});
 	}

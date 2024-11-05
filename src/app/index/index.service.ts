@@ -65,7 +65,6 @@ export class IndexService {
 			next: (res: IdropdownsResponse[]) => {
 				this.sessionsSerivce.setValue('sectors', JSON.stringify(res));
 				this.router.navigate(['/', 'home']);
-				console.log('here');
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);

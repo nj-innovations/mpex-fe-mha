@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { faUser as faUserRegular } from '@fortawesome/pro-regular-svg-icons';
-import { faUsers as faUsersRegular } from '@fortawesome/pro-regular-svg-icons';
-import { faLink as faLinkRegular } from '@fortawesome/pro-regular-svg-icons';
-import { faSignOut } from '@fortawesome/pro-regular-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUsers as faUsersLight } from '@fortawesome/pro-solid-svg-icons';
+import { faUser as faUserRegular, faUsers as faUsersLight } from '@fortawesome/pro-regular-svg-icons';
+import { faUsers as faUsersRegular, faLink as faLinkRegular } from '@fortawesome/pro-regular-svg-icons';
+import { faSignOut, faHouse } from '@fortawesome/pro-regular-svg-icons';
 import { faSitemap } from '@fortawesome/pro-thin-svg-icons';
 import { faHandshake } from '@fortawesome/pro-light-svg-icons';
-import { faHouse } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
