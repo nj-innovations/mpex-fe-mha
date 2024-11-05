@@ -56,15 +56,17 @@ export class IndexComponent implements OnInit {
 				this.alertsService.addErrorAlert('Invalid username/password, please log in');
 				break;
 			case '3':
-				this.indexService.logout().subscribe({
-					next: () => {
-						this.sessionService.clear();
-						this.alertsService.addSuccessAlert('Logout Complete');
-					},
-					error: (error: string) => {
-						this.alertsService.addErrorAlert(error);
-					}
-				});
+				if(this.sessionSerivce.getToken() !== ''){
+					this.indexService.logout().subscribe({
+						next: () => {
+							this.sessionSerivce.clear();
+							this.alertsService.addSuccessAlert('Logout Complete');
+						},
+						error: (error: string) => {
+							this.alertsService.addErrorAlert(error);
+						}
+					});
+				}
 				break;
 				case '4':
 					this.alertsService.addErrorAlert('You are not authenicated');
