@@ -56,10 +56,10 @@ export class IndexComponent implements OnInit {
 				this.alertsService.addErrorAlert('Invalid username/password, please log in');
 				break;
 			case '3':
-				if(this.sessionSerivce.getToken() !== ''){
+				if(this.sessionService.getToken() !== ''){
 					this.indexService.logout().subscribe({
 						next: () => {
-							this.sessionSerivce.clear();
+							this.sessionService.clear();
 							this.alertsService.addSuccessAlert('Logout Complete');
 						},
 						error: (error: string) => {

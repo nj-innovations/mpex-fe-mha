@@ -10,6 +10,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
 	selector: 'app-users',
@@ -28,6 +29,7 @@ export class UsersComponent implements OnInit{
 	usersForm!: FormGroup;
 	users: IgetUsersResponse[] = [];
 	filteredUsers: IgetUsersResponse[] = [];
+	faSpinner = faSpinner;
 
 	constructor(private usersService: UsersService, private alertsService: AlertsService,
 		private router: Router, private route: ActivatedRoute) { }
@@ -101,6 +103,5 @@ export class UsersComponent implements OnInit{
 
 	convertIsStudent(s: string): string {
 		return s == 'Y' ? 'Yes' : '';
-
 	}
 }

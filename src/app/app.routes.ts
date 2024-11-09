@@ -16,7 +16,12 @@ export const routes: Routes = [
 	{path: 'alt-login/:token', component: AltLoginComponent, data: {useAuthTemplate: false}},
 	{path: 'home', component: HomeComponent, data: {useAuthTemplate: true}},
 	{path: 'profile', component: ProfileComponent, data: {useAuthTemplate: true}},
-	{path: 'connections', component: ConnectionsComponent, data: {useAuthTemplate: true}},
+	{
+		path: 'connections',
+		loadChildren: () => import('./connections/connections.routes').then(mod => mod.CONNECTIONS_ROUTES),
+		data: {useAuthTemplate: true},
+		canMatch: [() => inject(AuthGuardService).isAuthorized('eabfc42c-0532-4015-8bd0-145fe73baf03')]
+	},
 	{
 		path: 'users',
 		loadChildren: () => import('./users/users.routes').then(mod => mod.USERS_ROUTES),
