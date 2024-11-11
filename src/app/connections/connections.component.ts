@@ -11,6 +11,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionsModel } from './connections.model';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { DatePipe } from '@angular/common';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateConnectionModalComponent } from './update-connection-modal/update-connection-modal.component';
 import { IsingleConnectionResponse } from './requests/IsingleConnectionResponse';
 
 @Component({
@@ -26,10 +28,13 @@ export class ConnectionsComponent implements OnInit {
 	isPageLoading = true;
 	displayedColumns: string[] = ['student', 'mentor', 'organization', 'status', 'created_at'];
 	dataSource = new MatTableDataSource<ConnectionsModel>();
+	connections: ConnectionsModel[] = [];
 	connectionsForm!: FormGroup;
 	faSpinner = faSpinner;
+	connectionModalRef?: NgbModalRef;
 
-	constructor(public connectionService: ConnectionsService, public alertsService: AlertsService) { }
+	constructor(public connectionService: ConnectionsService, public alertsService: AlertsService,
+		private modalService: NgbModal) { }
 
 	applyFilter(filterValue: Event) {
 		this.dataSource.filter = (filterValue.target as HTMLInputElement).value.trim().toLowerCase();
@@ -38,11 +43,11 @@ export class ConnectionsComponent implements OnInit {
 	ngOnInit(): void {
 		this.connectionService.getConnections().subscribe({
 			next: (response: IconnectionsResponse[]) => {
-				let connections: ConnectionsModel[] = [];
-				 connections = response.map((r) => {
+				//let connections: ConnectionsModel[] = [];
+				 this.connections = response.map((r) => {
 					return new ConnectionsModel(r);
 				 });
-				 this.dataSource = new MatTableDataSource(connections);
+				 this.dataSource = new MatTableDataSource(this.connections);
 				 this.isPageLoading = false;
 			},
 			error: (error: string) => {
@@ -59,13 +64,26 @@ export class ConnectionsComponent implements OnInit {
 	}
 
 	selectRow(row: ConnectionsModel){
-		this.connectionService.getSingleConnection(row.id).subscribe({
-			next: (response: IsingleConnectionResponse) => {
-				console.log(response)
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			}
+		this.connectionModalRef = this.modalService.open(UpdateConnectionModalComponent, {
+			ariaLabelledBy: 'View Student Connection',
+			size: 'lg'
 		});
+		this.connectionModalRef.componentInstance.connection_id = row.id;
+
+		this.connectionModalRef.result.then(
+			(result: IsingleConnectionResponse) => {
+				let i = this.connections.findIndex((x) => {
+					return x.id == result.id
+				});
+				this.connections[i].status = result.status;
+				this.dataSource.data = this.connections;
+				//this.paginator._changePageSize(this.paginator.pageSize);
+			},
+			(error: string) => {
+				if(error != ''){
+					this.alertsService.addErrorAlert(error);
+				}
+			}
+		);	
 	}
 }

@@ -11,9 +11,7 @@ import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { ProfileModalService } from './profile-modal/profile-modal.service';
 import { HelperService } from '../core/helper.service';
 import { LocalStorageService } from '../core/local-storage.service';
-//import { SearchMentorModalComponent } from './search-mentor-modal/search-mentor-modal.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SubmitButtonComponent } from '../core/submit-button/submit-button.component';
 import { SearchMentorModalService } from './search-mentor-modal/search-mentor-modal.service';
 import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
@@ -21,7 +19,7 @@ import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, SubmitButtonComponent, FontAwesomeModule, NgbCollapseModule],
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbCollapseModule],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.css'
 })
@@ -37,9 +35,8 @@ export class HomeComponent implements OnInit {
 	sectors?: IdropdownsResponse[] = [];
 	visibleProfileCount = 1;
 
-	constructor(private homeService: HomeService,
-		private alertsService: AlertsService, private modalService: NgbModal,
-		public sessionStorage: LocalStorageService,
+	constructor(private homeService: HomeService, private alertsService: AlertsService,
+		private modalService: NgbModal, public sessionStorage: LocalStorageService,
 		private profileModelService: ProfileModalService, public helperService: HelperService,
 		public searchService: SearchMentorModalService) {
 	}
@@ -161,18 +158,6 @@ export class HomeComponent implements OnInit {
 			this.visibleProfileCount = stringsOnly.length;
 		}
 	}
-	
-	/* OpenMentorSearchModal(): void {
-		this.searchMentorModelRef = this.modalService.open(SearchMentorModalComponent, {
-			ariaLabelledBy: 'Search Mentors',
-			size: 'xl'
-		});
-		this.searchMentorModelRef.result.then(
-			() => {
-				this.FilterMentors();
-			}
-		);
-	} */
 
 	SectorText(m: Mentor): string {
 		let retval = '';
