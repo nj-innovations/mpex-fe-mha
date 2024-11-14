@@ -5,12 +5,12 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from "../sidebar/sidebar.component";
+import { IdleTimerComponent } from '../idle-timer/idle-timer.component';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule, NavbarComponent, FontAwesomeModule, NgbCollapseModule, SidebarComponent],
+	imports: [CommonModule, NavbarComponent, FontAwesomeModule, NgbCollapseModule, IdleTimerComponent],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.css'
 })

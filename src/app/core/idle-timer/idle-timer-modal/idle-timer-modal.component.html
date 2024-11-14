@@ -1,0 +1,12 @@
+<div class="modal-header text-white mpex-modal-header">
+	<h5 class="modal-title">Idle Timeout</h5>
+	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('')"></button>
+</div>
+
+<div class="modal-body">
+	You have been inactive for too long, and will be automatically logged out in <b>{{countDownTimer}}</b> seconds, do you wish to stay logged in?
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" (click)="confirmYes()">Yes</button>
+	<button class="btn btn-danger" ngbAutofocus (click)="confirmNo()">No</button>
+</div>

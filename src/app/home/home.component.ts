@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
 		this.profileModelService.setProfile(profile);
 		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
 			ariaLabelledBy: 'View Profile',
-			size: 'xl'
+			size: 'md'
 		});
 	}
 

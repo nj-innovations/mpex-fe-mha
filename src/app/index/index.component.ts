@@ -16,13 +16,13 @@ import { AlertsComponent } from '../core/alerts/alerts.component';
 import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
 import { LocalStorageService } from '../core/local-storage.service';
+import { IdleTimerService } from '../core/idle-timer/idle-timer.service';
 
 @Component({
 	selector: 'app-index',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, SubmitButtonComponent,
-		FontAwesomeModule, NgbCollapseModule, NgbAlertModule,
-		AlertsComponent
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule,
+		NgbCollapseModule, NgbAlertModule, AlertsComponent
 	],
 	templateUrl: './index.component.html',
 	styleUrl: './index.component.css'
@@ -37,7 +37,8 @@ export class IndexComponent implements OnInit {
 
 	constructor(public headerService: HeaderService, public alertsService: AlertsService,
 		public route: ActivatedRoute, public indexService: IndexService,
-		public resetService: ResetPasswordService, public sessionService: LocalStorageService) { }
+		public resetService: ResetPasswordService, public sessionService: LocalStorageService,
+		public idleTimerService: IdleTimerService) { }
 
 	ngOnInit(): void {
 		this.loginForm = new FormGroup({
@@ -60,6 +61,7 @@ export class IndexComponent implements OnInit {
 					this.indexService.logout().subscribe({
 						next: () => {
 							this.sessionService.clear();
+							this.idleTimerService.stopTimers();
 							this.alertsService.addSuccessAlert('Logout Complete');
 						},
 						error: (error: string) => {

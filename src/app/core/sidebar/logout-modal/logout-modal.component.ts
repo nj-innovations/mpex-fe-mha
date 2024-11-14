@@ -15,7 +15,7 @@ export class LogoutModalComponent {
 	}
 
 	clickYes(): void {
-		this.activeModal.dismiss('Cross click');
+		this.activeModal.dismiss('');
 		this.router.navigate(
 			['/'], 
 			{queryParams: { msg: 3 }}
