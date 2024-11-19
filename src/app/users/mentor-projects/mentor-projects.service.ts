@@ -47,4 +47,15 @@ export class MentorProjectsService {
 			})	
 		)		
 	}
+
+	getMentorProjectRequirements(id: string): Observable<IstringMessageResponse> {
+		return this.http.get<IstringMessageResponse>(environment.apiUrl + '/clientadminuser/mentor_project_requirements/?mentor_project_id=' + id).pipe(
+			map((response: IstringMessageResponse) => {
+				return response;
+			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)		
+	}
 }

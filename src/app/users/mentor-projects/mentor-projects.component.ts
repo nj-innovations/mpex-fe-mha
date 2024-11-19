@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { faCirclePlus, faCircleMinus, faFilePen, faFileXmark, faFileCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,7 @@ import { ImentorProjectRequest } from '../requests/IuserRequest';
 @Component({
 	selector: 'app-mentor-projects',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink],
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
 	templateUrl: './mentor-projects.component.html',
 	styleUrl: './mentor-projects.component.css'
 })
@@ -37,8 +37,7 @@ export class MentorProjectsComponent implements OnInit {
 	faCircleMinus = faCircleMinus;
 
 	constructor(public usersService: UsersService, private alertsService: AlertsService,
-		private route: ActivatedRoute, public permissions: PermissionsService, private router: Router,
-		private modalService: NgbModal) {}
+		public permissions: PermissionsService, private modalService: NgbModal) {}
 	
 	ngOnInit() {
 	}
@@ -82,7 +81,7 @@ export class MentorProjectsComponent implements OnInit {
 					this.alertsService.addErrorAlert(error);
 				}
 			}
-		);	
+		);
 	}
 
 	deleteMentorProject(project: ImentorProjectRequest){

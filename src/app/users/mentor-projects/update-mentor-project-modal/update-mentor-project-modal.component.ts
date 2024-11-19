@@ -24,6 +24,15 @@ export class UpdateMentorProjectModalComponent {
 	}
 	
 	ngOnInit() {
+		if(this.project?.id != null){
+			this.projectService.getMentorProjectRequirements(this.project.id).subscribe({
+				next: (data: any) => {
+				},
+				error: (error: string) => {
+				},
+				complete: () => {}
+			});
+		}
 		this.projectForm = new FormGroup({
 			'project': new FormControl(this.project?.project, Validators.required),
 		});

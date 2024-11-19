@@ -163,7 +163,7 @@ export class HomeComponent implements OnInit {
 		let retval = '';
 		m.sectors.forEach((m) => {
 			//retval += '<div>&bull;&nbsp;' + m.sector_name + '</div>';
-			retval += '<small class="d-inline-flex mb-2 me-1 px-2 py-1  fw-semibold text-dark bg-light-subtle border border-light-subtle rounded-2">' + m.sector_name + '</small>';
+			retval += '<small class="d-inline-flex mb-2 me-1 px-2 py-1 fw-semibold text-dark bg-light-subtle border border-light-subtle rounded-2">' + m.sector_name + '</small>';
 			//retval += '<span class="badge text-bg-light p-2 bg-light-subtle border border-light-subtle mb-2">' + m.sector_name + '</span>';
 		});
 
