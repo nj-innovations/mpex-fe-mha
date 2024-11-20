@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IgetMentorProjectRequirementsRequest } from '../../requests/IgetMentorProjectRequirementsRequest';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class UpdateMentorProjectRequirementComponent {
 	@Input() requirement?: IgetMentorProjectRequirementsRequest;
+	@Output() messageEvent = new EventEmitter<any>();
 	mentorProjectRequirementForm!: FormGroup;
 	faFileXmark = faFileXmark;
 	faFilePen = faFilePen;
@@ -30,7 +31,7 @@ export class UpdateMentorProjectRequirementComponent {
 	}
 	
 	deleteRequirement(): void {
-
+		this.messageEvent.emit({'mode': 'delete', 'id': this.requirement?.id});
 	}
 	
 	updateRequirement(): void {
@@ -38,7 +39,7 @@ export class UpdateMentorProjectRequirementComponent {
 	}
 
 	saveRequirement(): void {
-
+		this.messageEvent.emit({'mode': 'update', 'id': this.requirement?.id, 'requirement': this.mentorProjectRequirementForm.value.requirement_text});
 	}
 	
 	cancelUpdate(): void {

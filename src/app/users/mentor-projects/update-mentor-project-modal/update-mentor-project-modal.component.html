@@ -33,7 +33,7 @@
 						{
 							<tr>
 								<td>
-									<app-update-mentor-project-requirement [requirement]="c"></app-update-mentor-project-requirement>
+									<app-update-mentor-project-requirement [requirement]="c" (messageEvent)="receiveMessage($event)"></app-update-mentor-project-requirement>
 								</td>
 							</tr>
 						}

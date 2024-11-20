@@ -84,4 +84,8 @@ export class UpdateMentorProjectModalComponent {
 	closeAlert(): void {
 		this.alertMessage = '';
 	}
+
+	receiveMessage(event: any) {
+		console.log(event);
+	}
 }
