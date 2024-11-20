@@ -1,0 +1,33 @@
+<form role="form" [formGroup]="mentorProjectRequirementForm">
+
+	<div [ngStyle]="{'display': activeUpdate ? 'none' : 'block' }">
+		<div class="input-group">
+			<button class="btn btn-outline-light text-center" type="button" aria-label="Save New Requirement">
+				<fa-icon [icon]="faFileXmark" class="fa-icon-spacer mx-auto d-block"
+											size="xl" style="cursor: pointer; color:red" (click)="deleteRequirement()"></fa-icon>
+			</button>
+			<button class="btn btn-outline-light" type="button" aria-label="Cancel New Requirement">
+				<fa-icon [icon]="faFilePen" class="fa-icon-spacer mx-auto d-block"
+											size="xl" style="margin-left: 2px; cursor: pointer; color: #000" (click)="updateRequirement()"></fa-icon>
+			</button>
+			<!-- <input type="text" readonly class="form-control-plaintext border border-0 d-inline" id="static_requirement_text" formControlName="static_requirement_text" /> -->
+			 <span class="pt-2 ms-3">{{requirement?.requirement}}</span>
+		</div>
+	</div>
+
+	<div [ngStyle]="{'display': activeUpdate ? 'block' : 'none' }">
+		<div class="input-group">
+			<button class="btn btn-outline-light" type="button" aria-label="Save New Requirement" [disabled]="true">
+				<fa-icon [icon]="faFileXmark" class="fa-icon-spacer mx-auto d-block"
+												size="xl" style="cursor: pointer; color:red"></fa-icon>
+			</button>
+			<button class="btn btn-outline-light text-center" type="button" aria-label="Cancel New Requirement" [disabled]="true">
+				<fa-icon [icon]="faFilePen" class="fa-icon-spacer mx-auto d-block"
+												size="xl" style="cursor: pointer; color: #000"></fa-icon>
+			</button>
+			<input type="text" class="form-control" id="requirement_text" formControlName="requirement_text" />
+			<button class="btn btn-primary" type="button" aria-label="Save New Requirement">Save</button>
+			<button class="btn btn-danger" type="button" aria-label="Cancel New Requirement" (click)="updateRequirement()">Cancel</button>
+		</div>
+	</div>
+</form>

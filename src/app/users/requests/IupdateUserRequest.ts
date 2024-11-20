@@ -15,5 +15,7 @@ export interface IupdateUsersRequest {
 	'open_to_mentoring': string;
 	'open_to_precepting': string;
 	'sectors': string;
+	'capacity': number;
+	'location': string;
 }
 

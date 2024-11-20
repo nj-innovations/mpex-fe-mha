@@ -7,7 +7,38 @@
 		<div class="row">
 			<div class="col-12 mb-3">
 				<label for="project">Project</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="project"></textarea>
+				<textarea class="form-control" id="project" rows="3" formControlName="project"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 mb-3">
+				<div>Requirements</div>
+				<div class="text-left pb-3 mt-2">
+					<button class="btn btn-purple btn-sm" type="button" (click)="createRequirement()">
+						<fa-icon [icon]="faCirclePlus" class="fa-icon-spacer" size="lg"></fa-icon>
+						Create Requirement
+					</button>
+				</div>
+				<div class="col-12 mb-3" [ngStyle]="{'display': visibleNewRequirement ? 'block' : 'none' }">
+					<div class="input-group">
+						<input type="text" class="form-control" id="new_requirement" formControlName="new_requirement" placeholder="Input new requirement" />
+						<button class="btn btn-primary" type="button" aria-label="Save New Requirement" (click)="saveRequirement()">Save</button>
+						<button class="btn btn-danger" type="button" aria-label="Cancel New Requirement" (click)="createRequirement()">Cancel</button>
+					</div>
+				</div>
+
+				<table class="table">
+					<tbody>
+						@for(c of this.requirements; track c.id)
+						{
+							<tr>
+								<td>
+									<app-update-mentor-project-requirement [requirement]="c"></app-update-mentor-project-requirement>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</form>

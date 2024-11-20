@@ -7,6 +7,7 @@ import { IcreateMentorProjectRequest } from './create-mentor-project-modal/reque
 import { IcreateMentorProjectResponse } from './create-mentor-project-modal/request/IcreateMentorProjectResponse';
 import { environment } from '../../../environments/environment';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
+import { IgetMentorProjectRequirementsRequest } from './requests/IgetMentorProjectRequirementsRequest';
 
 @Injectable({
 	providedIn: 'root'
@@ -48,9 +49,9 @@ export class MentorProjectsService {
 		)		
 	}
 
-	getMentorProjectRequirements(id: string): Observable<IstringMessageResponse> {
-		return this.http.get<IstringMessageResponse>(environment.apiUrl + '/clientadminuser/mentor_project_requirements/?mentor_project_id=' + id).pipe(
-			map((response: IstringMessageResponse) => {
+	getMentorProjectRequirements(id: string): Observable<IgetMentorProjectRequirementsRequest[]> {
+		return this.http.get<IgetMentorProjectRequirementsRequest[]>(environment.apiUrl + '/clientadminuser/mentor_project_requirements/?mentor_project_id=' + id).pipe(
+			map((response: IgetMentorProjectRequirementsRequest[]) => {
 				return response;
 			}),
 			catchError((error) => {

@@ -61,6 +61,8 @@ export class UpdateUserComponent implements OnInit {
 			'open_to_precepting': new FormControl(null, null),
 			'open_to_mentoring': new FormControl(null, null),
 			'is_student': new FormControl(null, null),
+			'location': new FormControl(null, null),
+			'capacity': new FormControl(null, null)
 		});
 
 		this.id = parseInt(this.route.snapshot.params['id']!);
@@ -86,7 +88,8 @@ export class UpdateUserComponent implements OnInit {
 							'state': this.user.state, 'linkedin': this.user.linkedin,
 							'role': this.user.role_id, 'is_mentor': is_mentor, 'is_student': is_student,
 							'is_preceptor': is_preceptor, 'open_to_precepting': open_to_precepting,
-							'open_to_mentoring': open_to_mentoring
+							'open_to_mentoring': open_to_mentoring, 'capacity': this.user.capacity,
+							'location': this.user.location
 						}
 						if(this.user.title !== null){
 							this.titles = this.user.title;
@@ -154,7 +157,8 @@ export class UpdateUserComponent implements OnInit {
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
 			'role_id': this.usersForm.value.role, 'is_student': 'N', 'is_mentor': 'N', 'is_preceptor': 'N',
-			'open_to_mentoring': 'N', 'open_to_precepting': 'N', 'sectors': ''
+			'open_to_mentoring': 'N', 'open_to_precepting': 'N', 'sectors': '', 'capacity': this.usersForm.value.capacity,
+			'location': this.usersForm.value.location
 		}
 
 		if(this.usersForm.value.is_mentor){
