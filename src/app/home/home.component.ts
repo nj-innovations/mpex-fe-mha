@@ -53,20 +53,16 @@ export class HomeComponent implements OnInit {
 						response[i].organization,
 						response[i].title,
 						response[i].degree,
-						response[i].experiences_hosted,
-						response[i].past_student_project_titles,
 						response[i].open_to_precepting,
 						response[i].open_to_mentoring,
 						response[i].projects_available,
-						response[i].contact_information,
 						response[i].is_preceptor,
 						response[i].is_mentor,
 						response[i].avatar,
 						response[i].linkedin,
 						response[i].state,
 						response[i].city,
-						response[i].sectors,
-						response[i].mentor_projects
+						response[i].sectors
 					));
 				}
 			},
@@ -88,7 +84,7 @@ export class HomeComponent implements OnInit {
 		this.profileModelService.setProfile(profile);
 		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
 			ariaLabelledBy: 'View Profile',
-			size: 'md'
+			size: 'xl'
 		});
 	}
 

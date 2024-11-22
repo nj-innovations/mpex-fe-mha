@@ -8,6 +8,7 @@ import { HelperService } from '../../core/helper.service';
 import { Mentor } from '../../models/Mentor';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
+import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse';
 
 @Component({
 	selector: 'app-profile-modal',
@@ -48,11 +49,6 @@ export class ProfileModalComponent implements OnInit {
 		this.profileSectors = profile.sectors;
 		this.profileOrganization = profile.organization;
 		this.profileProjectsAvailable = profile.projects_available;
-		this.profilePastStudentProjectTitles = profile.past_student_project_titles;
-		this.profileContactInformation = profile.contact_information;
-		this.profileExperiencesHosted = profile.experiences_hosted;
-		this.profileMentorProjects = profile.mentor_projects;
-		
 		this.linkedin = profile.linkedin;
 		if(profile.open_to_precepting == 'Y'){
 			this.profileOpenToPrecept = 'Yes';
@@ -64,6 +60,21 @@ export class ProfileModalComponent implements OnInit {
 			'student_comments': new FormControl(null),
 			'person_name_search': new FormControl(null)
 		});
+
+		this.profileModelService.getMentorProjects(profile.guid).subscribe({
+			next: (response: IgetMentorProjectsResponse[]) => {
+				console.log(response);
+			},
+			error: (error: string) => {
+				this.alertsService.addErrorAlert(error);
+			},
+			complete: () => {
+				//this.isPageLoading = false;
+			}
+		});		
+
+
+
 	}
 
 	toggleMeetPerson(): void {
