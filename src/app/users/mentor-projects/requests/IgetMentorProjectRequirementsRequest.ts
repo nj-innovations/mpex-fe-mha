@@ -1,5 +1,5 @@
 export interface IgetMentorProjectRequirementsRequest
  {
-    'id': string;
-    'requirement': string;
+	'id': string;
+	'requirement': string;
 }

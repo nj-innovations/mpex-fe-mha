@@ -9,6 +9,7 @@ import { MentorProjectsService } from '../mentor-projects.service';
 import { ImentorProjectRequest } from '../../requests/IuserRequest';
 import { IgetMentorProjectRequirementsRequest } from '../requests/IgetMentorProjectRequirementsRequest';
 import { UpdateMentorProjectRequirementComponent } from './update-mentor-project-requirement/update-mentor-project-requirement.component';
+import { IMentorProjectRequirements } from '../requests/IMentorProjectRequirements';
 
 @Component({
 	selector: 'app-update-mentor-project-modal',
@@ -69,16 +70,19 @@ export class UpdateMentorProjectModalComponent {
 		this.visibleNewRequirement = !this.visibleNewRequirement;
 	}
 
-	deleteRequirement(req: IgetMentorProjectRequirementsRequest): void {
-
-	}
-	
-	updateRequirement(req: IgetMentorProjectRequirementsRequest): void {
-
-	}
-
 	saveRequirement(): void {
-
+		this.alertMessage = '';
+		if(this.project != undefined){
+			this.projectService.createMentorProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
+				next: (data: IMentorProjectRequirements) => {
+					this.requirements.push({'id': data.id,'requirement': data.requirement})
+				},
+				error: (error: string) => {
+					this.alertMessage = 'Unable to save Requirement';
+				},
+				complete: () => {}
+			});
+		}
 	}
 
 	closeAlert(): void {
@@ -86,6 +90,9 @@ export class UpdateMentorProjectModalComponent {
 	}
 
 	receiveMessage(event: any) {
-		console.log(event);
+		if(event.mode == 'delete'){
+			const i = this.requirements.findIndex((c) => c.id == event.id);
+			this.requirements.splice(i, 1);
+		}
 	}
 }
