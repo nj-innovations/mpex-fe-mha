@@ -72,9 +72,6 @@ export class ProfileModalComponent implements OnInit {
 				//this.isPageLoading = false;
 			}
 		});		
-
-
-
 	}
 
 	toggleMeetPerson(): void {
