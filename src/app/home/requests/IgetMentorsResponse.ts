@@ -20,7 +20,7 @@ export interface IgetMentorsResponse {
 	'city': string;
 	'sectors': IgetMentorsSector[];
 	'selectedProfile': 'Y';
-	'mentor_projects': IgetMentorProjects[];
+	'projects': IgetMentorProjects[];
 }
 
 export interface IgetMentorsSector {

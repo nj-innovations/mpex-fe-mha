@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 	isPageLoading = true;
 	faSpinner = faRotate;
 	unknownPerson = environment.imagesUrl + '/Unknown_person.jpg';
-	mentors?: Mentor[] = [];
+	mentors: Mentor[] = [];
 	profileModalRef?: NgbModalRef;
 	searchMentorModelRef?: NgbModalRef;
 	selectedPersonType = 'b';
@@ -44,26 +44,29 @@ export class HomeComponent implements OnInit {
 	ngOnInit() {
 		this.homeService.getMentors().subscribe({
 			next: (response: IgetMentorsResponse[]) => {
-				const m = response.length;
-				for(let i = 0; i < m; i++){
-					this.mentors?.push(new Mentor(
-						response[i].fname,
-						response[i].lname,
-						response[i].guid,
-						response[i].organization,
-						response[i].title,
-						response[i].degree,
-						response[i].open_to_precepting,
-						response[i].open_to_mentoring,
-						response[i].projects_available,
-						response[i].is_preceptor,
-						response[i].is_mentor,
-						response[i].avatar,
-						response[i].linkedin,
-						response[i].state,
-						response[i].city,
-						response[i].sectors
-					));
+				if(response != undefined){
+					const filteredMentors = response.filter((r) => r.open_to_precepting == 'Y');
+					const m = filteredMentors.length;
+					for(let i = 0; i < m; i++){
+						this.mentors.push(new Mentor(
+							filteredMentors[i].fname,
+							filteredMentors[i].lname,
+							filteredMentors[i].guid,
+							filteredMentors[i].organization,
+							filteredMentors[i].title,
+							filteredMentors[i].degree,
+							filteredMentors[i].open_to_precepting,
+							filteredMentors[i].open_to_mentoring,
+							filteredMentors[i].projects_available,
+							filteredMentors[i].is_preceptor,
+							filteredMentors[i].is_mentor,
+							filteredMentors[i].avatar,
+							filteredMentors[i].linkedin,
+							filteredMentors[i].state,
+							filteredMentors[i].city,
+							filteredMentors[i].sectors
+						));
+					}
 				}
 			},
 			error: (error: string) => {

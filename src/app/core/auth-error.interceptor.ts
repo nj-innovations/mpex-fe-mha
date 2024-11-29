@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpHeaders, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
@@ -19,10 +19,12 @@ export const authErrorInterceptor: HttpInterceptorFn = (req, next) => {
 		  if (err instanceof HttpErrorResponse) {
 			switch(err.status){
 				case 401:
-					router.navigate(
-						['/'],
-						{ queryParams: { msg: 4}}
-					);
+					if(!clonedRequest.url.includes('auth/login')){
+						router.navigate(
+							['/'],
+							{ queryParams: { msg: 4}}
+						);
+					}
 					break;
 				case 403: 
 					router.navigate(['/forbidden']);

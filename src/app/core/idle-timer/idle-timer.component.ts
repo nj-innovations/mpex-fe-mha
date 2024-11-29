@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IdleTimerService } from './idle-timer.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-idle-timer',
@@ -14,7 +15,9 @@ export class IdleTimerComponent implements OnInit {
 	
 	ngOnInit() {
 		this.idleTimerService.stopTimers();
-		this.idleTimerService.startTimers();
+		if(environment.idleTime > 0){
+			this.idleTimerService.startTimers();
+		}
 	}
 	
 }

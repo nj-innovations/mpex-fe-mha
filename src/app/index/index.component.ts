@@ -85,6 +85,7 @@ export class IndexComponent implements OnInit {
 				this.indexService.SuccessfulLogin(response);
 			},
 			error: (error: string) => {
+				console.log(error);
 				this.alertsService.addErrorAlert(error);
 			}
 		});
