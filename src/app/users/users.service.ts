@@ -14,8 +14,8 @@ export class UsersService {
 
 	constructor(private http: HttpClient) {}
 
-	getAllUsers(): Observable<IgetUsersResponse[]>{
-		return this.http.get<IgetUsersResponse[]>(environment.apiUrl + '/clientadminuser/users').pipe(
+	getAllUsers(user_role: number): Observable<IgetUsersResponse[]>{
+		return this.http.get<IgetUsersResponse[]>(environment.apiUrl + '/clientadminuser/users/?user_role=' + user_role).pipe(
 			map((response: IgetUsersResponse[]) => {
 				return response;
 			}),

@@ -22,7 +22,7 @@ export class ProfileModalService {
 	}
 
 	submitStudentConnection(data: IstudentConnectionRequest): Observable<IstudentConnectionResponse>{
-		return this.http.post<IstudentConnectionResponse>(environment.apiUrl + '/regularuser/student_connection', data).pipe(
+		return this.http.post<IstudentConnectionResponse>(environment.apiUrl + '/studentuser/student_connection', data).pipe(
 			map((response: IstudentConnectionResponse) => {
 				return response;
 			}),
@@ -33,7 +33,7 @@ export class ProfileModalService {
 	}
 
 	getMentorProjects(mentor_guid: string): Observable<IgetMentorProjectsResponse[]>{
-		return this.http.get<IgetMentorProjectsResponse[]>(environment.apiUrl + '/mentor_projects/' + mentor_guid).pipe(
+		return this.http.get<IgetMentorProjectsResponse[]>(environment.apiUrl + '/studentuser/mentor_projects/' + mentor_guid).pipe(
 			map((response: IgetMentorProjectsResponse[]) => {
 				return response;
 			}),

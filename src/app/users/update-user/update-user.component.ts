@@ -31,7 +31,7 @@ export class UpdateUserComponent implements OnInit {
 	faFilePen = faFilePen;
 	faFileCirclePlus = faFileCirclePlus;
 	faSpinner = faSpinner;
-	dropdowns!: IgetClientAdminUserDropdown;
+	//dropdowns!: IgetClientAdminUserDropdown;
 	isPageLoading = 0;
 	faFileXmark = faFileXmark;
 	faCirclePlus = faCirclePlus;
@@ -56,40 +56,37 @@ export class UpdateUserComponent implements OnInit {
 			'city': new FormControl(null, null),
 			'state': new FormControl(null, null),
 			'linkedin': new FormControl(null, null),
-			'is_mentor': new FormControl(null, null),
-			'is_preceptor': new FormControl(null, null),
 			'open_to_precepting': new FormControl(null, null),
-			'open_to_mentoring': new FormControl(null, null),
-			'is_student': new FormControl(null, null),
 			'location': new FormControl(null, null),
 			'capacity': new FormControl(null, null)
 		});
 
 		this.id = parseInt(this.route.snapshot.params['id']!);
 		this.usersService.getDropdowns().subscribe({
-			next: (_data: IgetClientAdminUserDropdown) => {
-				this.dropdowns = _data;
-				this.rolesRS = _data.roles;
-				for(const element of _data['sectors']){
+			next: (data: IgetClientAdminUserDropdown) => {
+				this.rolesRS = data.roles.map((r) => {
+					if(r.role_name == 'Mentor'){
+						r.role_name = 'Preceptor';
+					}
+					if(r.role_name == 'Client Admin'){
+						r.role_name = 'Admin';
+					}
+					return r;
+				});
+				for(const element of data['sectors']){
 					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.sector_id, 'checked': false})
 				}
 				this.usersService.getUser(this.id).subscribe({
 					next: (data: IusersRequest) => {
 						this.user = data;
-						const is_student = (this.user.is_student == 'Y') ? true : false;
-						const is_mentor = (this.user.is_mentor == 'Y') ? true : false;
-						const is_preceptor = (this.user.is_preceptor == 'Y') ? true : false;
 						const open_to_precepting = (this.user.open_to_precepting == 'Y') ? true : false;
-						const open_to_mentoring = (this.user.open_to_mentoring == 'Y') ? true : false;
 
 						let patchValues = {
 							'fname': this.user.fname, 'lname': this.user.lname, 'email': this.user.email,
 							'organization': this.user.organization,  'city': this.user.city,
 							'state': this.user.state, 'linkedin': this.user.linkedin,
-							'role': this.user.role_id, 'is_mentor': is_mentor, 'is_student': is_student,
-							'is_preceptor': is_preceptor, 'open_to_precepting': open_to_precepting,
-							'open_to_mentoring': open_to_mentoring, 'capacity': this.user.capacity,
-							'location': this.user.location
+							'role': this.user.role_id, 'open_to_precepting': open_to_precepting,
+							'capacity': this.user.capacity, 'location': this.user.location
 						}
 						if(this.user.title !== null){
 							this.titles = this.user.title;
@@ -156,22 +153,8 @@ export class UpdateUserComponent implements OnInit {
 			'organization': this.usersForm.value.organization, 'title': JSON.stringify(this.titles),
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
-			'role_id': this.usersForm.value.role, 'is_student': 'N', 'is_mentor': 'N', 'is_preceptor': 'N',
-			'open_to_mentoring': 'N', 'open_to_precepting': 'N', 'sectors': '', 'capacity': this.usersForm.value.capacity,
-			'location': this.usersForm.value.location
-		}
-
-		if(this.usersForm.value.is_mentor){
-			putVars['is_mentor'] = 'Y';
-		}
-		if(this.usersForm.value.is_student){
-			putVars['is_student'] = 'Y';
-		}
-		if(this.usersForm.value.is_preceptor){
-			putVars['is_preceptor'] = 'Y';
-		}
-		if(this.usersForm.value.open_to_mentoring){
-			putVars['open_to_mentoring'] = 'Y';
+			'role_id': this.usersForm.value.role, 'open_to_precepting': 'N', 'sectors': '',
+			'capacity': this.usersForm.value.capacity, 'location': this.usersForm.value.location
 		}
 		if(this.usersForm.value.open_to_precepting){
 			putVars['open_to_precepting'] = 'Y';

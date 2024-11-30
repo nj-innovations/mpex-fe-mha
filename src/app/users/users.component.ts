@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
 	selector: 'app-users',
@@ -23,16 +24,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 export class UsersComponent implements OnInit{
 	@ViewChild(MatSort) sort!: MatSort;
 	isPageLoading = true;
-	displayedColumns: string[] = ['fname', 'lname', 'organization', 'is_student', 'role_name',];
+	displayedColumns: string[] = ['fname', 'lname', 'organization', 'role_name',];
 	dataSource = new MatTableDataSource<IgetUsersResponse>();
 	faCirclePlus = faCirclePlus;
 	usersForm!: FormGroup;
 	users: IgetUsersResponse[] = [];
 	filteredUsers: IgetUsersResponse[] = [];
 	faSpinner = faSpinner;
+	roleName = '';
 
 	constructor(private usersService: UsersService, private alertsService: AlertsService,
-		private router: Router, private route: ActivatedRoute) { }
+		private router: Router, private route: ActivatedRoute, private storageService: LocalStorageService) { }
 
 	applyFilter(filterValue: Event) {
 		this.dataSource.filter = (filterValue.target as HTMLInputElement).value.trim().toLowerCase();
@@ -40,18 +42,44 @@ export class UsersComponent implements OnInit{
 
 	ngOnInit() {
 		this.alertsService.clearAlerts();
-		this.usersService.getAllUsers().subscribe({
-			next: (data: IgetUsersResponse[]) => {
-				this.users = data;
-				this.open_to_precepting_check('b');
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			},
-			complete: () => {
-				this.isPageLoading = false;
+		this.route.params.subscribe((params) => {
+			let menu_type = '';
+			if(params['menu_type'] == undefined){
+				menu_type = this.storageService.getValue('users_menu_type') ?? '3';
+			} else {
+				this.storageService.setValue('users_menu_type', params['menu_type']);
+				menu_type = params['menu_type'];
 			}
-		});
+			this.isPageLoading = true;
+			this.usersService.getAllUsers(parseInt(menu_type, 10)).subscribe({
+				next: (data: IgetUsersResponse[]) => {
+					this.users = data.map((u) => {
+						if(u.role_name == 'Mentor'){
+							u.role_name = 'Preceptor'
+						}
+						return u;
+					});
+					this.open_to_precepting_check('b');
+					switch(menu_type){
+						case '2':
+							this.roleName = 'Admins';
+							break;
+						case '3':
+							this.roleName = 'Preceptors';
+							break;
+						case '4':
+							this.roleName = 'Students';
+							break;
+					}
+				},
+				error: (error: string) => {
+					this.alertsService.addErrorAlert(error);
+				},
+				complete: () => {
+					this.isPageLoading = false;
+				}
+			});			
+		  });
 
 		this.usersForm = new FormGroup({
 			'open_to_precepting': new FormControl(null),

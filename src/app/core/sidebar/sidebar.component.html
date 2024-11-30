@@ -1,44 +1,54 @@
 <aside id="sidebar" class="sidebar">
-
 	<ul class="sidebar-nav" id="sidebar-nav">
-
 		<li class="nav-item">
 			<a class="nav-link " [routerLink]="['/home']" [ngClass]="{'collapsed': activeLink[0]}" (click)="clickLink(0)">
 				<fa-icon [icon]="faHouse" class="fa-icon-spacer"></fa-icon>
 				<span>Home</span>
 			</a>
 		</li>
-
 		<li class="nav-item">
 			<a class="nav-link" [routerLink]="['/profile']" [ngClass]="{'collapsed': activeLink[1]}" (click)="clickLink(1)">
 				<fa-icon [icon]="faUserRegular" class="fa-icon-spacer"></fa-icon>
 				<span>My Profile</span>
 			</a>
 		</li>
-
 		@if(hasRole('eabfc42c-0532-4015-8bd0-145fe73baf03'))
 		{
 			<li class="nav-item">
-				<a class="nav-link collapsed"  [routerLink]="['/users']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
+				<a class="nav-link collapsed" style="cursor: pointer" (click)="usersIsCollapsed = !usersIsCollapsed">
 					<fa-icon [icon]="faUsersLight" class="fa-icon-spacer"></fa-icon>
-					<span>Users</span>
+					<span>Users</span><fa-icon [icon]="faChevronUp" [@rotateState]="!usersIsCollapsed ? 'rotated' : 'default'" class="ms-auto"></fa-icon>
 				</a>
+				<ul id="charts-nav" class="nav-content" #collapse="ngbCollapse" [(ngbCollapse)]="usersIsCollapsed">
+					<li>
+						<a [routerLink]="['/users', {menu_type: 2}]">
+							<fa-icon [icon]="faCircle" class="fa-icon-spacer" [size]="'xs'"></fa-icon><span>Admins</span>
+						</a>
+					</li>
+					<li>
+						<a [routerLink]="['/users', {menu_type: 3}]">
+							<fa-icon [icon]="faCircle" class="fa-icon-spacer" [size]="'xs'"></fa-icon><span>Preceptors</span>
+						</a>
+					</li>
+					<li>
+						<a [routerLink]="['/users', {menu_type: 4}]">
+							<fa-icon [icon]="faCircle" class="fa-icon-spacer" [size]="'xs'"></fa-icon><span>Students</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed"  [routerLink]="['/connections']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
+				<a class="nav-link collapsed" [routerLink]="['/connections']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
 					<fa-icon [icon]="faHandshake" class="fa-icon-spacer"></fa-icon>
 					<span>Connections</span>
 				</a>
 			</li>
 		}
-
 		<li class="nav-item" style="cursor: pointer">
-			<a class="nav-link collapsed" [ngClass]="{'collapsed': activeLink[5]}"  (click)="Logout()">
+			<a class="nav-link collapsed" [ngClass]="{'collapsed': activeLink[3]}"  (click)="Logout()">
 				<fa-icon [icon]="faSignOut" class="fa-icon-spacer"></fa-icon>
 				<span>Sign Out</span>
 			</a>
 		</li>
 	</ul>
-
 </aside><!-- End Sidebar-->
-

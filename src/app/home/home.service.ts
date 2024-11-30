@@ -10,7 +10,7 @@ export class HomeService {
 	constructor(private http: HttpClient) {}
 
 	getMentors(): Observable<IgetMentorsResponse[]>{
-		return this.http.get<IgetMentorsResponse[]>(environment.apiUrl + '/mentors').pipe(
+		return this.http.get<IgetMentorsResponse[]>(environment.apiUrl + '/studentuser/mentors').pipe(
 			map((response: IgetMentorsResponse[]) => {
 				return response;
 			}),

@@ -9,10 +9,6 @@ export interface IupdateUsersRequest {
 	'city': string;
 	'linkedin': string;
 	'role_id': string;
-	'is_student': string;
-	'is_mentor': string;
-	'is_preceptor': string;
-	'open_to_mentoring': string;
 	'open_to_precepting': string;
 	'sectors': string;
 	'capacity': number;

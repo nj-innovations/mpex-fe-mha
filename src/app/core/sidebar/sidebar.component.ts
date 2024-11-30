@@ -1,25 +1,34 @@
 import { Component } from '@angular/core';
-import { faUser as faUserRegular, faUsers as faUsersLight } from '@fortawesome/pro-regular-svg-icons';
-import { faUsers as faUsersRegular, faLink as faLinkRegular } from '@fortawesome/pro-regular-svg-icons';
-import { faSignOut, faHouse } from '@fortawesome/pro-regular-svg-icons';
+import { faUser as faUserRegular, faCircle, faUsers as faUsersRegular, faSignOut,
+	faUsers as faUsersLight, faChevronUp } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSitemap } from '@fortawesome/pro-thin-svg-icons';
 import { faHandshake } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faHouse } from '@fortawesome/pro-regular-svg-icons';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 import { LocalStorageService } from '../local-storage.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
 	selector: 'app-sidebar',
 	standalone: true,
-	imports: [FontAwesomeModule, RouterModule, CommonModule],
+	imports: [FontAwesomeModule, RouterModule, CommonModule, NgbCollapseModule],
 	templateUrl: './sidebar.component.html',
-	styleUrl: './sidebar.component.css'
+	styleUrl: './sidebar.component.css',
+	animations: [
+		trigger('rotateState', [
+			state('default', style({ transform: 'rotate(0deg)' })),
+			state('rotated', style({ transform: 'rotate(180deg)' })),
+			transition('default => rotated', animate('0.25s ease-in-out')),
+			transition('rotated => default', animate('0.25s ease-in-out'))
+		])
+	  ]
 })
 export class SidebarComponent {
-	faLinkRegular = faLinkRegular;
+	//faLinkRegular = faLinkRegular;
 	faUserRegular = faUserRegular;
 	faSignOut = faSignOut;
 	faUsersRegular = faUsersRegular;
@@ -27,11 +36,14 @@ export class SidebarComponent {
 	faSitemap = faSitemap;
 	faHandshake = faHandshake;
 	faHouse = faHouse;
+	faCircle = faCircle;
+	faChevronUp = faChevronUp;
 	activeLink: boolean[] = [];
 	logoutModalRef?: NgbModalRef;
+	usersIsCollapsed = true;
 		
 	constructor(private modalService: NgbModal, public sessionStorage: LocalStorageService) {
-		this.activeLink = [false, true, true, true, true, true];
+		this.activeLink = [false, true, true, true, true];
 	}
 	
 	clickLink(j :number): void {

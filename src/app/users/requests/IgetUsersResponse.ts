@@ -20,9 +20,5 @@ export interface IgetUsersResponse {
 	'city': string;
 	'state': string;
 	'guid': string;
-	'is_student': string;
-	'is_preceptor': string;
-	'is_mentor': string;
-	'is_alumni': string;
 	'role_id': string;
 }
