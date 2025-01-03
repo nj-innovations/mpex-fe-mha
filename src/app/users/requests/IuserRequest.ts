@@ -19,7 +19,6 @@ export interface IusersRequest {
 	'location': string;
 	'role_id': string;
 	'role_name': string;
-	'is_student': string;
 	'is_alumni': string;
 	'is_mentor': string;
 	'is_preceptor': string;
