@@ -74,7 +74,7 @@ export class UpdateUserComponent implements OnInit {
 					return r;
 				});
 				for(const element of data['sectors']){
-					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.sector_id, 'checked': false})
+					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.id, 'checked': false})
 				}
 				this.usersService.getUser(this.id).subscribe({
 					next: (data: IusersRequest) => {

@@ -6,6 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { IdleTimerComponent } from '../idle-timer/idle-timer.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent {
 	faBars = faBars;
 	activeSidebar = true;
 	avatarImage = '';
+	logo = environment.logo;
 
 	constructor(private renderer: Renderer2) {}
 

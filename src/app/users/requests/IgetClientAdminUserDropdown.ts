@@ -5,7 +5,8 @@ export interface IgetClientAdminUserDropdown {
 
 export interface IgetSectorDropdown {
 	'sector_name': string;
-	'sector_id': string;
+	'id': string;
+	'client_id': string;
 }
 
 export interface IgetRoleDropdown {

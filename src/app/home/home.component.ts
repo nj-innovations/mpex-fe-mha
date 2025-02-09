@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeService } from './home.service';
 import { AlertsService } from '../core/alerts/alerts.service';
-import { IgetMentorsResponse } from './requests/IgetMentorsResponse';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../environments/environment';
@@ -15,6 +14,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SearchMentorModalService } from './search-mentor-modal/search-mentor-modal.service';
 import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
+import { forkJoin, finalize } from 'rxjs';
+import { IgetMentorProjectsResponse } from './requests/IgetMentorProjectsResponse';
+import { MentorProject } from '../models/MentorProject';
 
 @Component({
 	selector: 'app-home',
@@ -34,6 +36,10 @@ export class HomeComponent implements OnInit {
 	selectedPersonType = 'b';
 	sectors?: IdropdownsResponse[] = [];
 	visibleProfileCount = 1;
+	//mentorProjects: IgetMentorProjectsResponse[] = [];
+	mentorProjects: MentorProject[] = [];
+	visiblePreceptorList = false;
+	visibleProjectList = true;
 
 	constructor(private homeService: HomeService, private alertsService: AlertsService,
 		private modalService: NgbModal, public sessionStorage: LocalStorageService,
@@ -42,43 +48,62 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.homeService.getMentors().subscribe({
-			next: (response: IgetMentorsResponse[]) => {
-				if(response != undefined){
-					const filteredMentors = response.filter((r) => r.open_to_precepting == 'Y');
-					const m = filteredMentors.length;
-					for(let i = 0; i < m; i++){
-						this.mentors.push(new Mentor(
-							filteredMentors[i].fname,
-							filteredMentors[i].lname,
-							filteredMentors[i].guid,
-							filteredMentors[i].organization,
-							filteredMentors[i].title,
-							filteredMentors[i].degree,
-							filteredMentors[i].open_to_precepting,
-							filteredMentors[i].open_to_mentoring,
-							filteredMentors[i].projects_available,
-							filteredMentors[i].is_preceptor,
-							filteredMentors[i].is_mentor,
-							filteredMentors[i].avatar,
-							filteredMentors[i].linkedin,
-							filteredMentors[i].state,
-							filteredMentors[i].city,
-							filteredMentors[i].sectors
-						));
-					}
-				}
+		forkJoin({
+			getMentors: this.homeService.getMentors(),
+			getMentorProjects: this.homeService.getMentorProjects()
+		}).pipe(
+			finalize(() => this.isPageLoading = false)
+		).subscribe({
+			next: (response) => {
+				const mentorProjectsTemp = response.getMentorProjects;
+				this.mentors = response.getMentors
+				.filter((r) => r.open_to_precepting == 'Y')
+				.map((mentor) => new Mentor(
+					mentor.fname,
+					mentor.lname,
+					mentor.guid,
+					mentor.organization,
+					mentor.title,
+					mentor.degree,
+					mentor.open_to_precepting,
+					mentor.open_to_mentoring,
+					mentor.projects_available,
+					mentor.is_preceptor,
+					mentor.is_mentor,
+					mentor.avatar,
+					mentor.linkedin,
+					mentor.state,
+					mentor.city,
+					mentor.sectors
+				));
+			
+				mentorProjectsTemp.map((project) => {
+					this.mentors.forEach((mentor) => {
+						if(project.user_guid == mentor.guid){
+							this.mentorProjects.push(new MentorProject(
+								project.id,
+								project.user_id,
+								project.project,
+								project.updated_at,
+								mentor.fname,
+								mentor.lname,
+								project.organization,
+								project.user_guid,
+								mentor.title,
+								mentor.degree
+							));
+						}
+					});
+				});
+				console.log(this.mentorProjects);
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);
-			},
-			complete: () => {
-				this.isPageLoading = false;
 			}
 		});
+
 		this.homeForm = new FormGroup({
-			'sector_search': new FormControl(null),
-			'person_name_search': new FormControl(null)
+			'sector_search': new FormControl(null)
 		});
 		this.sectors = this.sessionStorage.getSectors();
 	}
@@ -91,18 +116,12 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	PersonTypeClick(pt: string): void {
-		this.selectedPersonType = pt;
-		this.FilterMentors();
-	}
-
 	FilterMentors(): void {
 		const selectedSectors = this.searchService.getSelectedSectors();
 		let is_preceptor = '';
 		let is_mentor = '';
 		let foundSector = true;
 		let visibleProfiles: string[] = [];
-		let nameSearchStr = this.homeForm.value.person_name_search;
 		if(this.mentors != null){
 			this.mentors.forEach(m => {
 				is_mentor = m.is_mentor;
@@ -131,18 +150,6 @@ export class HomeComponent implements OnInit {
 							}
 						}						
 					}
-					if(nameSearchStr != null)
-					{
-						if(!m.fname.toLowerCase().startsWith(nameSearchStr.toLowerCase())
-							&& !m.lname.toLowerCase().startsWith(nameSearchStr.toLowerCase())
-						)
-						{
-							const ind = visibleProfiles.indexOf(m.guid);
-							if(ind >= 0){
-								delete visibleProfiles[ind];
-							}
-						}
-					}
 				}
 			});
 			this.mentors.forEach((v, i) => {
@@ -161,9 +168,7 @@ export class HomeComponent implements OnInit {
 	SectorText(m: Mentor): string {
 		let retval = '';
 		m.sectors.forEach((m) => {
-			//retval += '<div>&bull;&nbsp;' + m.sector_name + '</div>';
 			retval += '<small class="d-inline-flex mb-2 me-1 px-2 py-1 fw-semibold text-dark bg-light-subtle border border-light-subtle rounded-2">' + m.sector_name + '</small>';
-			//retval += '<span class="badge text-bg-light p-2 bg-light-subtle border border-light-subtle mb-2">' + m.sector_name + '</span>';
 		});
 
 		return retval;
@@ -172,9 +177,7 @@ export class HomeComponent implements OnInit {
 	TitleText(m: Mentor): string {
 		let retval = '';
 		m.title.forEach((t) => {
-			//retval += '<div>&bull;&nbsp;' + t + '</div>';
 			retval += '<small class="d-inline-flex mb-2 me-1 px-2 py-1 fw-semibold text-dark bg-light-subtle border border-light-subtle rounded-2">' + t + '</small>';
-			//retval += '<span class="badge text-bg-light p-2 bg-light-subtle border border-light-subtle mb-2">' + t + '</span>';
 		});
 
 		return retval;
@@ -186,10 +189,6 @@ export class HomeComponent implements OnInit {
 		} else {
 			this.searchService.setSelectedSectors([this.homeForm.value.sector_search]);
 		}
-		this.FilterMentors();
-	}
-
-	UpdateNameSearch(){
 		this.FilterMentors();
 	}
 }

@@ -8,7 +8,7 @@ import { HelperService } from '../../core/helper.service';
 import { Mentor } from '../../models/Mentor';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
-import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse';
+//import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse_old';
 
 @Component({
 	selector: 'app-profile-modal',
@@ -61,7 +61,7 @@ export class ProfileModalComponent implements OnInit {
 			'person_name_search': new FormControl(null)
 		});
 
-		this.profileModelService.getMentorProjects(profile.guid).subscribe({
+		/* this.profileModelService.getMentorProjects(profile.guid).subscribe({
 			next: (response: IgetMentorProjectsResponse[]) => {
 				console.log(response);
 			},
@@ -71,7 +71,7 @@ export class ProfileModalComponent implements OnInit {
 			complete: () => {
 				//this.isPageLoading = false;
 			}
-		});		
+		}); */		
 	}
 
 	toggleMeetPerson(): void {

@@ -6,13 +6,18 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { map } from 'rxjs/internal/operators/map';
 import { AlertsService } from './core/alerts/alerts.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CustomModalService } from './core/service/custom-modal-service.service';
 
 @Component({
 	standalone: true,
 	imports: [RouterModule, HeaderComponent, AlertsComponent, CommonModule, SidebarComponent],
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	styleUrls: ['./app.component.css'],
+	providers: [
+		{provide: NgbModal, useClass: CustomModalService}
+	]
 })
 export class AppComponent implements OnInit {
 	title = 'MPEX';

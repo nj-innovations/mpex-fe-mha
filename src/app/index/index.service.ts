@@ -3,12 +3,12 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { IloginRequest } from './requests/IloginRequest';
-import { IdropdownsResponse } from './requests/IdropdownsResponse';
 import { IloginResponse } from './requests/IloginResponse';
 import { LocalStorageService } from '../core/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { IdleTimerService } from '../core/idle-timer/idle-timer.service';
+import { IgetClientUserDropdown } from './requests/IgetClientUserDropdown';
 
 @Injectable({ providedIn: 'root' })
 export class IndexService {
@@ -42,10 +42,10 @@ export class IndexService {
 		));
 	}
 
-	getDropdowns(): Observable<IdropdownsResponse[]> {
-		return this.http.get<IdropdownsResponse[]>(environment.apiUrl + '/dropdowns')
+	getDropdowns(): Observable<IgetClientUserDropdown> {
+		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors')
 		.pipe(map(
-			(response: IdropdownsResponse[]) => {
+			(response: IgetClientUserDropdown) => {
 				return response;
 			}
 		)
@@ -64,8 +64,8 @@ export class IndexService {
 		this.sessionsSerivce.setValue('role', response.role);
 		this.sessionsSerivce.setValue('avatar_link', response.avatar_link);
 		this.getDropdowns().subscribe({
-			next: (res: IdropdownsResponse[]) => {
-				this.sessionsSerivce.setValue('sectors', JSON.stringify(res));
+			next: (res: IgetClientUserDropdown) => {
+				this.sessionsSerivce.setValue('sectors', JSON.stringify(res.sectors));
 				const idleTime: number = environment.idleTime;
 				if(idleTime > 0){ 
 					this.idleTimerService.startTimers();

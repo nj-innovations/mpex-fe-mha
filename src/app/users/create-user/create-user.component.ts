@@ -69,7 +69,7 @@ export class CreateUserComponent {
 					return r;
 				});
 				for(const element of data['sectors']){
-					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.sector_id, 'checked': false})
+					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.id, 'checked': false})
 				}
 			},
 			error: (error: string) => {

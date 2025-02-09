@@ -1,10 +1,10 @@
 export interface IgetMentorProjectsResponse {
 	'id': string;
+	'user_id': number;
 	'project': string;
-	'requirements': IgetMentorProjectsRequirements[];
-}
-
-export interface IgetMentorProjectsRequirements {
-	'id': string;
-	'requirement': string;
+	'updated_at': string;
+	'fname': string;
+	'lname': string;
+	'organization': string;
+	'user_guid': string;
 }

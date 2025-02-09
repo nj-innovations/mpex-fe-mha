@@ -17,6 +17,7 @@ import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
 import { LocalStorageService } from '../core/local-storage.service';
 import { IdleTimerService } from '../core/idle-timer/idle-timer.service';
+import { environment } from '../../environments/environment';
 
 @Component({
 	selector: 'app-index',
@@ -34,6 +35,7 @@ export class IndexComponent implements OnInit {
 	faKey = faKey;
 	navbarCollapsed = false;
 	visiblePasswordReset = false;
+	logo = environment.logo;
 
 	constructor(public headerService: HeaderService, public alertsService: AlertsService,
 		public route: ActivatedRoute, public indexService: IndexService,
@@ -42,8 +44,8 @@ export class IndexComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loginForm = new FormGroup({
-			'email': new FormControl('', [Validators.required, Validators.email]),
-			'password': new FormControl('', Validators.required)
+			'email': new FormControl('nick@rugatech.com', [Validators.required, Validators.email]),
+			'password': new FormControl('M6g8vwcx#77', Validators.required)
 		});
 		this.resetForm = new FormGroup({
 			'resetEmail': new FormControl('', [Validators.required, Validators.email])

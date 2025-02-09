@@ -37,7 +37,7 @@ export class UsersService {
 	}
 	
 	getDropdowns(): Observable<IgetClientAdminUserDropdown>{
-		return this.http.get<IgetClientAdminUserDropdown>(environment.apiUrl + '/clientadminuser/dropdowns').pipe(
+		return this.http.get<IgetClientAdminUserDropdown>(environment.apiUrl + '/clientadminuser/dropdowns?mode=roles,sectors').pipe(
 			map((response: IgetClientAdminUserDropdown) => {
 				return response;
 			}),
