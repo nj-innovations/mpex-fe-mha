@@ -8,6 +8,8 @@ import { HelperService } from '../../core/helper.service';
 import { Mentor } from '../../models/Mentor';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
+import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse';
+import { MentorProject } from '../../models/MentorProject';
 //import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse_old';
 
 @Component({
@@ -31,7 +33,7 @@ export class ProfileModalComponent implements OnInit {
 	profileExperiencesHosted = 0;
 	profileOpenToPrecept = 'No';
 	profileOpenToMentor = 'No';
-	profileMentorProjects: IgetMentorProjects[] = [];
+	profileMentorProjects: MentorProject[] = [];
 	linkedin = '';
 	visibleStudentComment = false;
 	visibleSuccessAlert = false;
@@ -43,6 +45,7 @@ export class ProfileModalComponent implements OnInit {
 
 	ngOnInit() {
 		const profile: Mentor = this.profileModelService.getProfile();
+		this.profileMentorProjects = this.profileModelService.fetchMentorProjects();
 		this.mentor_guid = profile.guid;
 		this.profileName = profile.fname + ' ' + profile.lname + ', ' + profile.degree;
 		this.profileTitle = this.helperService.ArrayToLines(profile.title);
@@ -60,18 +63,6 @@ export class ProfileModalComponent implements OnInit {
 			'student_comments': new FormControl(null),
 			'person_name_search': new FormControl(null)
 		});
-
-		/* this.profileModelService.getMentorProjects(profile.guid).subscribe({
-			next: (response: IgetMentorProjectsResponse[]) => {
-				console.log(response);
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			},
-			complete: () => {
-				//this.isPageLoading = false;
-			}
-		}); */		
 	}
 
 	toggleMeetPerson(): void {

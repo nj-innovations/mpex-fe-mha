@@ -1,5 +1,5 @@
 <div class="pagetitle">
-	<h1>Search for Preceptors</h1>
+	<h1>Search for Internships</h1>
 	<nav>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">Home</li>
@@ -103,15 +103,20 @@
 								<thead class="table-dark">
 									<tr>
 										<th>&nbsp;</th>
-										<th>Preceptor</th>
+										<th style="width:20%">Preceptor</th>
+										<th style="width:20%">Organization</th>
 										<th>Project</th>
 									</tr>
 								</thead>
 								<tbody>
 									@for (project of this.mentorProjects; track project.id) {
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-primary">View</button></td>
-											<td>{{project.user_fname}} {{project.user_lname}} {{this.helperService.ArrayToCSV(project.user_degree)}}</td>
+											<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenProjectProfile(project)">View</button></td>
+											<td>
+												{{project.user_fname}} {{project.user_lname}} {{this.helperService.ArrayToCSV(project.user_degree)}}
+												<br><i>{{project.user_title}}</i>
+											</td>
+											<td>{{project.organization}}</td>
 											<td>{{project.project}}</td>
 										</tr>
 									}
@@ -124,8 +129,9 @@
 									<div class="card-body">
 										<h5 class="card-title">{{project.user_fname}} {{project.user_lname}}, {{this.helperService.ArrayToCSV(project.user_degree)}}</h5>
 										<p class="card-text"><strong>Organization:</strong> {{project.organization}}</p>
+										<p class="card-text"><strong>Title:</strong> {{project.user_title}}</p>
 										<p class="card-text"><strong>Project:</strong> {{project.project}}</p>
-										<button type="button" class="btn btn-sm btn-primary">View</button>
+										<button type="button" class="btn btn-sm btn-primary" (click)="OpenProjectProfile(project)">View</button>
 									</div>
 								</div>
 							}

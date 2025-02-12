@@ -5,6 +5,7 @@ import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { ConnectionsService } from '../connections.service';
 import { IsingleConnectionResponse } from '../requests/IsingleConnectionResponse';
+import { LocalStorageService } from '../../core/local-storage.service';
 
 @Component({
 	selector: 'app-update-connection-modal',
@@ -26,10 +27,10 @@ export class UpdateConnectionModalComponent implements OnInit {
 	studentComments = '';
 	deptComments = '';
 	linkedin = '';
-	statusRS = ['New', 'Approved', 'Denied', 'Deleted'];
+	statusRS: string[] = [];
 	
 	constructor(public activeModal: NgbActiveModal, public alertsService: AlertsService,
-		public connectionService: ConnectionsService) {}
+		public connectionService: ConnectionsService, public sessionService: LocalStorageService) {}
 
 	ngOnInit() {
 		this.connectionForm = new FormGroup({
@@ -39,6 +40,7 @@ export class UpdateConnectionModalComponent implements OnInit {
 
 		this.connectionService.getSingleConnection(this.connection_id).subscribe({
 			next: (response: IsingleConnectionResponse) => {
+				this.statusRS = this.sessionService.getStudentConnectionStatus();
 				this.studentName = response.student_fname + ' ' + response.student_lname;
 				this.mentorName = response.mentor_fname + ' ' + response.mentor_lname;
 				this.createdAt = response.created_at;

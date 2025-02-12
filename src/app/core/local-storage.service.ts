@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sector } from '../models/Sector';
+import { IgetStudentConnectionStatus } from '../index/requests/IgetClientUserDropdown';
 
 @Injectable({
 	providedIn: 'root'
@@ -105,5 +106,23 @@ export class LocalStorageService {
 			}
 		}
 		return retval;
+	}
+
+	getStudentConnectionStatus(): string[] {
+		let temp: string;
+		let scs: string[] = [];
+		try {
+			temp = localStorage.getItem('student_connection_status') ?? '';
+			if(temp !== ''){ 
+				scs = JSON.parse(temp).map((x: IgetStudentConnectionStatus) => {
+					return x.connection_status;
+				});
+			} else {
+				return [];
+			}
+		} catch (err) {
+			return [];
+		}
+		return scs;
 	}
 }

@@ -95,7 +95,6 @@ export class HomeComponent implements OnInit {
 						}
 					});
 				});
-				console.log(this.mentorProjects);
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);
@@ -110,11 +109,28 @@ export class HomeComponent implements OnInit {
 
 	OpenProfile(profile: Mentor): void {
 		this.profileModelService.setProfile(profile);
+		this.profileModelService.setMentorProjects(
+			this.mentorProjects.filter((x) => x.user_guid == profile.guid)
+		);
 		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
 			ariaLabelledBy: 'View Profile',
 			size: 'xl'
 		});
 	}
+
+	OpenProjectProfile(project: MentorProject): void {
+		const profile = this.mentors.filter((x) => x.guid == project.user_guid);
+		this.profileModelService.setProfile(profile[0]);
+		this.profileModelService.setMentorProjects(
+			this.mentorProjects.filter((x) => x.user_guid == profile[0].guid)
+		);
+		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
+			ariaLabelledBy: 'View Profile',
+			size: 'xl'
+		});
+	}
+
+
 
 	FilterMentors(): void {
 		const selectedSectors = this.searchService.getSelectedSectors();

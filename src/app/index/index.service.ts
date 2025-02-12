@@ -43,7 +43,7 @@ export class IndexService {
 	}
 
 	getDropdowns(): Observable<IgetClientUserDropdown> {
-		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors')
+		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors,student_connection_status')
 		.pipe(map(
 			(response: IgetClientUserDropdown) => {
 				return response;
@@ -66,6 +66,7 @@ export class IndexService {
 		this.getDropdowns().subscribe({
 			next: (res: IgetClientUserDropdown) => {
 				this.sessionsSerivce.setValue('sectors', JSON.stringify(res.sectors));
+				this.sessionsSerivce.setValue('student_connection_status', JSON.stringify(res.student_connection_status));
 				const idleTime: number = environment.idleTime;
 				if(idleTime > 0){ 
 					this.idleTimerService.startTimers();
