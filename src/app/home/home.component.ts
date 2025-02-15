@@ -130,8 +130,6 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-
-
 	FilterMentors(): void {
 		const selectedSectors = this.searchService.getSelectedSectors();
 		let is_preceptor = '';

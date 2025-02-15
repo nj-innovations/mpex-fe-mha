@@ -51,7 +51,6 @@
 										<th>&nbsp;</th>
 										<th>Name</th>
 										<th>Organization</th>
-										<th>Title</th>
 										<th>Sector</th>
 									</tr>
 								</thead>
@@ -59,9 +58,11 @@
 									@for (mentor of this.mentors; track mentor.guid) {
 										<tr [ngClass]="(mentor.selectedProfile == 'Y') ? '' : 'd-none'">
 											<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenProfile(mentor)">View</button></td>
-											<td>{{mentor.fname}} {{mentor.lname}}, {{this.helperService.ArrayToCSV(mentor.degree)}}</td>
+											<td>
+												{{mentor.fname}} {{mentor.lname}}, {{this.helperService.ArrayToCSV(mentor.degree)}}
+												<div class="fst-italic">{{mentor.title}}</div>
+											</td>
 											<td>{{mentor.organization}}</td>
-											<td [innerHtml]="this.TitleText(mentor)"></td>
 											<td [innerHtml]="this.SectorText(mentor)"></td>
 										</tr>
 									}
