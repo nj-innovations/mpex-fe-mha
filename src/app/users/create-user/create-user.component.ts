@@ -53,7 +53,6 @@ export class CreateUserComponent {
 			'state': new FormControl(null, null),
 			'linkedin': new FormControl(null, null),
 			'open_to_precepting': new FormControl(null, null),
-			'location': new FormControl(null, null),
 			'capacity': new FormControl(null, null)
 		});
 
@@ -115,7 +114,7 @@ export class CreateUserComponent {
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
 			'role_id': this.usersForm.value.role, 'open_to_precepting': 'N', 'sectors': '',
-			'capacity': this.usersForm.value.capacity, 'location': this.usersForm.value.location
+			'capacity': this.usersForm.value.capacity
 		}
 
 		if(this.usersForm.value.open_to_precepting){
