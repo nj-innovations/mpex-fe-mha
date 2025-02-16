@@ -27,8 +27,15 @@
 				</div>
 			</div>	
 			<div class="col-md-6 pt-4">
-				<div>LinkedIn</div>
-				<div class="fw-bold">{{linkedin}}</div>
+				@if(linkedin == '' || linkedin == null)
+				{
+					<div>LinkedIn</div>
+					<div class="fst-italic">Not Provided</div>
+				}
+				@else {
+					<div>LinkedIn</div>
+					<div class="fw-bold"><a [href]="linkedin" target="_blank">{{linkedin}}</a></div>
+				}
 			</div>
 			<div class="col-md-12 pt-4">
 				<div>Current Projects</div>
