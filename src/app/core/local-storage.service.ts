@@ -117,11 +117,9 @@ export class LocalStorageService {
 				scs = JSON.parse(temp).map((x: IgetStudentConnectionStatus) => {
 					return x.connection_status;
 				});
-			} else {
-				return [];
 			}
 		} catch (err) {
-			return [];
+
 		}
 		return scs;
 	}

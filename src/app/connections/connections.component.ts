@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionsService } from './connections.service';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { IconnectionsResponse } from './requests/IconnectionsResponse';
@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateConnectionModalComponent } from './update-connection-modal/update-connection-modal.component';
 import { IsingleConnectionResponse } from './requests/IsingleConnectionResponse';
+import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
 	selector: 'app-connections',
@@ -32,9 +33,12 @@ export class ConnectionsComponent implements OnInit {
 	connectionsForm!: FormGroup;
 	faSpinner = faSpinner;
 	connectionModalRef?: NgbModalRef;
+	connectionStatusCB: connectionStatusCheckBoxes[] = [];
+	yearCB: yearCheckBoxes[] = [];
 
 	constructor(public connectionService: ConnectionsService, public alertsService: AlertsService,
-		private modalService: NgbModal) { }
+		private modalService: NgbModal, private storageService: LocalStorageService,
+		private cdr: ChangeDetectorRef) { }
 
 	applyFilter(filterValue: Event) {
 		this.dataSource.filter = (filterValue.target as HTMLInputElement).value.trim().toLowerCase();
@@ -43,12 +47,26 @@ export class ConnectionsComponent implements OnInit {
 	ngOnInit(): void {
 		this.connectionService.getConnections().subscribe({
 			next: (response: IconnectionsResponse[]) => {
-				//let connections: ConnectionsModel[] = [];
-				 this.connections = response.map((r) => {
+				this.connections = response.map((r) => {
 					return new ConnectionsModel(r);
-				 });
-				 this.dataSource = new MatTableDataSource(this.connections);
-				 this.isPageLoading = false;
+				});
+				this.dataSource = new MatTableDataSource(this.connections);
+				const connection_status: string[] = this.storageService.getStudentConnectionStatus();
+				let checked = false;
+				for(const element of connection_status){
+					checked = false;
+					if(element == 'Approved' || element == 'New'){
+						checked = true;
+					}
+					this.connectionStatusCB.push({'label': element, 'value': element, 'checked': checked})
+				}
+				const m = new Date().getFullYear();
+				for(let i = m; i >= 2024; i--){
+					this.yearCB.push({'value': i, 'checked': true})
+				}
+				this.filterConnections()
+				this.isPageLoading = false;
+				 
 			},
 			error: (error: string) => {
 				this.alertsService.addErrorAlert(error);
@@ -86,4 +104,38 @@ export class ConnectionsComponent implements OnInit {
 			}
 		);	
 	}
+
+	checkStatusCb(i: number)	{
+		this.connectionStatusCB[i].checked = !this.connectionStatusCB[i].checked;
+		this.filterConnections();
+	}
+
+	checkYearCb(i: number)	{
+		this.yearCB[i].checked = !this.yearCB[i].checked;
+		this.filterConnections();
+	}
+
+	filterConnections(){
+		this.dataSource.data = this.connections.filter((x) => {
+			return this.connectionStatusCB.some((y) => {
+				return y.checked && x.status == y.value
+			})
+		}).filter((x) => {
+			return this.yearCB.some((y) => {
+				return y.checked && parseInt(x.created_at.substring(0, 4)) == y.value
+			})
+		});
+		this.cdr.detectChanges();
+	}
+}
+
+export interface connectionStatusCheckBoxes{
+	'label': string;
+	'value': string;
+	'checked': boolean;
+}
+
+export interface yearCheckBoxes{
+	'value': number;
+	'checked': boolean;
 }
