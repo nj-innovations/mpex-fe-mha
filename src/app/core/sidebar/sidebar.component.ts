@@ -13,19 +13,18 @@ import { LocalStorageService } from '../local-storage.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
-	selector: 'app-sidebar',
-	standalone: true,
-	imports: [FontAwesomeModule, RouterModule, CommonModule, NgbCollapseModule],
-	templateUrl: './sidebar.component.html',
-	styleUrl: './sidebar.component.css',
-	animations: [
-		trigger('rotateState', [
-			state('default', style({ transform: 'rotate(0deg)' })),
-			state('rotated', style({ transform: 'rotate(180deg)' })),
-			transition('default => rotated', animate('0.25s ease-in-out')),
-			transition('rotated => default', animate('0.25s ease-in-out'))
-		])
-	  ]
+    selector: 'app-sidebar',
+    imports: [FontAwesomeModule, RouterModule, CommonModule, NgbCollapseModule],
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.css',
+    animations: [
+        trigger('rotateState', [
+            state('default', style({ transform: 'rotate(0deg)' })),
+            state('rotated', style({ transform: 'rotate(180deg)' })),
+            transition('default => rotated', animate('0.25s ease-in-out')),
+            transition('rotated => default', animate('0.25s ease-in-out'))
+        ])
+    ]
 })
 export class SidebarComponent {
 	//faLinkRegular = faLinkRegular;

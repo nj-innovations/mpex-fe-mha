@@ -13,11 +13,10 @@ import { MentorProject } from '../../models/MentorProject';
 //import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse_old';
 
 @Component({
-	selector: 'app-profile-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule],
-	templateUrl: './profile-modal.component.html',
-	styleUrl: './profile-modal.component.css'
+    selector: 'app-profile-modal',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule],
+    templateUrl: './profile-modal.component.html',
+    styleUrl: './profile-modal.component.css'
 })
 export class ProfileModalComponent implements OnInit {
 	profileForm!: FormGroup;

@@ -14,12 +14,11 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
-	selector: 'app-users',
-	standalone: true,
-	imports: [MatTableModule, MatSortModule, MatFormFieldModule,
-		MatInputModule, FontAwesomeModule, ReactiveFormsModule],
-	templateUrl: './users.component.html',
-	styleUrl: './users.component.css'
+    selector: 'app-users',
+    imports: [MatTableModule, MatSortModule, MatFormFieldModule,
+        MatInputModule, FontAwesomeModule, ReactiveFormsModule],
+    templateUrl: './users.component.html',
+    styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit{
 	@ViewChild(MatSort) sort!: MatSort;

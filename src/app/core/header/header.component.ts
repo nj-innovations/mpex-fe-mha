@@ -9,11 +9,10 @@ import { IdleTimerComponent } from '../idle-timer/idle-timer.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
-	selector: 'app-header',
-	standalone: true,
-	imports: [CommonModule, NavbarComponent, FontAwesomeModule, NgbCollapseModule, IdleTimerComponent],
-	templateUrl: './header.component.html',
-	styleUrl: './header.component.css'
+    selector: 'app-header',
+    imports: [CommonModule, NavbarComponent, FontAwesomeModule, NgbCollapseModule, IdleTimerComponent],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css'
 })
 export class HeaderComponent {
 	faSignOut = faArrowRightFromBracket;

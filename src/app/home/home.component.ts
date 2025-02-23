@@ -19,11 +19,10 @@ import { IgetMentorProjectsResponse } from './requests/IgetMentorProjectsRespons
 import { MentorProject } from '../models/MentorProject';
 
 @Component({
-	selector: 'app-home',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbCollapseModule],
-	templateUrl: './home.component.html',
-	styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbCollapseModule],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
 	homeForm!: FormGroup;

@@ -14,11 +14,10 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-	selector: 'app-create-user',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink],
-	templateUrl: './create-user.component.html',
-	styleUrl: './create-user.component.css'
+    selector: 'app-create-user',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink],
+    templateUrl: './create-user.component.html',
+    styleUrl: './create-user.component.css'
 })
 export class CreateUserComponent {
 	usersForm!: FormGroup;

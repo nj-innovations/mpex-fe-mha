@@ -8,11 +8,10 @@ import { ResetPasswordService } from './reset-password.service';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
 
 @Component({
-	selector: 'app-reset-password',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, AlertsComponent],
-	templateUrl: './reset-password.component.html',
-	styleUrl: './reset-password.component.css'
+    selector: 'app-reset-password',
+    imports: [CommonModule, ReactiveFormsModule, AlertsComponent],
+    templateUrl: './reset-password.component.html',
+    styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent implements OnInit {
 	resetForm!: FormGroup;

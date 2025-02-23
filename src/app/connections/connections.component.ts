@@ -17,12 +17,11 @@ import { IsingleConnectionResponse } from './requests/IsingleConnectionResponse'
 import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
-	selector: 'app-connections',
-	standalone: true,
-	imports: [MatTableModule, MatSortModule, MatFormFieldModule,
-		MatInputModule, FontAwesomeModule, ReactiveFormsModule, DatePipe],
-	templateUrl: './connections.component.html',
-	styleUrl: './connections.component.css'
+    selector: 'app-connections',
+    imports: [MatTableModule, MatSortModule, MatFormFieldModule,
+        MatInputModule, FontAwesomeModule, ReactiveFormsModule, DatePipe],
+    templateUrl: './connections.component.html',
+    styleUrl: './connections.component.css'
 })
 export class ConnectionsComponent implements OnInit {
 	@ViewChild(MatSort) sort!: MatSort;

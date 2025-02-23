@@ -7,11 +7,10 @@ import { IdleTimerService } from '../idle-timer.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-	selector: 'app-idle-timer-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
-	templateUrl: './idle-timer-modal.component.html',
-	styleUrl: './idle-timer-modal.component.css'
+    selector: 'app-idle-timer-modal',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
+    templateUrl: './idle-timer-modal.component.html',
+    styleUrl: './idle-timer-modal.component.css'
 })
 export class IdleTimerModalComponent implements OnInit {
 	countDownTimer = environment.idleCountDownTimer / 1000;

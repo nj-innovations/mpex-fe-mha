@@ -11,11 +11,10 @@ import { IMentorProjectRequirements } from '../../requests/IMentorProjectRequire
 import { IstringMessageResponse } from '../../../../core/requests/IstringMessageResponse';
 
 @Component({
-	selector: 'app-update-mentor-project-requirement',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbAlertModule],
-	templateUrl: './update-mentor-project-requirement.component.html',
-	styleUrl: './update-mentor-project-requirement.component.css'
+    selector: 'app-update-mentor-project-requirement',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbAlertModule],
+    templateUrl: './update-mentor-project-requirement.component.html',
+    styleUrl: './update-mentor-project-requirement.component.css'
 })
 export class UpdateMentorProjectRequirementComponent {
 	@Input() requirement?: IgetMentorProjectRequirementsRequest;

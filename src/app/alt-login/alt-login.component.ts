@@ -6,11 +6,10 @@ import { IndexService } from '../index/index.service';
 import { AlertsService } from '../core/alerts/alerts.service';
 
 @Component({
-	selector: 'app-alt-login',
-	standalone: true,
-	imports: [],
-	templateUrl: './alt-login.component.html',
-	styleUrl: './alt-login.component.css'
+    selector: 'app-alt-login',
+    imports: [],
+    templateUrl: './alt-login.component.html',
+    styleUrl: './alt-login.component.css'
 })
 export class AltLoginComponent implements OnInit {
 

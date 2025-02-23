@@ -4,11 +4,10 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { alertModel } from './alerts.model';
 
 @Component({
-	selector: 'app-alerts',
-	standalone: true,
-	imports: [NgbAlertModule],
-	templateUrl: './alerts.component.html',
-	styleUrl: './alerts.component.css'
+    selector: 'app-alerts',
+    imports: [NgbAlertModule],
+    templateUrl: './alerts.component.html',
+    styleUrl: './alerts.component.css'
 })
 export class AlertsComponent {
 

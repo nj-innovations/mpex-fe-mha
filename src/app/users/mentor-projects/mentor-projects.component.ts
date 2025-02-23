@@ -17,11 +17,10 @@ import { ImentorProjectRequest } from '../requests/IuserRequest';
 
 
 @Component({
-	selector: 'app-mentor-projects',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
-	templateUrl: './mentor-projects.component.html',
-	styleUrl: './mentor-projects.component.css'
+    selector: 'app-mentor-projects',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
+    templateUrl: './mentor-projects.component.html',
+    styleUrl: './mentor-projects.component.css'
 })
 export class MentorProjectsComponent implements OnInit {
 	@Input() mentorProjects: ImentorProjectRequest[] = [];

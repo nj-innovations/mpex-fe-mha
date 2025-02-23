@@ -8,11 +8,10 @@ import { IsingleConnectionResponse } from '../requests/IsingleConnectionResponse
 import { LocalStorageService } from '../../core/local-storage.service';
 
 @Component({
-	selector: 'app-update-connection-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, DatePipe],
-	templateUrl: './update-connection-modal.component.html',
-	styleUrl: './update-connection-modal.component.css'
+    selector: 'app-update-connection-modal',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, DatePipe],
+    templateUrl: './update-connection-modal.component.html',
+    styleUrl: './update-connection-modal.component.css'
 })
 export class UpdateConnectionModalComponent implements OnInit {
 	connectionForm!: FormGroup;

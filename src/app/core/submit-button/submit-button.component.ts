@@ -4,11 +4,10 @@ import { AlertsService } from '../alerts/alerts.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-	selector: 'app-submit-button',
-	standalone: true,
-	imports: [CommonModule],
-	templateUrl: './submit-button.component.html',
-	styleUrl: './submit-button.component.css'
+    selector: 'app-submit-button',
+    imports: [CommonModule],
+    templateUrl: './submit-button.component.html',
+    styleUrl: './submit-button.component.css'
 })
 export class SubmitButtonComponent implements OnInit {
 	@Input() disabled = false; // default value if none is passed

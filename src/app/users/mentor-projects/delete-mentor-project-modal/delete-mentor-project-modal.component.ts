@@ -10,11 +10,10 @@ import { IstringMessageResponse } from '../../../core/requests/IstringMessageRes
 
 
 @Component({
-	selector: 'app-delete-mentor-project-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
-	templateUrl: './delete-mentor-project-modal.component.html',
-	styleUrl: './delete-mentor-project-modal.component.css'
+    selector: 'app-delete-mentor-project-modal',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
+    templateUrl: './delete-mentor-project-modal.component.html',
+    styleUrl: './delete-mentor-project-modal.component.css'
 })
 export class DeleteMentorProjectModalComponent {
 	@Input() project?: ImentorProjectRequest;

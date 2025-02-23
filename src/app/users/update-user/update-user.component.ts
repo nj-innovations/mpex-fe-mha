@@ -15,13 +15,12 @@ import { IstringMessageResponse } from '../../core/requests/IstringMessageRespon
 import { AvatarUploadComponent } from '../../core/avatar-upload/avatar-upload.component';
 
 @Component({
-	selector: 'app-update-user',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink, MentorProjectsComponent,
-		AvatarUploadComponent
-	],
-	templateUrl: './update-user.component.html',
-	styleUrl: './update-user.component.css'
+    selector: 'app-update-user',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink, MentorProjectsComponent,
+        AvatarUploadComponent
+    ],
+    templateUrl: './update-user.component.html',
+    styleUrl: './update-user.component.css'
 })
 export class UpdateUserComponent implements OnInit {
 	usersForm!: FormGroup;

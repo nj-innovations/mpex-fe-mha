@@ -20,13 +20,12 @@ import { IdleTimerService } from '../core/idle-timer/idle-timer.service';
 import { environment } from '../../environments/environment';
 
 @Component({
-	selector: 'app-index',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule,
-		NgbCollapseModule, NgbAlertModule, AlertsComponent
-	],
-	templateUrl: './index.component.html',
-	styleUrl: './index.component.css'
+    selector: 'app-index',
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule,
+        NgbCollapseModule, NgbAlertModule, AlertsComponent
+    ],
+    templateUrl: './index.component.html',
+    styleUrl: './index.component.css'
 })
 export class IndexComponent implements OnInit {
 	loginForm!: FormGroup;

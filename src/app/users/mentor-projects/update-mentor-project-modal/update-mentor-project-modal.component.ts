@@ -12,11 +12,10 @@ import { UpdateMentorProjectRequirementComponent } from './update-mentor-project
 import { IMentorProjectRequirements } from '../requests/IMentorProjectRequirements';
 
 @Component({
-	selector: 'app-update-mentor-project-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule, UpdateMentorProjectRequirementComponent],
-	templateUrl: './update-mentor-project-modal.component.html',
-	styleUrl: './update-mentor-project-modal.component.css'
+    selector: 'app-update-mentor-project-modal',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule, UpdateMentorProjectRequirementComponent],
+    templateUrl: './update-mentor-project-modal.component.html',
+    styleUrl: './update-mentor-project-modal.component.css'
 })
 export class UpdateMentorProjectModalComponent {
 	@Input() project?: ImentorProjectRequest;

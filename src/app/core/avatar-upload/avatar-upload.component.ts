@@ -7,11 +7,10 @@ import { LocalStorageService } from '../local-storage.service';
 import { AvatarUploadService } from './avatar-upload.service';
 
 @Component({
-	selector: 'app-avatar-upload',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule],
-	templateUrl: './avatar-upload.component.html',
-	styleUrl: './avatar-upload.component.css'
+    selector: 'app-avatar-upload',
+    imports: [CommonModule, ReactiveFormsModule, NgbAlertModule],
+    templateUrl: './avatar-upload.component.html',
+    styleUrl: './avatar-upload.component.css'
 })
 export class AvatarUploadComponent implements OnInit {
 	@Input() user_id: number = 0;

@@ -7,11 +7,10 @@ import { Sector } from '../../models/Sector';
 import { SearchMentorModalService } from './search-mentor-modal.service';
 
 @Component({
-	selector: 'app-search-mentor-modal',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
-	templateUrl: './search-mentor-modal.component.html',
-	styleUrl: './search-mentor-modal.component.css'
+    selector: 'app-search-mentor-modal',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './search-mentor-modal.component.html',
+    styleUrl: './search-mentor-modal.component.css'
 })
 export class SearchMentorModalComponent implements OnInit {
 	searchMentorForm!: FormGroup;

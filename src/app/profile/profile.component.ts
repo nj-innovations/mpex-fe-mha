@@ -9,11 +9,10 @@ import { AvatarUploadComponent } from '../core/avatar-upload/avatar-upload.compo
 import { AvatarUploadService } from '../core/avatar-upload/avatar-upload.service';
 
 @Component({
-	selector: 'app-profile',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, AvatarUploadComponent],
-	templateUrl: './profile.component.html',
-	styleUrl: './profile.component.css'
+    selector: 'app-profile',
+    imports: [CommonModule, ReactiveFormsModule, AvatarUploadComponent],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
 	profileForm!: FormGroup;

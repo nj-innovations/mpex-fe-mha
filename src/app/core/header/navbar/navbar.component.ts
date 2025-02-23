@@ -9,11 +9,10 @@ import { LocalStorageService } from '../../local-storage.service';
 import { AvatarUploadService } from '../../avatar-upload/avatar-upload.service';
 
 @Component({
-	selector: 'app-navbar',
-	standalone: true,
-	imports: [NgbCollapseModule, RouterModule, FontAwesomeModule],
-	templateUrl: './navbar.component.html',
-	styleUrl: './navbar.component.css'
+    selector: 'app-navbar',
+    imports: [NgbCollapseModule, RouterModule, FontAwesomeModule],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 	faUser = faUser;

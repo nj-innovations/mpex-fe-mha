@@ -10,14 +10,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomModalService } from './core/service/custom-modal-service.service';
 
 @Component({
-	standalone: true,
-	imports: [RouterModule, HeaderComponent, AlertsComponent, CommonModule, SidebarComponent],
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
-	providers: [
-		{provide: NgbModal, useClass: CustomModalService}
-	]
+    imports: [RouterModule, HeaderComponent, AlertsComponent, CommonModule, SidebarComponent],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    providers: [
+        { provide: NgbModal, useClass: CustomModalService }
+    ]
 })
 export class AppComponent implements OnInit {
 	title = 'MPEX';

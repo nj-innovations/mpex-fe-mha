@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-logout-modal',
-	standalone: true,
-	imports: [],
-	templateUrl: './logout-modal.component.html',
-	styleUrl: './logout-modal.component.css'
+    selector: 'app-logout-modal',
+    imports: [],
+    templateUrl: './logout-modal.component.html',
+    styleUrl: './logout-modal.component.css'
 })
 export class LogoutModalComponent {
 	
