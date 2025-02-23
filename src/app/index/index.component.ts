@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { HeaderService } from '../core/header/header.service';
 import { IndexService } from './index.service';
-import { SubmitButtonComponent } from '../core/submit-button/submit-button.component';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
