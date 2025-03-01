@@ -37,6 +37,7 @@ export class ProfileModalComponent implements OnInit {
 	visibleStudentComment = false;
 	visibleSuccessAlert = false;
 	visibleErrorAlert = false;
+	errorMessage = '';
 	
 	constructor(public activeModal: NgbActiveModal, private profileModelService: ProfileModalService,
 		public helperService: HelperService, public alertsService: AlertsService) {
@@ -79,6 +80,7 @@ export class ProfileModalComponent implements OnInit {
 				this.visibleSuccessAlert = true;
 			},
 			error: (error: string) => {
+				this.errorMessage = error.toString().replace('Error: ', '');
 				this.visibleErrorAlert = true;
 			},
 			complete: () => {
