@@ -15,7 +15,6 @@ import { SearchMentorModalService } from './search-mentor-modal/search-mentor-mo
 import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
 import { forkJoin, finalize } from 'rxjs';
-import { IgetMentorProjectsResponse } from './requests/IgetMentorProjectsResponse';
 import { MentorProject } from '../models/MentorProject';
 
 @Component({
@@ -35,7 +34,6 @@ export class HomeComponent implements OnInit {
 	selectedPersonType = 'b';
 	sectors?: IdropdownsResponse[] = [];
 	visibleProfileCount = 1;
-	//mentorProjects: IgetMentorProjectsResponse[] = [];
 	mentorProjects: MentorProject[] = [];
 	visiblePreceptorList = false;
 	visibleProjectList = true;
@@ -65,10 +63,7 @@ export class HomeComponent implements OnInit {
 					mentor.title,
 					mentor.degree,
 					mentor.open_to_precepting,
-					mentor.open_to_mentoring,
 					mentor.projects_available,
-					mentor.is_preceptor,
-					mentor.is_mentor,
 					mentor.avatar,
 					mentor.linkedin,
 					mentor.state,
@@ -129,55 +124,6 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	FilterMentors(): void {
-		const selectedSectors = this.searchService.getSelectedSectors();
-		let is_preceptor = '';
-		let is_mentor = '';
-		let foundSector = true;
-		let visibleProfiles: string[] = [];
-		if(this.mentors != null){
-			this.mentors.forEach(m => {
-				is_mentor = m.is_mentor;
-				is_preceptor = m.is_preceptor;
-				if(
-					(this.selectedPersonType == 'b') ||
-					(this.selectedPersonType == 'm' && is_mentor == 'Y') ||
-					(this.selectedPersonType == 'p' && is_preceptor == 'Y')
-				){
-					visibleProfiles.push(m.guid);
-				}
-				if(visibleProfiles.includes(m.guid)){
-					if(selectedSectors.length > 0){
-						foundSector = false;	
-						selectedSectors.forEach((a) => {
-							m.sectors.forEach((i) => {
-								if(i.sector_id.toString() == a){
-									foundSector = true;
-								}
-							});
-						});
-						if(!foundSector){
-							const ind = visibleProfiles.indexOf(m.guid);
-							if(ind >= 0){
-								delete visibleProfiles[ind];
-							}
-						}						
-					}
-				}
-			});
-			this.mentors.forEach((v, i) => {
-				if(visibleProfiles.includes(v.guid)){
-					v.selectedProfile = 'Y';
-				} else {
-					v.selectedProfile = 'N';
-				}
-			});
-
-			const stringsOnly = visibleProfiles.flatMap(f => !!f ? [f] : []);
-			this.visibleProfileCount = stringsOnly.length;
-		}
-	}
-
 	SectorText(m: Mentor): string {
 		let retval = '';
 		m.sectors.forEach((m) => {
@@ -194,14 +140,5 @@ export class HomeComponent implements OnInit {
 		});
 
 		return retval;
-	}
-
-	ChangeSector(){
-		if(this.homeForm.value.sector_search == ''){
-			this.searchService.setSelectedSectors([]);
-		} else {
-			this.searchService.setSelectedSectors([this.homeForm.value.sector_search]);
-		}
-		this.FilterMentors();
 	}
 }

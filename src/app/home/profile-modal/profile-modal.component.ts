@@ -55,9 +55,6 @@ export class ProfileModalComponent implements OnInit {
 		if(profile.open_to_precepting == 'Y'){
 			this.profileOpenToPrecept = 'Yes';
 		}
-		if(profile.open_to_mentoring == 'Y'){
-			this.profileOpenToMentor = 'Yes';
-		}
 		this.profileForm = new FormGroup({
 			'student_comments': new FormControl(null),
 			'person_name_search': new FormControl(null)
