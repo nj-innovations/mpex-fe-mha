@@ -30,14 +30,6 @@
 
 				<table class="table">
 					<tbody>
-						@for(c of this.requirements; track c.id)
-						{
-							<tr>
-								<td>
-									<app-update-mentor-project-requirement [requirement]="c" (messageEvent)="receiveMessage($event)"></app-update-mentor-project-requirement>
-								</td>
-							</tr>
-						}
 					</tbody>
 				</table>
 			</div>

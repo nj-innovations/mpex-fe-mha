@@ -6,7 +6,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuardService } from './core/auth-guard.service';
 import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ConnectionsComponent } from './connections/connections.component';
 import { AltLoginComponent } from './alt-login/alt-login.component';
 
 export const routes: Routes = [
@@ -27,5 +26,11 @@ export const routes: Routes = [
 		loadChildren: () => import('./users/users.routes').then(mod => mod.USERS_ROUTES),
 		data: {useAuthTemplate: true},
 		canMatch: [() => inject(AuthGuardService).isAuthorized('eabfc42c-0532-4015-8bd0-145fe73baf03')]
+	},
+	{
+		path: 'projects',
+		loadChildren: () => import('./my-projects/my-projects.routes').then(mod => mod.MY_PROJECTS_ROUTES),
+		data: {useAuthTemplate: true},
+		canMatch: [() => inject(AuthGuardService).isAuthorized(['eabfc42c-0532-4015-8bd0-145fe73baf03', 'f505f632-ff10-44bd-821e-8093efb6c280'])]
 	}
 ];

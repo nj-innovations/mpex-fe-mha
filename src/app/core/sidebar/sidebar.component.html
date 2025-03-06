@@ -12,6 +12,12 @@
 				<span>My Profile</span>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" [routerLink]="['/projects']" [ngClass]="{'collapsed': activeLink[4]}" (click)="clickLink(4)">
+				<fa-icon [icon]="faDiagramProject" class="fa-icon-spacer"></fa-icon>
+				<span>My Projects</span>
+			</a>
+		</li>
 		@if(hasRole('eabfc42c-0532-4015-8bd0-145fe73baf03'))
 		{
 			<li class="nav-item">

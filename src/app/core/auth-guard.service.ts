@@ -6,8 +6,16 @@ import { LocalStorageService } from './local-storage.service';
 	export class AuthGuardService  {
 	constructor(public sessions: LocalStorageService, private router: Router, public route: ActivatedRoute) { }
 	
-	isAuthorized(role: string) : boolean | UrlTree {
-		const authorized: boolean = this.sessions.getValue('role') == role;
+	isAuthorized(role: string | string[]) : boolean | UrlTree {
+		const currentRole = this.sessions.getValue('role');
+		let authorized: boolean;
+        
+		if (Array.isArray(role)) {
+			authorized = currentRole !== null && role.includes(currentRole);
+        } else {
+            authorized = currentRole === role;
+        }
+
 		if(!authorized){
 			return this.router.parseUrl('/forbidden');
 		}

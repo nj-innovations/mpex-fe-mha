@@ -4,7 +4,7 @@ import { faUser as faUserRegular, faCircle, faUsers as faUsersRegular, faSignOut
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSitemap } from '@fortawesome/pro-thin-svg-icons';
 import { faHandshake } from '@fortawesome/pro-light-svg-icons';
-import { faHouse } from '@fortawesome/pro-regular-svg-icons';
+import { faHouse, faDiagramProject } from '@fortawesome/pro-regular-svg-icons';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbCollapseModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +37,7 @@ export class SidebarComponent {
 	faHouse = faHouse;
 	faCircle = faCircle;
 	faChevronUp = faChevronUp;
+	faDiagramProject = faDiagramProject;
 	activeLink: boolean[] = [];
 	logoutModalRef?: NgbModalRef;
 	usersIsCollapsed = true;
