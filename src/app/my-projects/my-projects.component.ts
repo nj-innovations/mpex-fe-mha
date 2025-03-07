@@ -26,7 +26,6 @@ export class MyProjectsComponent implements OnInit {
 		this.projectService.getProjects().subscribe({
 			next: (response: IgetMyProjectsResponse[]) => {
 				this.myProjects = response;
-				console.log(this.myProjects);
 				this.isPageLoading = false;
 			},
 			error: (error: string) => {
@@ -55,8 +54,6 @@ export class MyProjectsComponent implements OnInit {
 	}
 
 	updateProject(index: number) {
-		console.log(index);
-		console.log(this.myProjects[index]);
 		this.updateModalRef = this.modalService.open(UpdateMyProjectsModalComponent, {
 			ariaLabelledBy: 'Update Project',
 			size: 'lg'

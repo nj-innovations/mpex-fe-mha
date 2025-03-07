@@ -4,18 +4,19 @@ import { faCirclePlus, faCircleMinus, faFileXmark, faFilePen, faFileCirclePlus }
 import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IgetMyProjectsResponse } from '../requests/IgetMyProjectsResponse';
+import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/IgetMyProjectsResponse';
+import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
 
 @Component({
 	selector: 'app-update-my-projects-modal',
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
+	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule, UpdateMyProjectsRequirementComponent],
 	templateUrl: './update-my-projects-modal.component.html',
 	styleUrl: './update-my-projects-modal.component.css'
 })
 export class UpdateMyProjectsModalComponent {
 	project!: IgetMyProjectsResponse;
 	projectForm!: FormGroup;
-	//requirements: IgetMentorProjectRequirementsRequest[] = [];
+	requirements: IgetMyProjectsRequirements[] = [];
 	alertMessage = '';
 	user_id = 0;
 	faFileXmark = faFileXmark;

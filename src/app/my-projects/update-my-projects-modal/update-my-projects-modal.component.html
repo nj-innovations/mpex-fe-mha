@@ -27,9 +27,17 @@
 						<button class="btn btn-danger" type="button" aria-label="Cancel New Requirement" (click)="createRequirement()">Cancel</button>
 					</div>
 				</div>
-
 				<table class="table">
 					<tbody>
+						@for(c of project.requirements; track c.requirement_id)
+						{
+							<tr>
+								<td>
+									<app-update-my-projects-requirement [requirement]="c" (messageEvent)="receiveMessage($event)">
+									</app-update-my-projects-requirement>
+								</td>
+							</tr>
+						}
 					</tbody>
 				</table>
 			</div>

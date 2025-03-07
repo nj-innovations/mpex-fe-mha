@@ -1,25 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IgetMentorProjectRequirementsRequest } from '../../requests/IgetMentorProjectRequirementsRequest';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { faFileXmark, faFilePen } from '@fortawesome/pro-regular-svg-icons';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MentorProjectsService } from '../../mentor-projects.service';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { IMentorProjectRequirements } from '../../requests/IMentorProjectRequirements';
-import { IstringMessageResponse } from '../../../../core/requests/IstringMessageResponse';
+import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
+import { MyProjectsService } from '../../my-projects.service';
+import { IgetMyProjectsRequirements } from '../../requests/IgetMyProjectsResponse';
+
 
 @Component({
-    selector: 'app-update-mentor-project-requirement',
-    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbAlertModule],
-    templateUrl: './update-mentor-project-requirement.component.html',
-    styleUrl: './update-mentor-project-requirement.component.css'
+	selector: 'app-update-my-projects-requirement',
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbAlertModule],
+	templateUrl: './update-my-projects-requirement.component.html',
+	styleUrl: './update-my-projects-requirement.component.css'
 })
-export class UpdateMentorProjectRequirementComponent implements OnInit  {
-	@Input() requirement?: IgetMentorProjectRequirementsRequest;
+export class UpdateMyProjectsRequirementComponent implements OnInit {
+	@Input() requirement?: IgetMyProjectsRequirements;
 	@Output() messageEvent = new EventEmitter<any>();
-	mentorProjectRequirementForm!: FormGroup;
+	myProjectRequirementForm!: FormGroup;
 	faFileXmark = faFileXmark;
 	faFilePen = faFilePen;
 	activeUpdate = false;
@@ -29,18 +29,18 @@ export class UpdateMentorProjectRequirementComponent implements OnInit  {
 	faThumbsUp = faThumbsUp;
 	faThumbsDown = faThumbsDown;
 
-	constructor(public projectService: MentorProjectsService) {
+	constructor(public projectService: MyProjectsService) {
 	}
-	
+
 	ngOnInit() {
-		this.mentorProjectRequirementForm = new FormGroup({
+		this.myProjectRequirementForm = new FormGroup({
 			'requirement_text': new FormControl(this.requirement?.requirement, Validators.required)
 		});
 		if(this.requirement != undefined){
 			this.static_requirement_text = this.requirement.requirement
 		}
 	}
-	
+
 	deleteRequirement(): void {
 		this.confirmDelete = true;
 	}
@@ -48,9 +48,9 @@ export class UpdateMentorProjectRequirementComponent implements OnInit  {
 	confirmDeleteRequirement(): void {
 		if(this.requirement != undefined){
 			this.alertMessage = '';
-			this.projectService.deleteMentorProjectRequirements(this.requirement.id).subscribe({
+			this.projectService.deleteMyProjectRequirements(this.requirement.requirement_id).subscribe({
 				next: (data: IstringMessageResponse) => {
-					this.messageEvent.emit({'mode': 'delete', 'id': this.requirement?.id, 'requirement': this.mentorProjectRequirementForm.value.requirement_text});
+					this.messageEvent.emit({'mode': 'delete', 'id': this.requirement?.requirement_id, 'requirement': this.myProjectRequirementForm.value.requirement_text});
 				},
 				error: (error: string) => {
 					this.alertMessage = 'Unable to delete Requirement';
@@ -59,7 +59,7 @@ export class UpdateMentorProjectRequirementComponent implements OnInit  {
 			});
 		}
 	}
-	
+
 	cancelDeleteRequirement(): void {
 		this.confirmDelete = false;
 	}
@@ -71,22 +71,21 @@ export class UpdateMentorProjectRequirementComponent implements OnInit  {
 	saveRequirement(): void {
 		if(this.requirement != undefined){
 			this.alertMessage = '';
-			this.projectService.updateMentorProjectRequirements(this.requirement.id, this.mentorProjectRequirementForm.value.requirement_text).subscribe({
-				next: (data: IMentorProjectRequirements) => {
-					this.static_requirement_text = this.mentorProjectRequirementForm.value.requirement_text;
+			this.projectService.updateMyProjectRequirements(this.requirement.requirement_id, this.myProjectRequirementForm.value.requirement_text).subscribe({
+				next: (data: any) => {
+					this.static_requirement_text = this.myProjectRequirementForm.value.requirement_text;
 					this.activeUpdate = !this.activeUpdate;
-					this.messageEvent.emit({'mode': 'update', 'id': this.requirement?.id, 'requirement': this.mentorProjectRequirementForm.value.requirement_text});
+					this.messageEvent.emit({'mode': 'update', 'id': this.requirement?.requirement_id, 'requirement': this.myProjectRequirementForm.value.requirement_text});
 				},
 				error: (error: string) => {
 					this.alertMessage = 'Unable to save Requirement';
-				},
-				complete: () => {}
+				}
 			});
 		}
 	}
 	
 	cancelUpdate(): void {
-		console.log('here');
+		this.activeUpdate = !this.activeUpdate;
 	}
 
 	closeAlert(): void {
