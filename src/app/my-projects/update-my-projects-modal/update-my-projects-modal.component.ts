@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/IgetMyProjectsResponse';
 import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
+import { MyProjectsService } from '../my-projects.service';
+import { IMentorProjectRequirements } from '../../users/mentor-projects/requests/IMentorProjectRequirements';
 
 @Component({
 	selector: 'app-update-my-projects-modal',
@@ -26,7 +28,7 @@ export class UpdateMyProjectsModalComponent {
 	faFileCirclePlus = faFileCirclePlus;
 	visibleNewRequirement = false;
 
-	constructor(public activeModal: NgbActiveModal) {
+	constructor(public activeModal: NgbActiveModal, public projectService: MyProjectsService) {
 	}
 	
 	ngOnInit() {
@@ -57,17 +59,16 @@ export class UpdateMyProjectsModalComponent {
 
 	saveRequirement(): void {
 		this.alertMessage = '';
-		/* if(this.project != undefined){
-			this.projectService.createMentorProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
+		if(this.project != undefined){
+			this.projectService.createMyProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
 				next: (data: IMentorProjectRequirements) => {
-					this.requirements.push({'id': data.id,'requirement': data.requirement})
+					this.project.requirements.push({'requirement_id': data.id,'requirement': data.requirement})
 				},
 				error: (error: string) => {
 					this.alertMessage = 'Unable to save Requirement';
-				},
-				complete: () => {}
+				}
 			});
-		} */
+		}
 	}
 
 	closeAlert(): void {
@@ -75,9 +76,13 @@ export class UpdateMyProjectsModalComponent {
 	}
 
 	receiveMessage(event: any) {
-		//if(event.mode == 'delete'){
-		//	const i = this.requirements.findIndex((c) => c.id == event.id);
-		//	this.requirements.splice(i, 1);
-		//}
+		console.log(event);
+		const i = this.project.requirements.findIndex((c) => c.requirement_id == event.id);
+		if(event.mode == 'delete'){
+			this.project.requirements.splice(i, 1);
+		}
+		if(event.mode == 'update'){
+			this.project.requirements[i].requirement = event.requirement;
+		}
 	}
 }

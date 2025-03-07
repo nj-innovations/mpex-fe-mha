@@ -4,6 +4,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IgetMyProjectsResponse } from './requests/IgetMyProjectsResponse';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
+import { IMentorProjectRequirements } from '../users/mentor-projects/requests/IMentorProjectRequirements';
 
 @Injectable({
 	providedIn: 'root'
@@ -26,10 +27,10 @@ export class MyProjectsService {
 		));
 	}
 
-	updateMyProjectRequirements(id: string, req: string): Observable<any> {
+	updateMyProjectRequirements(id: string, req: string): Observable<IMentorProjectRequirements> {
 		let putVars = {'requirement_text': req};
-		return this.http.put<any>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id, putVars).pipe(
-			map((response: any) => {
+		return this.http.put<IMentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id, putVars).pipe(
+			map((response: IMentorProjectRequirements) => {
 				return response;
 			}),
 			catchError((error) => {
@@ -38,11 +39,11 @@ export class MyProjectsService {
 		)		
 	}
 
-	createMyProjectRequirements(mentor_project_id: string, req: string): Observable<any> {
+	createMyProjectRequirements(mentor_project_id: string, req: string): Observable<IMentorProjectRequirements> {
 		let postVars = {'requirement_text': req};
-		return this.http.post<any>(environment.apiUrl + '/mentoruser/mentor_project_requirements/'
+		return this.http.post<IMentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/'
 			+ mentor_project_id, postVars).pipe(
-			map((response: any) => {
+			map((response: IMentorProjectRequirements) => {
 				return response;
 			}),
 			catchError((error) => {
