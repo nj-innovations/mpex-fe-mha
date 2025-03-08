@@ -8,6 +8,8 @@ import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/
 import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
 import { MyProjectsService } from '../my-projects.service';
 import { IMentorProjectRequirements } from '../../users/mentor-projects/requests/IMentorProjectRequirements';
+import { IupdateMentorProjectResponse } from '../../users/mentor-projects/update-mentor-project-modal/request/IupdateMentorProjectResponse';
+import { IstoreMyProjectsResponse } from '../requests/IstoreMyProjectsResponse';
 
 @Component({
 	selector: 'app-update-my-projects-modal',
@@ -39,10 +41,10 @@ export class UpdateMyProjectsModalComponent {
 	}
 
 	Save(): void {
-		/* if(this.project !== undefined){
+		if(this.project !== undefined){
 			const putVars = {'project': this.projectForm.value.project}
-			this.projectService.updateMentorProject(this.project.id, putVars).subscribe({
-				next: (data: IupdateMentorProjectResponse) => {
+			this.projectService.updateMyProject(this.project.id, putVars).subscribe({
+				next: (data: IstoreMyProjectsResponse) => {
 					this.activeModal.close(data);				
 				},
 				error: (error: string) => {
@@ -50,7 +52,7 @@ export class UpdateMyProjectsModalComponent {
 				},
 				complete: () => {}
 			});
-		} */
+		}
 	}
 
 	createRequirement(): void {
