@@ -64,7 +64,8 @@ export class UpdateMyProjectsModalComponent {
 		if(this.project != undefined){
 			this.projectService.createMyProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
 				next: (data: IMentorProjectRequirements) => {
-					this.project.requirements.push({'requirement_id': data.id,'requirement': data.requirement})
+					this.project.requirements.push({'requirement_id': data.id,'requirement': data.requirement});
+					this.visibleNewRequirement = false;
 				},
 				error: (error: string) => {
 					this.alertMessage = 'Unable to save Requirement';
