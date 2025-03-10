@@ -1,0 +1,21 @@
+<div class="card">
+	<form [formGroup]="degreeForm" role="form">
+	<div class="card-body pt-3">
+		<h5 class="card-title">Degree(s)</h5>
+		@for (t of degrees; track $index)
+		{
+			<div class="mb-2 text-dark text-left">
+				<fa-icon [icon]="faXmark" class="fa-icon-spacer" role="button" (click)="deleteDegree($index)">
+				</fa-icon>
+				{{t}}
+			</div>
+		}
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Input new degree and click Add" aria-label="New Degree" 
+			aria-describedby="new_degree_button-addon" formControlName="new_degree" id="new_degree">
+			<button class="btn btn-primary" type="button" (click)="addDegree()"
+				[disabled]="degreeForm.value.new_degree==null">Add</button>
+		</div>
+	</div>
+	</form>
+</div>

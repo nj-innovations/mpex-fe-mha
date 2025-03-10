@@ -1,10 +1,13 @@
 export interface IgetProfileResponse {
+	'avatar': string;
+	'city': string;
 	'fname': string;
 	'lname': string;
 	'email': string;
 	'title': string[];
 	'degree': string[];
-	'experiences_hosted': number,
+	'experiences_hosted': number|string;
+	'role_id': string;
 	'past_student_project_titles': string[];
 	'open_to_precepting': string;
 	'open_to_mentoring': string;
@@ -13,19 +16,5 @@ export interface IgetProfileResponse {
 	'linkedin': string;
 	'created_at': string;
 	'updated_at': string;
-	'client_id': string;
-	'clients': IgetProfileClient[];
-}
-
-export interface IgetProfileSector {
-	'sector_id': string;
-	'sector_name': string;
-}
-
-export interface IgetProfileClient {
-	'id': string;
-	'client_name': string;
-	'role': string;
-	'role_name': string;
-	'sectors': IgetProfileSector[]
+	'organization': string;
 }

@@ -1,0 +1,21 @@
+<div class="card">
+	<form [formGroup]="titleForm" role="form">
+	<div class="card-body pt-3">
+		<h5 class="card-title">Title(s)</h5>
+		@for (t of titles; track $index)
+		{
+			<div class="mb-2 text-dark text-left">
+				<fa-icon [icon]="faXmark" class="fa-icon-spacer" role="button" (click)="deleteTitle($index)">
+				</fa-icon>
+				{{t}}
+			</div>
+		}
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Input new title and click Add" aria-label="New Title" 
+			aria-describedby="new_title_button-addon" formControlName="new_title" id="new_title">
+			<button class="btn btn-primary" type="button" (click)="addTitle()"
+				[disabled]="titleForm.value.new_title==null">Add</button>
+		</div>
+	</div>
+	</form>
+</div>

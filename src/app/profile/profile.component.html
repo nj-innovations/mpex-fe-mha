@@ -6,36 +6,86 @@
 		</ol>
 	</nav>
 </div><!-- End Page Title -->
-<section class="section">
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="card">
-				<div class="card-body pt-3">
-					<form [formGroup]="profileForm" role="form">
-						<div class="row mb-3">
-							<label for="fname" class="col-md-4 col-lg-3 col-form-label">First Name</label>
-							<div class="col-md-8 col-lg-9">
-								<input formControlName="fname" type="text" class="form-control" id="fname">
+@if(!isPageLoading)
+{
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-body pt-3">
+						<form [formGroup]="profileForm" role="form">
+							<div class="row mb-3">
+								<label for="fname" class="form-label required">First Name</label>
+								<div><input formControlName="fname" type="text" class="form-control" id="fname"></div>
 							</div>
-						</div>
-						<div class="row mb-3">
-							<label for="lname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-							<div class="col-md-8 col-lg-9">
-								<input formControlName="lname" type="text" class="form-control" id="lname">
+							<div class="row mb-3">
+								<label for="lname" class="form-label required">Last Name</label>
+								<div><input formControlName="lname" type="text" class="form-control" id="lname"></div>
 							</div>
-						</div>
-						<div class="row mb-3">
-							<label for="email" class="col-md-4 col-lg-3 col-form-label">E-Mail</label>
-							<div class="col-md-8 col-lg-9">
-								<input formControlName="email" type="text" class="form-control" id="email">
+							<div class="row mb-3">
+								<label for="email" class="form-label required">E-Mail</label>
+								<div><input formControlName="email" type="text" class="form-control" id="email"></div>
 							</div>
-						</div>
-					</form>
+							<div class="col-12 mb-3">
+								<label for="organization" class="form-label required">Organization</label>
+								<div><input formControlName="organization" type="text" class="form-control" id="organization"></div>
+							</div>
+							<div class="col-12 mb-3">
+								<label for="linkedin" class="form-label">LinkedIn Profile URL</label>
+								<div><input formControlName="linkedin" type="text" class="form-control" id="linkedin"></div>
+							</div>
+							@if(role_id == mentor_role_id)
+							{
+								<div class="row">
+									<div class="col-auto">
+										<div class="form-check form-switch large-switch">
+											<input class="form-check-input" type="checkbox" role="switch"
+												formControlName="open_to_mentoring" id="open_to_mentoring">
+											<label class="form-check-label" for="open_to_mentoring">Open to Mentoring</label>
+										</div>
+									</div>
+								</div>
+							}
+						</form>
+					</div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+				@if(role_id == mentor_role_id)
+				{
+					<div class="row">
+						<div class="col-12">
+							<app-user-title (notify)="onNotifyUserTitles($event)" [existingUserTitle]="titles"></app-user-title>
+						</div>
+						<div class="col-12">
+							<app-user-degree (notify)="onNotifyUserDegrees($event)" [existingUserDegree]="degrees"></app-user-degree>
+						</div>
+					</div>
+				}
+				@else
+				{
+					<div class="row"><div class="col-12">&nbsp;</div></div>
+				}
+			</div>
 		</div>
-		<div class="col-lg-5">
-			<app-avatar-upload [api_part]="0" [user_id]="0"></app-avatar-upload>
+		<div class="row">
+			<div class="col-6">
+				<app-avatar-upload [api_part]="0" [user_id]="0"></app-avatar-upload>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 text-center">
+				<button class="btn btn-primary" type="button" (click)="saveUser()" [disabled]="!profileForm.valid">Save Profile</button>
+			</div>
+		</div>
+	</section>
+}
+@else
+{
+	<div class="row">
+		<div class="col-12 mt-5 mb-5 text-center">
+			<fa-icon [icon]="faSpinner" size="6x" animation="spin"></fa-icon>
 		</div>
 	</div>
-</section>
+}
