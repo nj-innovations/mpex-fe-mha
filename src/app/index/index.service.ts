@@ -28,20 +28,6 @@ export class IndexService {
 		)
 	}
 
-	logout(): Observable<any> {
-		return this.http.get(environment.apiUrl + '/auth/logout', {})
-		.pipe(map(
-			(response: any) => {
-				return response;
-			}
-		)
-		, catchError (
-			(error) => {
-				return throwError(() => new Error(error.error.message))
-			}
-		));
-	}
-
 	getDropdowns(): Observable<IgetClientUserDropdown> {
 		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors,student_connection_status')
 		.pipe(map(
@@ -63,6 +49,7 @@ export class IndexService {
 		this.sessionsSerivce.setValue('email', response.email);
 		this.sessionsSerivce.setValue('role', response.role);
 		this.sessionsSerivce.setValue('avatar_link', response.avatar_link);
+		this.sessionsSerivce.setValue('masquerade', response.masquerade.toString());
 		this.getDropdowns().subscribe({
 			next: (res: IgetClientUserDropdown) => {
 				this.sessionsSerivce.setValue('sectors', JSON.stringify(res.sectors));

@@ -7,12 +7,9 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
 	providedIn: 'root'
 })
-export class AltLoginService implements OnInit {
+export class AltLoginService {
 
 	constructor(private http: HttpClient) { }
-
-	ngOnInit() {
-	}
 
 	login(client_id: string): Observable<IloginResponse>{
 		return this.http.get<IloginResponse>(environment.apiUrl + '/auth/alt-login/' + client_id)

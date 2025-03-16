@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Sector } from '../models/Sector';
 import { IgetStudentConnectionStatus } from '../index/requests/IgetClientUserDropdown';
+import { Observable, map, catchError, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class LocalStorageService {
+	constructor(private http: HttpClient) { }
 
 	setValue(key: string, val: string): boolean {
 		try {
@@ -122,5 +126,20 @@ export class LocalStorageService {
 
 		}
 		return scs;
+	}
+
+	logout(): Observable<any> {
+		return this.http.get(environment.apiUrl + '/auth/logout', {})
+		.pipe(map(
+			(response: any) => {
+				this.clear();
+				return response;
+			}
+		)
+		, catchError (
+			(error) => {
+				return throwError(() => new Error(error.error.message))
+			}
+		));
 	}
 }

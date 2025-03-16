@@ -56,5 +56,14 @@
 				<span>Sign Out</span>
 			</a>
 		</li>
+		@if(masquerade == '1')
+		{
+			<li class="nav-item" style="cursor: pointer" (click)="adminExit()">
+				<a class="nav-link collapsed">
+					<fa-icon [icon]="faSignOut" class="fa-icon-spacer"></fa-icon>
+					<span>Admin Exit</span>
+				</a>
+			</li>
+		}
 	</ul>
 </aside><!-- End Sidebar-->

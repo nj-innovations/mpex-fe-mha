@@ -58,7 +58,7 @@ export class IndexComponent implements OnInit {
 				break;
 			case '3':
 				if(this.sessionService.getToken() !== ''){
-					this.indexService.logout().subscribe({
+					this.sessionService.logout().subscribe({
 						next: () => {
 							this.sessionService.clear();
 							this.idleTimerService.stopTimers();

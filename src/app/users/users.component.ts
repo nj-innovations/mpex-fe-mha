@@ -70,15 +70,14 @@ export class UsersComponent implements OnInit{
 							this.roleName = 'Students';
 							break;
 					}
+					this.isPageLoading = false;
 				},
 				error: (error: string) => {
 					this.alertsService.addErrorAlert(error);
-				},
-				complete: () => {
 					this.isPageLoading = false;
 				}
 			});			
-		  });
+		});
 
 		this.usersForm = new FormGroup({
 			'open_to_precepting': new FormControl(null),

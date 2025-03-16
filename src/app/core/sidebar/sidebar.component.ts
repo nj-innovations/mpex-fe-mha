@@ -11,6 +11,12 @@ import { NgbCollapseModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-boots
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 import { LocalStorageService } from '../local-storage.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { map, catchError, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { IstringMessageResponse } from '../requests/IstringMessageResponse';
+import { HttpClient } from '@angular/common/http';
+import { IexitAdminResponse, SidebarService } from './sidebar.service';
+import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -41,9 +47,13 @@ export class SidebarComponent {
 	activeLink: boolean[] = [];
 	logoutModalRef?: NgbModalRef;
 	usersIsCollapsed = true;
+	masquerade = '';
 		
-	constructor(private modalService: NgbModal, public sessionStorage: LocalStorageService) {
+	constructor(private modalService: NgbModal, public sessionStorage: LocalStorageService, public http: HttpClient,
+		public sidebarService: SidebarService, private alertsService: AlertsService
+	) {
 		this.activeLink = [false, true, true, true, true];
+		this.masquerade = this.sessionStorage.getMasquerade();
 	}
 	
 	clickLink(j :number): void {
@@ -62,5 +72,23 @@ export class SidebarComponent {
 
 	hasRole(role: string): boolean {
 		return this.sessionStorage.hasRole(role);
+	}
+
+	adminExit(): void {
+		this.sidebarService.getExitAdminToken().subscribe({
+			next: (data: IexitAdminResponse) => {
+				this.sessionStorage.logout().subscribe({
+					next: () => {
+						(window.location as any) = data['url'];
+					},
+					error: (error: string) => {
+						this.alertsService.addErrorAlert(error);
+					}
+				});	
+			},
+			error: (error: string) => {
+				this.alertsService.addErrorAlert(error);
+			}
+		});
 	}
 }
