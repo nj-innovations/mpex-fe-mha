@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleMinus, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 	templateUrl: './mentor-projects-requirements.component.html',
 	styleUrl: './mentor-projects-requirements.component.css'
 })
-export class MentorProjectsRequirementsComponent {
+export class MentorProjectsRequirementsComponent implements OnInit {
 	@Input() projectRequirements: IgetRequirementsResponse[] = [];
 	@Input() mentorProjectId!: string;
 	visibleConfirm = false;
@@ -24,7 +24,7 @@ export class MentorProjectsRequirementsComponent {
 	faThumbsUp = faThumbsUp;
 	faThumbsDown = faThumbsDown;
 		
-	constructor(private projectService: UpdateMentorProjectService, private alertsService: AlertsService) { 
+	constructor(private projectService: UpdateMentorProjectService, private alertsService: AlertsService){ 
 	}
 	
 	ngOnInit() {

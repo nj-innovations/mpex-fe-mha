@@ -57,4 +57,27 @@ export class UpdateMentorProjectService {
 			})	
 		)
 	}
+
+	saveResponsibility(mentor_project_id: string, responsibility_text: string): Observable<IgetResponsibilitiesResponse>{
+		const postData = {'responsibility_text': responsibility_text};
+		return this.http.post<IgetResponsibilitiesResponse>(environment.apiUrl + '/mentor_projects/responsibilities/' + mentor_project_id, postData).pipe(
+			map((response: IgetResponsibilitiesResponse) => {
+				return response;
+			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
+
+	deleteResponsibility(responsibility_id: string): Observable<IstringMessageResponse>{
+		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/responsibilities/' + responsibility_id).pipe(
+			map((response: IstringMessageResponse) => {
+				return response;
+			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
 }

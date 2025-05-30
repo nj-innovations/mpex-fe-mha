@@ -50,10 +50,17 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<app-mentor-projects-requirements [projectRequirements]="projectRequirements" [mentorProjectId]="id"></app-mentor-projects-requirements>
-				</div>
-						
-							
+					<div class="row">
+						<div class="col-12">
+							<app-mentor-projects-requirements [projectRequirements]="projectRequirements" [mentorProjectId]="id"></app-mentor-projects-requirements>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<app-mentor-projects-responsibilities [projectResponsibilities]="projectResponsibilities" [mentorProjectId]="id"></app-mentor-projects-responsibilities>
+						</div>
+					</div>
+				</div>						
 			</div>
 			<div class="row">
 				<div class="col-12 text-center">

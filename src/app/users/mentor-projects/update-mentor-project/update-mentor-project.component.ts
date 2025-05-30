@@ -12,10 +12,13 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { MentorProjectsRequirementsComponent } from '../mentor-projects-requirements/mentor-projects-requirements.component';
 import { IgetResponsibilitiesResponse } from './requests/IgetResponsibilitiesResponse';
 import { IgetRequirementsResponse } from './requests/IgetRequirementsResponse';
+import { MentorProjectsResponsibilitiesComponent } from '../mentor-projects-responsibilities/mentor-projects-responsibilities.component';
 
 @Component({
 	selector: 'app-update-mentor-project',
-	imports: [CommonModule, RouterModule, ReactiveFormsModule, FontAwesomeModule, MentorProjectsRequirementsComponent],
+	imports: [CommonModule, RouterModule, ReactiveFormsModule, FontAwesomeModule,
+		MentorProjectsRequirementsComponent,MentorProjectsResponsibilitiesComponent
+	],
 	templateUrl: './update-mentor-project.component.html',
 	styleUrl: './update-mentor-project.component.css'
 })
