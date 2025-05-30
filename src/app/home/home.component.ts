@@ -14,14 +14,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SearchMentorModalService } from './search-mentor-modal/search-mentor-modal.service';
 import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
-import { forkJoin, finalize } from 'rxjs';
 import { MentorProject } from '../models/MentorProject';
+import { IgetMentorsResponse } from './requests/IgetMentorsResponse';
 
 @Component({
-    selector: 'app-home',
-    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbCollapseModule],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.css'
+	selector: 'app-home',
+	imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbCollapseModule],
+	templateUrl: './home.component.html',
+	styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
 	homeForm!: FormGroup;
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 	selectedPersonType = 'b';
 	sectors?: IdropdownsResponse[] = [];
 	visibleProfileCount = 1;
-	mentorProjects: MentorProject[] = [];
+	mentorProjects: MentorProjectMenu[] = [];
 	visiblePreceptorList = false;
 	visibleProjectList = true;
 
@@ -45,15 +45,10 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		forkJoin({
-			getMentors: this.homeService.getMentors(),
-			getMentorProjects: this.homeService.getMentorProjects()
-		}).pipe(
-			finalize(() => this.isPageLoading = false)
-		).subscribe({
-			next: (response) => {
-				const mentorProjectsTemp = response.getMentorProjects;
-				this.mentors = response.getMentors
+
+		this.homeService.getMentors().subscribe({
+			next: (response: IgetMentorsResponse[]) => {
+				this.mentors = response
 				.filter((r) => r.open_to_precepting == 'Y')
 				.map((mentor) => new Mentor(
 					mentor.fname,
@@ -63,36 +58,35 @@ export class HomeComponent implements OnInit {
 					mentor.title,
 					mentor.degree,
 					mentor.open_to_precepting,
-					mentor.projects_available,
 					mentor.avatar,
+					mentor.projects,
 					mentor.linkedin,
 					mentor.state,
 					mentor.city,
 					mentor.sectors
 				));
-			
-				mentorProjectsTemp.map((project) => {
-					this.mentors.forEach((mentor) => {
-						if(project.user_guid == mentor.guid){
-							this.mentorProjects.push(new MentorProject(
-								project.id,
-								project.user_id,
-								project.project,
-								project.updated_at,
-								mentor.fname,
-								mentor.lname,
-								project.organization,
-								project.user_guid,
-								mentor.title,
-								mentor.degree
-							));
-						}
-					});
+
+				this.mentorProjects = [];
+				this.mentors.forEach((mentor) => {
+					if (Array.isArray(mentor.projects)) {
+						mentor.projects.forEach((project: any) => {
+							this.mentorProjects.push({
+								id: project.project_id,
+								project_title: project.project_title,
+								title: this.helperService.ArrayToCSV(mentor.title),
+								preceptor: `${mentor.fname} ${mentor.lname}`,
+								organization: mentor.organization,
+								user_degree: this.helperService.ArrayToCSV(mentor.degree)
+							});
+						});
+					}
 				});
+				this.isPageLoading = false;
 			},
 			error: (error: string) => {
+				this.isPageLoading = false;
 				this.alertsService.addErrorAlert(error);
-			}
+			},
 		});
 
 		this.homeForm = new FormGroup({
@@ -102,18 +96,18 @@ export class HomeComponent implements OnInit {
 	}
 
 	OpenProfile(profile: Mentor): void {
-		this.profileModelService.setProfile(profile);
+		/* this.profileModelService.setProfile(profile);
 		this.profileModelService.setMentorProjects(
 			this.mentorProjects.filter((x) => x.user_guid == profile.guid)
 		);
 		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
 			ariaLabelledBy: 'View Profile',
 			size: 'xl'
-		});
+		}); */
 	}
 
 	OpenProjectProfile(project: MentorProject): void {
-		const profile = this.mentors.filter((x) => x.guid == project.user_guid);
+		/* const profile = this.mentors.filter((x) => x.guid == project.user_guid);
 		this.profileModelService.setProfile(profile[0]);
 		this.profileModelService.setMentorProjects(
 			this.mentorProjects.filter((x) => x.user_guid == profile[0].guid)
@@ -121,7 +115,7 @@ export class HomeComponent implements OnInit {
 		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
 			ariaLabelledBy: 'View Profile',
 			size: 'xl'
-		});
+		}); */
 	}
 
 	SectorText(m: Mentor): string {
@@ -141,4 +135,13 @@ export class HomeComponent implements OnInit {
 
 		return retval;
 	}
+}
+
+export interface MentorProjectMenu {
+	'id': string;
+	'title': string;
+	'preceptor': string;
+	'project_title': string;
+	'organization': string;
+	'user_degree': string;
 }

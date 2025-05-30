@@ -9,7 +9,7 @@ import { MentorProjectsService } from '../mentor-projects.service';
 import { ImentorProjectRequest } from '../../requests/IuserRequest';
 import { IgetMentorProjectRequirementsRequest } from '../requests/IgetMentorProjectRequirementsRequest';
 import { UpdateMentorProjectRequirementComponent } from './update-mentor-project-requirement/update-mentor-project-requirement.component';
-import { IMentorProjectRequirements } from '../requests/IMentorProjectRequirements';
+import { IMentorProjectRequirements } from '../requests/ImentorProjectRequirements';
 
 @Component({
     selector: 'app-update-mentor-project-modal',

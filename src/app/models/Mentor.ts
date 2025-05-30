@@ -1,4 +1,4 @@
-import { IgetMentorsSector } from "../home/requests/IgetMentorsResponse";
+import { IgetMentorProjects, IgetMentorsSector } from "../home/requests/IgetMentorsResponse";
 
 export class Mentor {
 	'selectedProfile': string;
@@ -11,8 +11,8 @@ export class Mentor {
 		public title: string[],
 		public degree: string[],
 		public open_to_precepting: string,
-		public projects_available: string,
 		public avatar: string,
+		public projects: IgetMentorProjects[],
 		public linkedin: string,
 		public state: string,
 		public city: string,

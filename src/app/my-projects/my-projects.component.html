@@ -16,7 +16,7 @@
 	@for (project of this.myProjects; let i = $index; track project.id) {
 		<div class="card mb-3 mt-3">
 			<div class="card-body">
-				<h5 class="card-title">{{project.project}}</h5>
+				<h5 class="card-title">{{project.project_title}}</h5>
 				Requirements:
 				<ul>
 					@for(requirement of project.requirements; track requirement.requirement_id)
@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 			<div class="card-footer">
-				<button class="btn btn-primary btn-sm me-1" (click)="updateProject(i)">Edit Project</button>
+				<button class="btn btn-primary btn-sm me-1" (click)="updateProject(project.id)">Edit Project</button>
 				<button class="btn btn-danger btn-sm ms-1" (click)="deleteProject(i)">Delete Project</button>
 			</div>
 		</div>

@@ -4,16 +4,13 @@ import { faCirclePlus, faCircleMinus, faFilePen, faFileXmark, faFileCirclePlus }
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CreateMentorProjectModalComponent } from './create-mentor-project-modal/create-mentor-project-modal.component';
-import { IcreateMentorProjectResponse } from './create-mentor-project-modal/request/IcreateMentorProjectResponse';
 import { DeleteMentorProjectModalComponent } from './delete-mentor-project-modal/delete-mentor-project-modal.component';
-import { UpdateMentorProjectModalComponent } from './update-mentor-project-modal/update-mentor-project-modal.component';
-import { IupdateMentorProjectResponse } from './update-mentor-project-modal/request/IupdateMentorProjectResponse';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { PermissionsService } from '../../core/permissions.service';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
 import { UsersService } from '../users.service';
 import { ImentorProjectRequest } from '../requests/IuserRequest';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,51 +32,17 @@ export class MentorProjectsComponent implements OnInit {
 	faCircleMinus = faCircleMinus;
 
 	constructor(public usersService: UsersService, private alertsService: AlertsService,
-		public permissions: PermissionsService, private modalService: NgbModal) {}
+		public permissions: PermissionsService, private modalService: NgbModal, private router: Router) {}
 	
 	ngOnInit() {
 	}
 	
 	createProject(){
-		this.createModalRef = this.modalService.open(CreateMentorProjectModalComponent, {
-			ariaLabelledBy: 'Create Project',
-			size: 'lg'
-		});		
-		this.createModalRef.componentInstance.user_id = this.user_id;
-
-		this.createModalRef.result.then(
-			(result: IcreateMentorProjectResponse) => {
-				this.mentorProjects.push(result);
-			},
-			(error: string) => {
-				if(error != ''){
-					this.alertsService.addErrorAlert(error);
-				}
-			}
-		);
+		this.router.navigate(['/mentor_projects/create/' + this.user_id]);
 	}
 
-	updateMentorProject(project: ImentorProjectRequest){
-		this.updateModalRef = this.modalService.open(UpdateMentorProjectModalComponent, {
-			ariaLabelledBy: 'Update Project',
-			size: 'lg'
-		});
-		this.updateModalRef.componentInstance.project = project;
-
-		this.updateModalRef.result.then(
-			(result: IupdateMentorProjectResponse) => {
-				console.log(result);
-				let i = this.mentorProjects.findIndex((x) => {
-					return x.id == result.id
-				});
-				this.mentorProjects[i] = result;
-			},
-			(error: string) => {
-				if(error != ''){
-					this.alertsService.addErrorAlert(error);
-				}
-			}
-		);
+	updateMentorProject(id: string){
+		this.router.navigate(['/mentor_projects/update/' + id]);
 	}
 
 	deleteMentorProject(project: ImentorProjectRequest){

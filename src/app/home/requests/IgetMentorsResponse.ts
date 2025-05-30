@@ -29,6 +29,6 @@ export interface IgetMentorsSector {
 }
 
 export interface IgetMentorProjects {
-	'mentor_project_id': number;
-	'mentor_project_name': string;
+	'project_id': number;
+	'project_title': string;
 }

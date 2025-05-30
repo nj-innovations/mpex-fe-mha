@@ -8,8 +8,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
 import { MyProjectsService } from '../../my-projects.service';
 import { IgetMyProjectsRequirements } from '../../requests/IgetMyProjectsResponse';
-import { IMentorProjectRequirements } from '../../../users/mentor-projects/requests/IMentorProjectRequirements';
-
+import { ImentorProjectRequirements } from '../../../users/mentor-projects/requests/ImentorProjectRequirements';
 
 @Component({
 	selector: 'app-update-my-projects-requirement',
@@ -73,7 +72,7 @@ export class UpdateMyProjectsRequirementComponent implements OnInit {
 		if(this.requirement != undefined){
 			this.alertMessage = '';
 			this.projectService.updateMyProjectRequirements(this.requirement.requirement_id, this.myProjectRequirementForm.value.requirement_text).subscribe({
-				next: (data: IMentorProjectRequirements) => {
+				next: (data: ImentorProjectRequirements) => {
 					this.static_requirement_text = this.myProjectRequirementForm.value.requirement_text;
 					this.activeUpdate = !this.activeUpdate;
 					this.messageEvent.emit({'mode': 'update', 'id': this.requirement?.requirement_id, 'requirement': this.myProjectRequirementForm.value.requirement_text});

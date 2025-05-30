@@ -11,7 +11,7 @@ export class HomeService {
 	constructor(private http: HttpClient) {}
 
 	getMentors(): Observable<IgetMentorsResponse[]>{
-		return this.http.get<IgetMentorsResponse[]>(environment.apiUrl + '/studentuser/mentors').pipe(
+		return this.http.get<IgetMentorsResponse[]>(environment.apiUrl + '/mentors').pipe(
 			map((response: IgetMentorsResponse[]) => {
 				return response;
 			}),
@@ -21,8 +21,8 @@ export class HomeService {
 		)
 	}
 
-	getMentorProjects(): Observable<IgetMentorProjectsResponse[]>{
-		return this.http.get<IgetMentorProjectsResponse[]>(environment.apiUrl + '/studentuser/mentor_projects').pipe(
+	/* getMentorProjects(): Observable<IgetMentorProjectsResponse[]>{
+		return this.http.get<IgetMentorProjectsResponse[]>(environment.apiUrl + '/mentor_projects').pipe(
 			map((response: IgetMentorProjectsResponse[]) => {
 				return response;
 			}),
@@ -30,5 +30,5 @@ export class HomeService {
 				return throwError(() => new Error(error.error.message))
 			})	
 		)
-	}
+	} */
 }

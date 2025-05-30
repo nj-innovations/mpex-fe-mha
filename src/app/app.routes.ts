@@ -7,6 +7,9 @@ import { AuthGuardService } from './core/auth-guard.service';
 import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AltLoginComponent } from './alt-login/alt-login.component';
+import { environment } from '../environments/environment';
+import { CreateMentorProjectComponent } from './users/mentor-projects/create-mentor-project/create-mentor-project.component';
+import { UpdateMentorProjectComponent } from './users/mentor-projects/update-mentor-project/update-mentor-project.component';
 
 export const routes: Routes = [
 	{path: '', component: IndexComponent, data: {useAuthTemplate: false}},
@@ -19,18 +22,31 @@ export const routes: Routes = [
 		path: 'connections',
 		loadChildren: () => import('./connections/connections.routes').then(mod => mod.CONNECTIONS_ROUTES),
 		data: {useAuthTemplate: true},
-		canMatch: [() => inject(AuthGuardService).isAuthorized('eabfc42c-0532-4015-8bd0-145fe73baf03')]
+		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
 	},
 	{
 		path: 'users',
 		loadChildren: () => import('./users/users.routes').then(mod => mod.USERS_ROUTES),
 		data: {useAuthTemplate: true},
-		canMatch: [() => inject(AuthGuardService).isAuthorized('eabfc42c-0532-4015-8bd0-145fe73baf03')]
+		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
 	},
 	{
 		path: 'projects',
 		loadChildren: () => import('./my-projects/my-projects.routes').then(mod => mod.MY_PROJECTS_ROUTES),
 		data: {useAuthTemplate: true},
-		canMatch: [() => inject(AuthGuardService).isAuthorized(['eabfc42c-0532-4015-8bd0-145fe73baf03', 'f505f632-ff10-44bd-821e-8093efb6c280'])]
-	}
+		canMatch: [() => inject(AuthGuardService).isAuthorized([environment.client_admin_role_id, environment.mentor_role_id])]
+	},
+	{
+		path: 'mentor_projects/create/:user_id',
+		component: CreateMentorProjectComponent,
+		data: {useAuthTemplate: true},
+		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
+	},
+	{
+		path: 'mentor_projects/update/:id',
+		component: UpdateMentorProjectComponent,
+		data: {useAuthTemplate: true},
+		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
+	},
+
 ];

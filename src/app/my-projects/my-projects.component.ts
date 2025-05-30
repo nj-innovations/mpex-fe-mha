@@ -6,8 +6,8 @@ import { MyProjectsService } from './my-projects.service';
 import { IgetMyProjectsResponse } from './requests/IgetMyProjectsResponse';
 import { UpdateMyProjectsModalComponent } from './update-my-projects-modal/update-my-projects-modal.component';
 import { IstoreMyProjectsResponse } from './requests/IstoreMyProjectsResponse';
-import { CreateMyProjectsModalComponent } from './create-my-projects-modal/create-my-projects-modal.component';
 import { DeleteMyProjectsModalComponent } from './delete-my-projects-modal/delete-my-projects-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-my-projects',
@@ -23,7 +23,8 @@ export class MyProjectsComponent implements OnInit {
 	updateModalRef?: NgbModalRef;
 
 	constructor(public projectService: MyProjectsService, public alertsService: AlertsService,
-		private modalService: NgbModal, private storageService: LocalStorageService) { }
+		private modalService: NgbModal, private storageService: LocalStorageService,
+		private router: Router) { }
 
 	ngOnInit(): void {
 		this.projectService.getProjects().subscribe({
@@ -40,46 +41,11 @@ export class MyProjectsComponent implements OnInit {
 	}
 
 	createProject() {
-		this.createModalRef = this.modalService.open(CreateMyProjectsModalComponent, {
-			ariaLabelledBy: 'Create Project',
-			size: 'lg'
-		});
-
-		this.createModalRef.result.then(
-			(result: IstoreMyProjectsResponse) => {
-				this.myProjects.unshift({
-					'id': result.id,
-					'project': result.project,
-					'created_at': result.created_at,
-					'requirements': []
-				});
-				console.log(result);
-			},
-			(error: string) => {
-				if (error != '') {
-					this.alertsService.addErrorAlert(error);
-				}
-			}
-		);
+		this.router.navigate(['/projects/create']);
 	}
 
-	updateProject(index: number) {
-		this.updateModalRef = this.modalService.open(UpdateMyProjectsModalComponent, {
-			ariaLabelledBy: 'Update Project',
-			size: 'lg'
-		});
-		this.updateModalRef.componentInstance.project = this.myProjects[index];
-
-		this.updateModalRef.result.then(
-			(result: IstoreMyProjectsResponse) => {
-				this.myProjects[index].project=result.project;
-			},
-			(error: string) => {
-				if (error != '') {
-					this.alertsService.addErrorAlert(error);
-				}
-			}
-		);
+	updateProject(id: string) {
+		this.router.navigate(['/projects/update', id]);
 	}
 
 	deleteProject(index: number) {

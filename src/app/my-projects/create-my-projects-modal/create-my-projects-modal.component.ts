@@ -23,12 +23,16 @@ export class CreateMyProjectsModalComponent implements OnInit  {
 	
 	ngOnInit() {
 		this.projectForm = new FormGroup({
-			'project': new FormControl(null, Validators.required),
+			'project_title': new FormControl(null, Validators.required),
+			'project_description': new FormControl(null, Validators.required),
+			'student_responsibilities': new FormControl(null, Validators.required),
+			'format_location': new FormControl(null, Validators.required),
+			'payment': new FormControl(null, Validators.required),
 		});
 	}
 
 	Save(): void {
-		const postVars = {'project': this.projectForm.value.project}
+		const postVars = {'project_title': this.projectForm.value.project_title, 'project_description': this.projectForm.value.project_description};
 		this.projectService.createMyProject(postVars).subscribe({
 			next: (data: IstoreMyProjectsRequest) => {
 				this.activeModal.close(data);				

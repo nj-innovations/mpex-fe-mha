@@ -7,9 +7,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/IgetMyProjectsResponse';
 import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
 import { MyProjectsService } from '../my-projects.service';
-import { IMentorProjectRequirements } from '../../users/mentor-projects/requests/IMentorProjectRequirements';
 import { IupdateMentorProjectResponse } from '../../users/mentor-projects/update-mentor-project-modal/request/IupdateMentorProjectResponse';
 import { IstoreMyProjectsResponse } from '../requests/IstoreMyProjectsResponse';
+import { ImentorProjectRequirements } from '../../users/mentor-projects/requests/ImentorProjectRequirements';
 
 @Component({
 	selector: 'app-update-my-projects-modal',
@@ -35,14 +35,15 @@ export class UpdateMyProjectsModalComponent {
 	
 	ngOnInit() {
 		this.projectForm = new FormGroup({
-			'project': new FormControl(this.project?.project, Validators.required),
+			'project_title': new FormControl(this.project?.project_title, Validators.required),
+			'project_description': new FormControl(this.project?.project_description, Validators.required),
 			'new_requirement': new FormControl(null, null),
 		});
 	}
 
 	Save(): void {
 		if(this.project !== undefined){
-			const putVars = {'project': this.projectForm.value.project}
+			const putVars = {'project_title': this.projectForm.value.project_title, 'project_description': this.projectForm.value.project_description};
 			this.projectService.updateMyProject(this.project.id, putVars).subscribe({
 				next: (data: IstoreMyProjectsResponse) => {
 					this.activeModal.close(data);				
@@ -63,7 +64,7 @@ export class UpdateMyProjectsModalComponent {
 		this.alertMessage = '';
 		if(this.project != undefined){
 			this.projectService.createMyProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
-				next: (data: IMentorProjectRequirements) => {
+				next: (data: ImentorProjectRequirements) => {
 					this.project.requirements.push({'requirement_id': data.id,'requirement': data.requirement});
 					this.visibleNewRequirement = false;
 				},

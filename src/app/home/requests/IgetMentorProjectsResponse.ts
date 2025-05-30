@@ -1,7 +1,8 @@
 export interface IgetMentorProjectsResponse {
 	'id': string;
 	'user_id': number;
-	'project': string;
+	'project_title': string;
+	'project_description': string;
 	'updated_at': string;
 	'fname': string;
 	'lname': string;

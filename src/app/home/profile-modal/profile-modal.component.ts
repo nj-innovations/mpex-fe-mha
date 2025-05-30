@@ -51,7 +51,7 @@ export class ProfileModalComponent implements OnInit {
 		this.profileTitle = this.helperService.ArrayToLines(profile.title);
 		this.profileSectors = profile.sectors;
 		this.profileOrganization = profile.organization;
-		this.profileProjectsAvailable = profile.projects_available;
+		//this.profileProjectsAvailable = profile.projects_available;
 		this.linkedin = profile.linkedin;
 		if(profile.open_to_precepting == 'Y'){
 			this.profileOpenToPrecept = 'Yes';

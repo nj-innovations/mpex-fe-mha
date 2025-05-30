@@ -1,0 +1,36 @@
+<div class="card">
+	<div class="card-body pt-3">
+		<h5 class="card-title">Requirement(s)</h5>
+		<form [formGroup]="projectForm" role="form">
+			@for (t of projectRequirements; track $index)
+			{
+				<div class="pb-1">
+					<fa-icon class="circle-delete" [icon]="faCircleMinus" class="fa-icon-spacer text-danger"
+						size="lg" role="button" (click)="deleteRequirement(t.id)">
+					</fa-icon>
+					{{t.requirement}}
+				</div>
+			}
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="Input new requirement and click Add" aria-label="New Requirement" 
+					aria-describedby="new_requirement_button-addon" formControlName="new_requirement" id="new_requirement">
+				<button class="btn btn-primary" type="button" (click)="addRequirement()"
+					[disabled]="projectForm.value.new_requirement==null">Add</button>
+			</div>
+			@if(visibleConfirm)
+			{
+				<ngb-alert type="danger" [dismissible]="false">
+					<strong>Are you sure you want to delete this requirement?</strong>
+					<div class="mt-2">
+						<button type="button" class="btn btn-danger me-2" (click)="visibleConfirm = false">
+							<fa-icon [icon]="faThumbsDown" class="fa-icon-spacer" size="lg"></fa-icon>No
+						</button>
+						<button type="button" class="btn btn-success ml-2" (click)="confirmDelete()">
+							<fa-icon [icon]="faThumbsUp" class="fa-icon-spacer" size="lg"></fa-icon>Yes
+						</button>
+					</div>
+				</ngb-alert>
+			}
+		</form>
+	</div>
+</div>

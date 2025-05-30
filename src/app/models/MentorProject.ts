@@ -2,7 +2,8 @@ export class MentorProject {
 	constructor(
 		public id: string,
 		public user_id: number,
-		public project: string,
+		public project_title: string,
+		public project_description: string,
 		public updated_at: string,
 		public user_fname: string,
 		public user_lname: string,

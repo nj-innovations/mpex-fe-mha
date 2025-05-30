@@ -1,4 +1,4 @@
-export interface IMentorProjectRequirements
+export interface ImentorProjectRequirements
 {
 	'id': string;
 	'mentor_project_id': string;
