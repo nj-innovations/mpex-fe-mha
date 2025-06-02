@@ -5,8 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleMinus, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { IgetRequirementsResponse } from '../update-mentor-project/requests/IgetRequirementsResponse';
 import { UpdateMentorProjectService } from '../update-mentor-project/update-mentor-project.service';
-import { AlertsService } from '../../../core/alerts/alerts.service';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AlertsService } from '../../core/alerts/alerts.service';
 
 @Component({
 	selector: 'app-mentor-projects-requirements',

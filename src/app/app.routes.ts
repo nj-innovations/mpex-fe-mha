@@ -8,8 +8,7 @@ import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AltLoginComponent } from './alt-login/alt-login.component';
 import { environment } from '../environments/environment';
-import { CreateMentorProjectComponent } from './users/mentor-projects/create-mentor-project/create-mentor-project.component';
-import { UpdateMentorProjectComponent } from './users/mentor-projects/update-mentor-project/update-mentor-project.component';
+import { UpdateMentorProjectComponent } from './mentor-projects/update-mentor-project/update-mentor-project.component';
 
 export const routes: Routes = [
 	{path: '', component: IndexComponent, data: {useAuthTemplate: false}},
@@ -37,16 +36,9 @@ export const routes: Routes = [
 		canMatch: [() => inject(AuthGuardService).isAuthorized([environment.client_admin_role_id, environment.mentor_role_id])]
 	},
 	{
-		path: 'mentor_projects/create/:user_id',
-		component: CreateMentorProjectComponent,
+		path: 'mentor_projects',
+		loadChildren: () => import('./mentor-projects/mentor-projects.routes').then(mod => mod.MENTOR_PROJECTS_ROUTES),
 		data: {useAuthTemplate: true},
-		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
-	},
-	{
-		path: 'mentor_projects/update/:id',
-		component: UpdateMentorProjectComponent,
-		data: {useAuthTemplate: true},
-		canMatch: [() => inject(AuthGuardService).isAuthorized(environment.client_admin_role_id)]
-	},
-
+		canMatch: [() => inject(AuthGuardService).isAuthorized([environment.client_admin_role_id, environment.mentor_role_id])]
+	}
 ];

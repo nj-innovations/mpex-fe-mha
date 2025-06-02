@@ -8,7 +8,8 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
 import { MyProjectsService } from '../../my-projects.service';
 import { IgetMyProjectsRequirements } from '../../requests/IgetMyProjectsResponse';
-import { ImentorProjectRequirements } from '../../../users/mentor-projects/requests/ImentorProjectRequirements';
+import { ImentorProjectRequirements } from '../../../mentor-projects/requests/ImentorProjectRequirements';
+
 
 @Component({
 	selector: 'app-update-my-projects-requirement',

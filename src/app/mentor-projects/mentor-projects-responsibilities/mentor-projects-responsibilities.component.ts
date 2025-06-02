@@ -4,9 +4,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleMinus, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { UpdateMentorProjectService } from '../update-mentor-project/update-mentor-project.service';
-import { AlertsService } from '../../../core/alerts/alerts.service';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { IgetResponsibilitiesResponse } from '../update-mentor-project/requests/IgetResponsibilitiesResponse';
+import { AlertsService } from '../../core/alerts/alerts.service';
 
 @Component({
 	selector: 'app-mentor-projects-responsibilities',

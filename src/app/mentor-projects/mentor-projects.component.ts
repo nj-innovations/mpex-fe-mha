@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DeleteMentorProjectModalComponent } from './delete-mentor-project-modal/delete-mentor-project-modal.component';
-import { AlertsService } from '../../core/alerts/alerts.service';
-import { PermissionsService } from '../../core/permissions.service';
-import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
-import { UsersService } from '../users.service';
-import { ImentorProjectRequest } from '../requests/IuserRequest';
 import { Router } from '@angular/router';
+import { AlertsService } from '../core/alerts/alerts.service';
+import { PermissionsService } from '../core/permissions.service';
+import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
+import { ImentorProjectRequest } from '../users/requests/IuserRequest';
+import { UsersService } from '../users/users.service';
 
 
 @Component({

@@ -7,9 +7,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/IgetMyProjectsResponse';
 import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
 import { MyProjectsService } from '../my-projects.service';
-import { IupdateMentorProjectResponse } from '../../users/mentor-projects/update-mentor-project-modal/request/IupdateMentorProjectResponse';
 import { IstoreMyProjectsResponse } from '../requests/IstoreMyProjectsResponse';
-import { ImentorProjectRequirements } from '../../users/mentor-projects/requests/ImentorProjectRequirements';
+import { ImentorProjectRequirements } from '../../mentor-projects/requests/ImentorProjectRequirements';
 
 @Component({
 	selector: 'app-update-my-projects-modal',

@@ -3,8 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MentorProjectDropdowns, MentorProjectsService } from '../mentor-projects.service';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AlertsService } from '../../../core/alerts/alerts.service';
-import { IcreateMentorProjectResponse } from '../create-mentor-project-modal/request/IcreateMentorProjectResponse';
+import { IcreateMentorProjectResponse } from '../requests/IcreateMentorProjectResponse';
+import { AlertsService } from '../../core/alerts/alerts.service';
 
 @Component({
 	selector: 'app-create-mentor-project',

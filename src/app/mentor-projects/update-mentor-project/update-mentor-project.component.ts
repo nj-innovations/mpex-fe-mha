@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MentorProjectDropdowns, MentorProjectsService } from '../mentor-projects.service';
-import { AlertsService } from '../../../core/alerts/alerts.service';
 import { forkJoin, finalize } from 'rxjs';
 import { UpdateMentorProjectService } from './update-mentor-project.service';
 import { IgetMentorProjectResponse } from './requests/IgetMentorProjectResponse';
@@ -13,6 +12,8 @@ import { MentorProjectsRequirementsComponent } from '../mentor-projects-requirem
 import { IgetResponsibilitiesResponse } from './requests/IgetResponsibilitiesResponse';
 import { IgetRequirementsResponse } from './requests/IgetRequirementsResponse';
 import { MentorProjectsResponsibilitiesComponent } from '../mentor-projects-responsibilities/mentor-projects-responsibilities.component';
+import { AlertsService } from '../../core/alerts/alerts.service';
+import { IupdateMentorProjectResponse } from '../requests/IupdateMentorProjectResponse';
 
 @Component({
 	selector: 'app-update-mentor-project',
@@ -85,7 +86,24 @@ export class UpdateMentorProjectComponent implements OnInit {
 		});
 	}
 
-	saveProject(){
+	saveProject(): void {
+		const putVars = {
+			'project_title': this.projectForm.value.project_title,
+			'project_description': this.projectForm.value.project_description,
+			'payment': this.projectForm.value.payment,
+			'format_location': this.projectForm.value.format_location
+		};
 
+		this.projectService.updateMentorProject(this.id, putVars).subscribe({
+			next: (data: IupdateMentorProjectResponse) => {
+				this.router.navigate(
+					['/users/update', this.user_id],
+					{ queryParams: { msg: 2 } }
+				);
+			},
+			error: (error: string) => {
+				this.alertsService.addErrorAlert(error);
+			}
+		});
 	}
 }

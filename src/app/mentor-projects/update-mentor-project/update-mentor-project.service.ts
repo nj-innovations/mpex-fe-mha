@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, throwError } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { IgetRequirementsResponse } from './requests/IgetRequirementsResponse';
 import { IgetResponsibilitiesResponse } from './requests/IgetResponsibilitiesResponse';
-import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
+import { environment } from '../../../environments/environment';
+import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
 
 @Injectable({
 	providedIn: 'root'

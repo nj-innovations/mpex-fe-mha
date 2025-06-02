@@ -5,8 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { MentorProjectsService } from '../mentor-projects.service';
-import { ImentorProjectRequest } from '../../requests/IuserRequest';
-import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
+import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
+import { ImentorProjectRequest } from '../../users/requests/IuserRequest';
 
 
 @Component({

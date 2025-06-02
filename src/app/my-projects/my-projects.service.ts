@@ -4,12 +4,9 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IgetMyProjectsResponse } from './requests/IgetMyProjectsResponse';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
-import { IcreateMentorProjectResponse } from '../users/mentor-projects/create-mentor-project-modal/request/IcreateMentorProjectResponse';
-import { IupdateMentorProjectResponse } from '../users/mentor-projects/update-mentor-project-modal/request/IupdateMentorProjectResponse';
 import { IstoreMyProjectsRequest } from './requests/IstoreMyProjectsRequest';
 import { IstoreMyProjectsResponse } from './requests/IstoreMyProjectsResponse';
-import { ImentorProjectRequirements } from '../users/mentor-projects/requests/ImentorProjectRequirements';
-
+import { ImentorProjectRequirements } from '../mentor-projects/requests/ImentorProjectRequirements';
 
 @Injectable({
 	providedIn: 'root'

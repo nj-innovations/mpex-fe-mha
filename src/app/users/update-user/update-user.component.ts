@@ -9,10 +9,10 @@ import { IusersRequest } from '../requests/IuserRequest';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { PermissionsService } from '../../core/permissions.service';
 import { UsersService } from '../users.service';
-import { MentorProjectsComponent } from '../mentor-projects/mentor-projects.component';
 import { IgetClientAdminUserDropdown, IgetRoleDropdown } from '../requests/IgetClientAdminUserDropdown';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
 import { AvatarUploadComponent } from '../../core/avatar-upload/avatar-upload.component';
+import { MentorProjectsComponent } from '../../mentor-projects/mentor-projects.component';
 
 @Component({
     selector: 'app-update-user',
