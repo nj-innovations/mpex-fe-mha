@@ -11,5 +11,5 @@ export interface IcreateUsersRequest {
 	'role_id': string;
 	'open_to_precepting': string;
 	'sectors': string;
-	'capacity': number;
+	'interns_per_semester': number;
 }

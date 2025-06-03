@@ -52,7 +52,7 @@ export class CreateUserComponent {
 			'state': new FormControl(null, null),
 			'linkedin': new FormControl(null, null),
 			'open_to_precepting': new FormControl(null, null),
-			'capacity': new FormControl(null, null)
+			'interns_per_semester': new FormControl(null, null)
 		});
 
 		this.usersService.getDropdowns().subscribe({
@@ -113,7 +113,7 @@ export class CreateUserComponent {
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
 			'role_id': this.usersForm.value.role, 'open_to_precepting': 'N', 'sectors': '',
-			'capacity': this.usersForm.value.capacity
+			'interns_per_semester': this.usersForm.value.capacity
 		}
 
 		if(this.usersForm.value.open_to_precepting){

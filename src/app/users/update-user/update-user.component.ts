@@ -56,7 +56,7 @@ export class UpdateUserComponent implements OnInit {
 			'state': new FormControl(null, null),
 			'linkedin': new FormControl(null, null),
 			'open_to_precepting': new FormControl(null, null),
-			'capacity': new FormControl(null, null)
+			'interns_per_semester': new FormControl(null, null)
 		});
 
 		this.id = parseInt(this.route.snapshot.params['id']!);
@@ -84,7 +84,7 @@ export class UpdateUserComponent implements OnInit {
 							'organization': this.user.organization,  'city': this.user.city,
 							'state': this.user.state, 'linkedin': this.user.linkedin,
 							'role': this.user.role_id, 'open_to_precepting': open_to_precepting,
-							'capacity': this.user.capacity
+							'interns_per_semester': this.user.interns_per_semester
 						}
 						if(this.user.title !== null){
 							this.titles = this.user.title;
@@ -152,7 +152,7 @@ export class UpdateUserComponent implements OnInit {
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
 			'role_id': this.usersForm.value.role, 'open_to_precepting': 'N', 'sectors': '',
-			'capacity': this.usersForm.value.capacity
+			'interns_per_semester': this.usersForm.value.interns_per_semester
 		}
 		if(this.usersForm.value.open_to_precepting){
 			putVars['open_to_precepting'] = 'Y';
