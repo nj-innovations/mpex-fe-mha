@@ -12,6 +12,7 @@ import { UsersService } from '../users.service';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IcreateUsersResponse } from '../requests/IcreateUserResponse';
 
 @Component({
     selector: 'app-create-user',
@@ -52,7 +53,7 @@ export class CreateUserComponent {
 			'state': new FormControl(null, null),
 			'linkedin': new FormControl(null, null),
 			'open_to_precepting': new FormControl(null, null),
-			'interns_per_semester': new FormControl(null, null)
+			'capacity': new FormControl(null, null)
 		});
 
 		this.usersService.getDropdowns().subscribe({
@@ -113,7 +114,7 @@ export class CreateUserComponent {
 			'degree': JSON.stringify(this.degrees), 'state': this.usersForm.value.state,
 			'city': this.usersForm.value.city, 'linkedin': this.usersForm.value.linkedin,
 			'role_id': this.usersForm.value.role, 'open_to_precepting': 'N', 'sectors': '',
-			'interns_per_semester': this.usersForm.value.capacity
+			'capacity': this.usersForm.value.capacity
 		}
 
 		if(this.usersForm.value.open_to_precepting){
@@ -129,7 +130,7 @@ export class CreateUserComponent {
 		postVars['sectors'] = JSON.stringify(sectors);
 
 		this.usersService.createUser(postVars).subscribe({
-			next: (data: IstringMessageResponse) => {
+			next: (data: IcreateUsersResponse) => {
 				this.router.navigate(
 					['/users'],
 					{ queryParams: { msg: 2 } }

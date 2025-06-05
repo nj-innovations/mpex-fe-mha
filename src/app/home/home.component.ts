@@ -16,6 +16,9 @@ import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
 import { MentorProject } from '../models/MentorProject';
 import { IgetMentorsResponse } from './requests/IgetMentorsResponse';
+import { Router } from '@angular/router';
+import { ViewMentorProjectService } from '../view-mentor-project/view-mentor-project.service';
+import { forkJoin, Observable, shareReplay } from 'rxjs';
 
 @Component({
 	selector: 'app-home',
@@ -37,57 +40,57 @@ export class HomeComponent implements OnInit {
 	mentorProjects: MentorProjectMenu[] = [];
 	visiblePreceptorList = false;
 	visibleProjectList = true;
-
+	
 	constructor(private homeService: HomeService, private alertsService: AlertsService,
-		private modalService: NgbModal, public sessionStorage: LocalStorageService,
-		private profileModelService: ProfileModalService, public helperService: HelperService,
-		public searchService: SearchMentorModalService) {
+		public sessionStorage: LocalStorageService,
+		public helperService: HelperService,
+		public searchService: SearchMentorModalService, private router: Router,
+		public projectService: ViewMentorProjectService) {
 	}
 
 	ngOnInit() {
+			forkJoin({
+				mentors: this.homeService.getMentors(),
+				projects: this.projectService.getAllMentorProjects()
+			}).subscribe({
+				next: ({ mentors, projects }) => {
+					this.mentors = mentors.filter((r) => r.open_to_precepting == 'Y')
+					.map((mentor) => new Mentor(
+						mentor.fname,
+						mentor.lname,
+						mentor.guid,
+						mentor.organization,
+						mentor.title,
+						mentor.degree,
+						mentor.open_to_precepting,
+						mentor.avatar,
+						mentor.projects,
+						mentor.linkedin,
+						mentor.state,
+						mentor.city,
+						mentor.sectors
+					));
 
-		this.homeService.getMentors().subscribe({
-			next: (response: IgetMentorsResponse[]) => {
-				this.mentors = response
-				.filter((r) => r.open_to_precepting == 'Y')
-				.map((mentor) => new Mentor(
-					mentor.fname,
-					mentor.lname,
-					mentor.guid,
-					mentor.organization,
-					mentor.title,
-					mentor.degree,
-					mentor.open_to_precepting,
-					mentor.avatar,
-					mentor.projects,
-					mentor.linkedin,
-					mentor.state,
-					mentor.city,
-					mentor.sectors
-				));
-
-				this.mentorProjects = [];
-				this.mentors.forEach((mentor) => {
-					if (Array.isArray(mentor.projects)) {
-						mentor.projects.forEach((project: any) => {
-							this.mentorProjects.push({
-								id: project.project_id,
-								project_title: project.project_title,
-								title: this.helperService.ArrayToCSV(mentor.title),
-								preceptor: `${mentor.fname} ${mentor.lname}`,
-								organization: mentor.organization,
-								user_degree: this.helperService.ArrayToCSV(mentor.degree)
-							});
+					projects.map((project) => {
+						const mentor = this.mentors.find(m => m.guid === project.mentor_guid);
+						this.mentorProjects.push({
+							id: project.id,
+							project_title: project.project_title,
+							title: mentor ? this.helperService.ArrayToCSV(mentor.title) : '',
+							preceptor: mentor ? `${mentor.fname} ${mentor.lname}` : '',
+							organization: mentor ? mentor.organization : '',
+							user_degree: mentor ? this.helperService.ArrayToCSV(mentor.degree) : '',
+							mentor_guid: project.mentor_guid
 						});
-					}
-				});
-				this.isPageLoading = false;
-			},
-			error: (error: string) => {
-				this.isPageLoading = false;
-				this.alertsService.addErrorAlert(error);
-			},
-		});
+					});
+					this.isPageLoading = false;
+				},
+				error: (error: string) => {
+					this.isPageLoading = false;
+					this.alertsService.addErrorAlert(error);
+				}
+			});
+
 
 		this.homeForm = new FormGroup({
 			'sector_search': new FormControl(null)
@@ -95,27 +98,12 @@ export class HomeComponent implements OnInit {
 		this.sectors = this.sessionStorage.getSectors();
 	}
 
-	OpenProfile(profile: Mentor): void {
-		/* this.profileModelService.setProfile(profile);
-		this.profileModelService.setMentorProjects(
-			this.mentorProjects.filter((x) => x.user_guid == profile.guid)
-		);
-		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
-			ariaLabelledBy: 'View Profile',
-			size: 'xl'
-		}); */
+	OpenMentor(id: string): void {
+		this.router.navigate(['/view-mentor', id]);
 	}
 
-	OpenProjectProfile(project: MentorProject): void {
-		/* const profile = this.mentors.filter((x) => x.guid == project.user_guid);
-		this.profileModelService.setProfile(profile[0]);
-		this.profileModelService.setMentorProjects(
-			this.mentorProjects.filter((x) => x.user_guid == profile[0].guid)
-		);
-		this.profileModalRef = this.modalService.open(ProfileModalComponent, {
-			ariaLabelledBy: 'View Profile',
-			size: 'xl'
-		}); */
+	OpenMentorProject(id: string): void {
+		this.router.navigate(['/view-mentor-project', id]);
 	}
 
 	SectorText(m: Mentor): string {
@@ -144,4 +132,5 @@ export interface MentorProjectMenu {
 	'project_title': string;
 	'organization': string;
 	'user_degree': string;
+	'mentor_guid': string;
 }

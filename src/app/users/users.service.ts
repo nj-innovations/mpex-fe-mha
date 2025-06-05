@@ -8,6 +8,7 @@ import { IgetClientAdminUserDropdown } from './requests/IgetClientAdminUserDropd
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
 import { IupdateUsersRequest } from './requests/IupdateUserRequest';
 import { IcreateUsersRequest } from './requests/IcreateUserRequest';
+import { IcreateUsersResponse } from './requests/IcreateUserResponse';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -58,9 +59,9 @@ export class UsersService {
 		)
 	}
 
-	createUser(postvars: IcreateUsersRequest): Observable<IstringMessageResponse> {
-		return this.http.post<IstringMessageResponse>(environment.apiUrl + '/clientadminuser/users', postvars).pipe(
-			map((response: IstringMessageResponse) => {
+	createUser(postvars: IcreateUsersRequest): Observable<IcreateUsersResponse> {
+		return this.http.post<IcreateUsersResponse>(environment.apiUrl + '/clientadminuser/users', postvars).pipe(
+			map((response: IcreateUsersResponse) => {
 				return response;
 			}),
 			catchError((error) => {

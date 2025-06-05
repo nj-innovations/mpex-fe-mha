@@ -1,0 +1,76 @@
+@if(!isPageLoading)
+{
+	<div class="pagetitle">
+		<h1>Update Preceptor Project</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a style="cursor: pointer" [routerLink]="['/users']">Users</a></li>
+				<li class="breadcrumb-item"><a style="cursor: pointer" [routerLink]="['/users/update', user_id]">Update User</a></li>
+				<li class="breadcrumb-item active">Update Preceptor Project</li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
+
+	<section class="section">
+		<form [formGroup]="projectForm" role="form">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body pt-3">
+							<h5 class="card-title">Project Title / Description</h5>
+							<div class="col-12 mb-3">
+								<label for="project_title" class="required form-label">Project Title</label>
+								<div>
+									<textarea formControlName="project_title" class="form-control" id="project_title" rows="4"></textarea>
+								</div>
+							</div>
+							<div class="col-12 mb-3">
+								<label for="project_description" class="required form-label">Project Description</label>
+								<div>
+									<textarea formControlName="project_description" class="form-control" id="project_description" rows="4"></textarea>
+								</div>
+							</div>
+							<div class="col-12 mb-3">
+								<label for="payment" class="required form-label">Payment</label>
+								<select id="payment" formControlName="payment" class="form-select" aria-label="Payment">
+									<option value=""></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3">
+								<label for="format_location" class="required form-label">Format Location</label>
+								<select id="format_location" formControlName="format_location" class="form-select" aria-label="Format Location">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-12">
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							
+						</div>
+					</div>
+				</div>						
+			</div>
+			<div class="row">
+				<div class="col-12 text-center">
+					<!-- <button class="btn btn-primary" type="button" (click)="saveProject()" [disabled]="!projectForm.valid">Save Mentor Project</button> -->
+				</div>
+			</div>
+		</form>
+	</section>
+}
+@else
+{
+	<div class="row">
+		<div class="col-12 mt-5 mb-5 text-center">
+			<fa-icon [icon]="faSpinner" size="6x" animation="spin"></fa-icon>
+		</div>
+	</div>
+}

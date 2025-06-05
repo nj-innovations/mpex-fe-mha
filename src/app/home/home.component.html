@@ -57,7 +57,7 @@
 								<tbody>
 									@for (mentor of this.mentors; track mentor.guid) {
 										<tr [ngClass]="(mentor.selectedProfile == 'Y') ? '' : 'd-none'">
-											<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenProfile(mentor)">View</button></td>
+											<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenMentor(mentor.guid)">View</button></td>
 											<td>
 												{{mentor.fname}} {{mentor.lname}}, {{this.helperService.ArrayToCSV(mentor.degree)}}
 												<div class="fst-italic">{{mentor.title}}</div>
@@ -80,7 +80,7 @@
 										<p class="card-text"><strong>Organization:</strong> {{mentor.organization}}</p>
 										<!-- <p class="card-text"><strong class="pe-2">Title:</strong><span [innerHtml]="this.TitleText(mentor)"></span></p> -->
 										<p class="card-text"><strong class="pe-2">Sector:</strong><span [innerHtml]="this.SectorText(mentor)"></span></p>
-										<button type="button" class="btn btn-sm btn-primary" (click)="OpenProfile(mentor)">View</button>
+										<button type="button" class="btn btn-sm btn-primary" (click)="OpenMentor(mentor.guid)">View</button>
 									</div>
 								</div>
 							}
@@ -112,7 +112,7 @@
 								<tbody>
 									@for (project of this.mentorProjects; track project.id) {
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-primary">View</button></td>
+											<td><button type="button" class="btn btn-sm btn-primary" (click)="OpenMentorProject(project.id)">View</button></td>
 											<td>
 												{{project.preceptor}} {{project.user_degree}}
 												<br><i>{{project.title}}</i>
@@ -132,7 +132,7 @@
 										<p class="card-text"><strong>Organization:</strong> {{project.organization}}</p>
 										<p class="card-text"><strong>Preceptor Title:</strong> {{project.title}}</p>
 										<p class="card-text"><strong>Project Title:</strong> {{project.project_title}}</p>
-										<button type="button" class="btn btn-sm btn-primary">View</button>
+										<button type="button" class="btn btn-sm btn-primary" (click)="OpenMentorProject(project.id)">View</button>
 									</div>
 								</div>
 							}

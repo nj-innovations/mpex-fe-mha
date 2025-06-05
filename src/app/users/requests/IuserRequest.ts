@@ -15,7 +15,7 @@ export interface IusersRequest {
 	'avatar': string;
 	'state': string;
 	'city': string;
-	'interns_per_semester': number;
+	'capacity': number;
 	'location': string;
 	'role_id': string;
 	'role_name': string;
