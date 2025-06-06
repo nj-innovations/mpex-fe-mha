@@ -1,0 +1,32 @@
+<div class="pagetitle">
+	<h1>Alternate Views</h1>
+	<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active">Alternate Views</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+@if(!isPageLoading)
+{
+	<div class="row">
+		<div class="col-12 mt-2">
+			<button class="btn btn-purple me-3" type="button" (click)="alternateView(1)">
+				View as a Student
+			</button>
+			<button class="btn btn-purple me-3" type="button" (click)="alternateView(2)">
+				View as a Professional
+			</button>
+			<button class="btn btn-danger" type="button" (click)="alternateView(3)">
+				Return to Admin View
+			</button>
+		</div>
+	</div>
+}
+@else
+{
+	<div class="row">
+		<div class="col-12 mt-5 mb-5 text-center">
+			<fa-icon [icon]="faSpinner" size="6x" animation="spin"></fa-icon>
+		</div>
+	</div>
+}

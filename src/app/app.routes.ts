@@ -10,6 +10,7 @@ import { AltLoginComponent } from './alt-login/alt-login.component';
 import { environment } from '../environments/environment';
 import { ViewMentorComponent } from './view-mentor/view-mentor.component';
 import { ViewMentorProjectComponent } from './view-mentor-project/view-mentor-project.component';
+import { AlternateViewComponent } from './alternate-view/alternate-view.component';
 
 export const routes: Routes = [
 	{path: '', component: IndexComponent, data: {useAuthTemplate: false}},
@@ -17,6 +18,7 @@ export const routes: Routes = [
 	{path: 'reset-password/:token', component: ResetPasswordComponent, data: {useAuthTemplate: false}},
 	{path: 'alt-login/:token', component: AltLoginComponent, data: {useAuthTemplate: false}},
 	{path: 'home', component: HomeComponent, data: {useAuthTemplate: true}},
+	{path: 'alternate-view', component: AlternateViewComponent, data: {useAuthTemplate: true}},
 	{path: 'view-mentor/:id', component: ViewMentorComponent, data: {useAuthTemplate: true}},
 	{path: 'view-mentor-project/:id', component: ViewMentorProjectComponent, data: {useAuthTemplate: true}},
 	{path: 'profile', component: ProfileComponent, data: {useAuthTemplate: true}},

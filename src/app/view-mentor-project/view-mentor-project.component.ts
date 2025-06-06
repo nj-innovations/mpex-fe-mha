@@ -34,13 +34,19 @@ export class ViewMentorProjectComponent implements OnInit {
 
 	ngOnInit() {
 		this.alertsService.clearAlerts();
-		const guid = this.router.url.split('/').pop()
+		const guid = this.router.url.split('/').pop();
 		if(guid){
-			/* this.projectService.getMentorProject(guid).pipe(
-  				finalize(() => { this.isPageLoading = false; })
+			forkJoin({
+				getResponsibilities: this.projectService.getResponsibilities(guid),
+				getRequirements: this.projectService.getRequirements(guid),
+				getMentorProject: this.projectService.getMentorProject(guid)
+			}).pipe(
+				finalize(() => this.isPageLoading = false)
 			).subscribe({
-				next: (data: IviewMentorProjectResponse) => {
-					this.mentorProject = data;
+				next: (response) => {
+					this.mentorProject = response.getMentorProject;
+					this.projectResponsibilities = response.getResponsibilities;
+					this.projectRequirements = response.getRequirements;
 					if (!this.mentorProject) {
 						this.alertsService.addErrorAlert('Mentor Project not found');
 						this.router.navigate(['/mentors']);
@@ -48,33 +54,8 @@ export class ViewMentorProjectComponent implements OnInit {
 				},
 				error: (error: string) => {
 					this.alertsService.addErrorAlert(error);
-				},
-			}); */
-
-		forkJoin({
-			getResponsibilities: this.projectService.getResponsibilities(guid),
-			getRequirements: this.projectService.getRequirements(guid),
-			getMentorProject: this.projectService.getMentorProject(guid)
-		}).pipe(
-			finalize(() => this.isPageLoading = false)
-		).subscribe({
-			next: (response) => {
-				this.mentorProject = response.getMentorProject;
-				this.projectResponsibilities = response.getResponsibilities;
-				this.projectRequirements = response.getRequirements;
-				if (!this.mentorProject) {
-					this.alertsService.addErrorAlert('Mentor Project not found');
-					this.router.navigate(['/mentors']);
 				}
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			}
-		});
-
-
-
-
+			});
 		} else {
 			this.alertsService.addErrorAlert('Invalid Mentor Project ID');
 			this.router.navigate(['/mentors']);

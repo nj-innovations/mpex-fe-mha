@@ -4,16 +4,14 @@ import { faUser as faUserRegular, faCircle, faUsers as faUsersRegular, faSignOut
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSitemap } from '@fortawesome/pro-thin-svg-icons';
 import { faHandshake } from '@fortawesome/pro-light-svg-icons';
-import { faHouse, faDiagramProject } from '@fortawesome/pro-regular-svg-icons';
+import { faHouse, faDiagramProject, faEye } from '@fortawesome/pro-regular-svg-icons';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbCollapseModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 import { LocalStorageService } from '../local-storage.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { map, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IstringMessageResponse } from '../requests/IstringMessageResponse';
 import { HttpClient } from '@angular/common/http';
 import { IexitAdminResponse, SidebarService } from './sidebar.service';
 import { AlertsService } from '../alerts/alerts.service';
@@ -33,7 +31,6 @@ import { AlertsService } from '../alerts/alerts.service';
     ]
 })
 export class SidebarComponent {
-	//faLinkRegular = faLinkRegular;
 	faUserRegular = faUserRegular;
 	faSignOut = faSignOut;
 	faUsersRegular = faUsersRegular;
@@ -42,13 +39,17 @@ export class SidebarComponent {
 	faHandshake = faHandshake;
 	faHouse = faHouse;
 	faCircle = faCircle;
+	faEye = faEye;
 	faChevronUp = faChevronUp;
 	faDiagramProject = faDiagramProject;
 	activeLink: boolean[] = [];
 	logoutModalRef?: NgbModalRef;
 	usersIsCollapsed = true;
 	masquerade = '';
-		
+	client_admin_role: string = environment.client_admin_role_id;
+	student_role: string = environment.student_role_id;
+	mentor_role: string = environment.mentor_role_id;
+
 	constructor(private modalService: NgbModal, public sessionStorage: LocalStorageService, public http: HttpClient,
 		public sidebarService: SidebarService, private alertsService: AlertsService
 	) {
@@ -72,6 +73,10 @@ export class SidebarComponent {
 
 	hasRole(role: string): boolean {
 		return this.sessionStorage.hasRole(role);
+	}
+	
+	originalClientAdmin(): boolean {
+		return this.sessionStorage.getValue('original_role') == this.client_admin_role;
 	}
 
 	adminExit(): void {

@@ -1,0 +1,19 @@
+@if(this.alternate_view == 0)
+{
+	<footer id="footer" class="footer" style="padding: 10px 0;">
+		<div class="copyright">
+			&copy; Copyright <strong><span>NJ Innovations.</span></strong>. All Rights Reserved
+		</div>
+		<div class="credits">
+			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+		</div>
+	</footer>
+}
+@if(this.alternate_view == 1)
+{
+	<footer id="footer" class="footer" style="padding: 10px 0;background-color: purple;">
+		<div class="text-center" style="color: white; font-weight:bold;font-size:1.5em">
+			Alternate View - {{alternate_view_name}}
+		</div>
+	</footer>
+}

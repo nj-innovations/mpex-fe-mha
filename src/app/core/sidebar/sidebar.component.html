@@ -12,13 +12,16 @@
 				<span>My Profile</span>
 			</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" [routerLink]="['/projects']" [ngClass]="{'collapsed': activeLink[4]}" (click)="clickLink(4)">
-				<fa-icon [icon]="faDiagramProject" class="fa-icon-spacer"></fa-icon>
-				<span>My Projects</span>
-			</a>
-		</li>
-		@if(hasRole('eabfc42c-0532-4015-8bd0-145fe73baf03'))
+		@if(hasRole(client_admin_role) || hasRole(mentor_role))
+		{
+			<li class="nav-item">
+				<a class="nav-link" [routerLink]="['/projects']" [ngClass]="{'collapsed': activeLink[4]}" (click)="clickLink(4)">
+					<fa-icon [icon]="faDiagramProject" class="fa-icon-spacer"></fa-icon>
+					<span>My Projects</span>
+				</a>
+			</li>
+		}
+		@if(hasRole(client_admin_role))
 		{
 			<li class="nav-item">
 				<a class="nav-link collapsed" style="cursor: pointer" (click)="usersIsCollapsed = !usersIsCollapsed">
@@ -47,6 +50,15 @@
 				<a class="nav-link collapsed" [routerLink]="['/connections']" [ngClass]="{'collapsed': activeLink[2]}"  (click)="clickLink(2)">
 					<fa-icon [icon]="faHandshake" class="fa-icon-spacer"></fa-icon>
 					<span>Connections</span>
+				</a>
+			</li>
+		}
+		@if(originalClientAdmin())
+		{		
+			<li class="nav-item">
+				<a class="nav-link collapsed" [routerLink]="['/alternate-view']" [ngClass]="{'collapsed': activeLink[5]}"  (click)="clickLink(5)">
+					<fa-icon [icon]="faEye" class="fa-icon-spacer"></fa-icon>
+					<span>Alternate View</span>
 				</a>
 			</li>
 		}

@@ -18,10 +18,7 @@ export class IndexService {
 		public idleTimerService: IdleTimerService) {}
 
 	login(credentials: IloginRequest): Observable<IloginResponse>{
-		return this.http.post<IloginResponse>(environment.apiUrl + '/auth/login/' + environment.client_id, credentials)
-		.pipe(map((response: IloginResponse) => {
-				return response;
-			}),
+		return this.http.post<IloginResponse>(environment.apiUrl + '/auth/login/' + environment.client_id, credentials).pipe(
 			catchError( (error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -29,14 +26,8 @@ export class IndexService {
 	}
 
 	getDropdowns(): Observable<IgetClientUserDropdown> {
-		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors,student_connection_status')
-		.pipe(map(
-			(response: IgetClientUserDropdown) => {
-				return response;
-			}
-		)
-		, catchError (
-			(error) => {
+		return this.http.get<IgetClientUserDropdown>(environment.apiUrl + '/regularuser/dropdowns?mode=sectors,student_connection_status').pipe(
+			catchError ((error) => {
 				return throwError(() => new Error(error.error.message))
 			}
 		));
@@ -48,6 +39,7 @@ export class IndexService {
 		this.sessionsSerivce.setValue('lname', response.lname);
 		this.sessionsSerivce.setValue('email', response.email);
 		this.sessionsSerivce.setValue('role', response.role);
+		this.sessionsSerivce.setValue('original_role', response.role);
 		this.sessionsSerivce.setValue('avatar_link', response.avatar_link);
 		this.sessionsSerivce.setValue('masquerade', response.masquerade.toString());
 		this.getDropdowns().subscribe({
@@ -64,5 +56,13 @@ export class IndexService {
 				this.alertsService.addErrorAlert(error);
 			}					
 		});
+	}
+
+	AuthenicatedUser(): Observable<IloginResponse>{
+		return this.http.get<IloginResponse>(environment.apiUrl + '/authuser').pipe(
+			catchError( (error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
 	}
 }

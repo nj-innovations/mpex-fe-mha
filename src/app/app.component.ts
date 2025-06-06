@@ -8,9 +8,12 @@ import { map } from 'rxjs/internal/operators/map';
 import { AlertsService } from './core/alerts/alerts.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomModalService } from './core/service/custom-modal-service.service';
+import { FooterComponent } from './core/footer/footer.component';
 
 @Component({
-    imports: [RouterModule, HeaderComponent, AlertsComponent, CommonModule, SidebarComponent],
+    imports: [RouterModule, HeaderComponent, AlertsComponent, CommonModule,
+		SidebarComponent, FooterComponent
+	],
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
