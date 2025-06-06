@@ -94,32 +94,25 @@
 				<div class="card pt-3">
 					<div class="card-body">
 						<h5 class="card-title">Preceptor Projects</h5>
-            @if(projects.length)
-            {
-            @if(projects.length)
-            {
-                <ul class="list-group list-group-flush">
-                    @for (project of projects; track project.id) {
-                        <li class="list-group-item">
-                            <strong>{{project.project_title}}</strong>
-                            <div *ngIf="project.project_description">
-                                <small class="text-muted">{{project.project_description}}</small>
-                            </div>
-                            <div><small class="text-secondary fst-italic">Last Updated: {{ project.updated_at | date:'longDate' }}</small></div>
-                            <!-- Add more fields as needed based on your IviewMentorProjectResponse model -->
-                        </li>
-                    }
-                </ul>
-            }
-            @else
-            {
-                <div class="fst-italic">No projects found for this preceptor.</div>
-            }
-            }
-            @else
-            {
-                <div class="fst-italic">No projects found for this preceptor.</div>
-            }
+						@if(projects.length)
+						{
+							<ul class="list-group list-group-flush">
+								@for (project of projects; track project.id) {
+									<li class="list-group-item">
+										<strong>{{project.project_title}}</strong>
+										<div *ngIf="project.project_description">
+											<small class="text-muted">{{project.project_description}}</small>
+										</div>
+										<div><small class="text-secondary fst-italic">Last Updated: {{ project.updated_at | date:'longDate' }}</small></div>
+										<!-- Add more fields as needed based on your IviewMentorProjectResponse model -->
+									</li>
+								}
+							</ul>
+						}
+						@else
+						{
+							<div class="fst-italic">No projects found for this preceptor.</div>
+						}
 					</div>
 				</div>
 			</div>

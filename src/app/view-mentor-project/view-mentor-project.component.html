@@ -1,69 +1,92 @@
 @if(!isPageLoading)
 {
 	<div class="pagetitle">
-		<h1>Update Preceptor Project</h1>
+		<h1>View Preceptor Project</h1>
 		<nav>
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a style="cursor: pointer" [routerLink]="['/users']">Users</a></li>
-				<li class="breadcrumb-item"><a style="cursor: pointer" [routerLink]="['/users/update', user_id]">Update User</a></li>
-				<li class="breadcrumb-item active">Update Preceptor Project</li>
+				<li class="breadcrumb-item"><a style="cursor: pointer" [routerLink]="['/home']">Home</a></li>
 			</ol>
 		</nav>
 	</div><!-- End Page Title -->
 
 	<section class="section">
-		<form [formGroup]="projectForm" role="form">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="card">
-						<div class="card-body pt-3">
-							<h5 class="card-title">Project Title / Description</h5>
-							<div class="col-12 mb-3">
-								<label for="project_title" class="required form-label">Project Title</label>
-								<div>
-									<textarea formControlName="project_title" class="form-control" id="project_title" rows="4"></textarea>
-								</div>
-							</div>
-							<div class="col-12 mb-3">
-								<label for="project_description" class="required form-label">Project Description</label>
-								<div>
-									<textarea formControlName="project_description" class="form-control" id="project_description" rows="4"></textarea>
-								</div>
-							</div>
-							<div class="col-12 mb-3">
-								<label for="payment" class="required form-label">Payment</label>
-								<select id="payment" formControlName="payment" class="form-select" aria-label="Payment">
-									<option value=""></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3">
-								<label for="format_location" class="required form-label">Format Location</label>
-								<select id="format_location" formControlName="format_location" class="form-select" aria-label="Format Location">
-									<option value=""></option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="row">
-						<div class="col-12">
-							
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							
-						</div>
-					</div>
-				</div>						
-			</div>
-			<div class="row">
-				<div class="col-12 text-center">
-					<!-- <button class="btn btn-primary" type="button" (click)="saveProject()" [disabled]="!projectForm.valid">Save Mentor Project</button> -->
-				</div>
-			</div>
-		</form>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <h5 class="card-title">Project Information</h5>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Project Title</label>
+                            <div class="form-control-plaintext border rounded bg-light p-2">
+                                {{ mentorProject.project_title || 'Not Provided' }}
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Project Description</label>
+                            <div class="form-control-plaintext border rounded bg-light p-2" style="min-height: 80px;">
+                                {{ mentorProject.project_description || 'Not Provided' }}
+                            </div>
+                        </div>
+                       <div class="col-12 mb-3">
+                            <label class="form-label">Payment</label>
+                            <div class="form-control-plaintext border rounded bg-light p-2">
+                                {{ mentorProject.payment || 'Not Provided' }}
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Format Location</label>
+                            <div class="form-control-plaintext border rounded bg-light p-2">
+                                {{ mentorProject.format_location || 'Not Provided' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project Requirements Card -->
+            <div class="col-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body pt-3">
+                        <h5 class="card-title">Student Requirements</h5>
+                        @if(projectRequirements.length)
+                        {
+                            <ul class="list-group list-group-flush">
+                                @for (req of projectRequirements; track req.id) {
+                                    <li class="list-group-item">
+                                        {{ req.requirement || 'Requirement' }}
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        @else
+                        {
+                            <div class="fst-italic">No requirements provided.</div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Project Responsibilities Card -->
+            <div class="col-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body pt-3">
+                        <h5 class="card-title">Student Responsibilities</h5>
+                        @if(projectResponsibilities.length)
+                        {
+                            <ul class="list-group list-group-flush">
+                                @for (resp of projectResponsibilities; track resp.id) {
+                                    <li class="list-group-item">
+                                        {{ resp.responsibility || 'Responsibility' }}
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        @else
+                        {
+                            <div class="fst-italic">No responsibilities provided.</div>
+                        }
+                    </div>
+                </div>
+            </div>
+		</div>
 	</section>
 }
 @else

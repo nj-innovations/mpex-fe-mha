@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, map, catchError, throwError, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IviewMentorProjectResponse } from './requests/IviewMentorProjectResponse';
+import { IgetResponsibilitiesResponse } from '../mentor-projects/update-mentor-project/requests/IgetResponsibilitiesResponse';
+import { IgetRequirementsResponse } from '../mentor-projects/update-mentor-project/requests/IgetRequirementsResponse';
 
 @Injectable({
 	providedIn: 'root'
@@ -35,14 +37,26 @@ export class ViewMentorProjectService {
 		return this.allMentorProjectsCache$;
 	}
 	
-	/* getAllMentorProjects(): Observable<IviewMentorProjectResponse[]> {
-		return this.http.get<IviewMentorProjectResponse[]>(environment.apiUrl + '/mentor_projects/base').pipe(
-			map((response: IviewMentorProjectResponse[]) => {
-				return response;
-			}),
+	getMentorProject(guid: string): Observable<IviewMentorProjectResponse> {
+		return this.http.get<IviewMentorProjectResponse>(environment.apiUrl + '/mentor_projects/base/' + guid).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
 		)		
-	} */
+	}
+	getRequirements(mentor_project_id: string): Observable<IgetRequirementsResponse[]>{
+		return this.http.get<IgetRequirementsResponse[]>(environment.apiUrl + '/mentor_projects/requirements/?mentor_project_id=' + mentor_project_id).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
+
+	getResponsibilities(mentor_project_id: string): Observable<IgetResponsibilitiesResponse[]>{
+		return this.http.get<IgetResponsibilitiesResponse[]>(environment.apiUrl + '/mentor_projects/responsibilities/?mentor_project_id=' + mentor_project_id).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
 }

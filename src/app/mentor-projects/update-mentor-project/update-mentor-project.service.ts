@@ -15,9 +15,6 @@ export class UpdateMentorProjectService {
 
 	getRequirements(mentor_project_id: string): Observable<IgetRequirementsResponse[]>{
 		return this.http.get<IgetRequirementsResponse[]>(environment.apiUrl + '/mentor_projects/requirements/?mentor_project_id=' + mentor_project_id).pipe(
-			map((response: IgetRequirementsResponse[]) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -26,9 +23,6 @@ export class UpdateMentorProjectService {
 
 	getResponsibilities(mentor_project_id: string): Observable<IgetResponsibilitiesResponse[]>{
 		return this.http.get<IgetResponsibilitiesResponse[]>(environment.apiUrl + '/mentor_projects/responsibilities/?mentor_project_id=' + mentor_project_id).pipe(
-			map((response: IgetResponsibilitiesResponse[]) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -38,9 +32,6 @@ export class UpdateMentorProjectService {
 	saveRequirement(mentor_project_id: string, requirement_text: string): Observable<IgetRequirementsResponse>{
 		const postData = {'requirement_text': requirement_text};
 		return this.http.post<IgetRequirementsResponse>(environment.apiUrl + '/mentor_projects/requirements/' + mentor_project_id, postData).pipe(
-			map((response: IgetRequirementsResponse) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -49,9 +40,6 @@ export class UpdateMentorProjectService {
 
 	deleteRequirement(requirement_id: string): Observable<IstringMessageResponse>{
 		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/requirements/' + requirement_id).pipe(
-			map((response: IstringMessageResponse) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -61,9 +49,6 @@ export class UpdateMentorProjectService {
 	saveResponsibility(mentor_project_id: string, responsibility_text: string): Observable<IgetResponsibilitiesResponse>{
 		const postData = {'responsibility_text': responsibility_text};
 		return this.http.post<IgetResponsibilitiesResponse>(environment.apiUrl + '/mentor_projects/responsibilities/' + mentor_project_id, postData).pipe(
-			map((response: IgetResponsibilitiesResponse) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -72,9 +57,6 @@ export class UpdateMentorProjectService {
 
 	deleteResponsibility(responsibility_id: string): Observable<IstringMessageResponse>{
 		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/responsibilities/' + responsibility_id).pipe(
-			map((response: IstringMessageResponse) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
