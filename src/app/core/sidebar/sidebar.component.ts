@@ -53,7 +53,7 @@ export class SidebarComponent {
 	constructor(private modalService: NgbModal, public sessionStorage: LocalStorageService, public http: HttpClient,
 		public sidebarService: SidebarService, private alertsService: AlertsService
 	) {
-		this.activeLink = [false, true, true, true, true];
+		this.activeLink = [false, true, true, true, true, true];
 		this.masquerade = this.sessionStorage.getMasquerade();
 	}
 	
@@ -62,6 +62,7 @@ export class SidebarComponent {
 		for (let i = 0; i < m;  i++) {
 			this.activeLink[i] = (i == j) ? false : true;
 		}
+		console.log(this.activeLink);
 	}
 
 	Logout(): void {
