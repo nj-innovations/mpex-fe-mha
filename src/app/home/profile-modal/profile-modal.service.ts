@@ -3,8 +3,8 @@ import { Mentor } from '../../models/Mentor';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IstudentConnectionRequest } from '../requests/IstudentConnectionRequest';
-import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
+import { IstudentConnectionRequest } from '../../request-connection/requests/IstudentConnectionRequest';
+import { IstudentConnectionResponse } from '../../request-connection/requests/IstudentConnectionResponse';
 import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse';
 import { MentorProject } from '../../models/MentorProject';
 

@@ -10,82 +10,91 @@
 	</div><!-- End Page Title -->
 
 	<section class="section">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body pt-3">
-                        <h5 class="card-title">Project Information</h5>
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Project Title</label>
-                            <div class="form-control-plaintext border rounded bg-light p-2">
-                                {{ mentorProject.project_title || 'Not Provided' }}
-                            </div>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Project Description</label>
-                            <div class="form-control-plaintext border rounded bg-light p-2" style="min-height: 80px;">
-                                {{ mentorProject.project_description || 'Not Provided' }}
-                            </div>
-                        </div>
-                       <div class="col-12 mb-3">
-                            <label class="form-label">Payment</label>
-                            <div class="form-control-plaintext border rounded bg-light p-2">
-                                {{ mentorProject.payment || 'Not Provided' }}
-                            </div>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Format Location</label>
-                            <div class="form-control-plaintext border rounded bg-light p-2">
-                                {{ mentorProject.format_location || 'Not Provided' }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Project Requirements Card -->
-            <div class="col-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="card-body pt-3">
-                        <h5 class="card-title">Student Requirements</h5>
-                        @if(projectRequirements.length)
-                        {
-                            <ul class="list-group list-group-flush">
-                                @for (req of projectRequirements; track req.id) {
-                                    <li class="list-group-item">
-                                        {{ req.requirement || 'Requirement' }}
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        @else
-                        {
-                            <div class="fst-italic">No requirements provided.</div>
-                        }
-                    </div>
-                </div>
-            </div>
-            <!-- Project Responsibilities Card -->
-            <div class="col-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="card-body pt-3">
-                        <h5 class="card-title">Student Responsibilities</h5>
-                        @if(projectResponsibilities.length)
-                        {
-                            <ul class="list-group list-group-flush">
-                                @for (resp of projectResponsibilities; track resp.id) {
-                                    <li class="list-group-item">
-                                        {{ resp.responsibility || 'Responsibility' }}
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        @else
-                        {
-                            <div class="fst-italic">No responsibilities provided.</div>
-                        }
-                    </div>
-                </div>
-            </div>
+		<div class="row">
+			<div class="col-12 mb-3">
+				<button class="btn btn-purple" type="button" (click)="meetPerson()">I would like to contact this preceptor</button>
+			</div>
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body pt-3">
+						<h5 class="card-title">Project Information</h5>
+						<div class="col-12 mb-3">
+							<label class="form-label">Preceptor</label>
+							<div class="form-control-plaintext border rounded bg-light p-2">
+								{{ mentorName || 'Not Provided' }}
+							</div>
+						</div>
+						<div class="col-12 mb-3">
+							<label class="form-label">Project Title</label>
+							<div class="form-control-plaintext border rounded bg-light p-2">
+								{{ mentorProject.project_title || 'Not Provided' }}
+							</div>
+						</div>
+						<div class="col-12 mb-3">
+							<label class="form-label">Project Description</label>
+							<div class="form-control-plaintext border rounded bg-light p-2" style="min-height: 80px;">
+								{{ mentorProject.project_description || 'Not Provided' }}
+							</div>
+						</div>
+					   <div class="col-12 mb-3">
+							<label class="form-label">Payment</label>
+							<div class="form-control-plaintext border rounded bg-light p-2">
+								{{ mentorProject.payment || 'Not Provided' }}
+							</div>
+						</div>
+						<div class="col-12 mb-3">
+							<label class="form-label">Format Location</label>
+							<div class="form-control-plaintext border rounded bg-light p-2">
+								{{ mentorProject.format_location || 'Not Provided' }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Project Requirements Card -->
+			<div class="col-12 col-lg-6">
+				<div class="card mb-4">
+					<div class="card-body pt-3">
+						<h5 class="card-title">Student Requirements</h5>
+						@if(projectRequirements.length)
+						{
+							<ul class="list-group list-group-flush">
+								@for (req of projectRequirements; track req.id) {
+									<li class="list-group-item">
+										{{ req.requirement || 'Requirement' }}
+									</li>
+								}
+							</ul>
+						}
+						@else
+						{
+							<div class="fst-italic">No requirements provided.</div>
+						}
+					</div>
+				</div>
+			</div>
+			<!-- Project Responsibilities Card -->
+			<div class="col-12 col-lg-6">
+				<div class="card mb-4">
+					<div class="card-body pt-3">
+						<h5 class="card-title">Student Responsibilities</h5>
+						@if(projectResponsibilities.length)
+						{
+							<ul class="list-group list-group-flush">
+								@for (resp of projectResponsibilities; track resp.id) {
+									<li class="list-group-item">
+										{{ resp.responsibility || 'Responsibility' }}
+									</li>
+								}
+							</ul>
+						}
+						@else
+						{
+							<div class="fst-italic">No responsibilities provided.</div>
+						}
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 }

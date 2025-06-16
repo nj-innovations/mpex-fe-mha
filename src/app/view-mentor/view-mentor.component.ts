@@ -10,9 +10,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IviewMentorResponse } from './requests/IviewMentorResponse';
 import { ViewMentorProjectService } from '../view-mentor-project/view-mentor-project.service';
-import { finalize, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { IviewMentorProjectResponse } from '../view-mentor-project/requests/IviewMentorProjectResponse';
-import { IstudentConnectionResponse } from './requests/IstudentConnectionResponse';
 
 @Component({
 	selector: 'app-view-mentor',
@@ -21,7 +20,6 @@ import { IstudentConnectionResponse } from './requests/IstudentConnectionRespons
 	styleUrl: './view-mentor.component.css'
 })
 export class ViewMentorComponent implements OnInit {
-	projectForm!: FormGroup;
 	alertMessage = '';
 	id = '';
 	user_id = 0;
@@ -62,44 +60,9 @@ export class ViewMentorComponent implements OnInit {
 			this.router.navigate(['/mentors']);
 		}
 
-		this.projectForm = new FormGroup({
-			'student_comments': new FormControl(null),
-			'person_name_search': new FormControl(null)
-		});
 	}
 
 	toggleMeetPerson(): void {
-		this.visibleStudentComment = !this.visibleStudentComment;
-	}
-
-	cancelMeetPerson(): void {
-		this.visibleStudentComment = false;
-	}
-
-	submitForm(): void {
-		this.closeErrorAlert();
-		this.closeSuccessAlert();
-		const postVars = {'mentor_guid': this.mentor_guid, 'student_comments': this.projectForm.value.student_comments ?? ''}
-		this.mentorService.submitStudentConnection(postVars).pipe(
-			finalize(() => {
-				this.visibleErrorAlert = true;
-			})
-		).
-		subscribe({
-			next: (response: IstudentConnectionResponse) => {
-				this.cancelMeetPerson();
-			},
-			error: (error: string) => {
-				this.errorMessage = error.toString().replace('Error: ', '');
-			}
-		});
-	}
-
-	closeSuccessAlert(): void {
-		this.visibleSuccessAlert = false;
-	}
-
-	closeErrorAlert(): void {
-		this.visibleErrorAlert = false;
+		this.router.navigate(['/request-connection'], { queryParams: { mentor: this.mentor_guid } });		
 	}
 }

@@ -10,113 +10,80 @@
 	</div><!-- End Page Title -->
 
 	<section class="section">
-		<form role="form" [formGroup]="projectForm">
-			<div class="row">
-				<div class="card pt-3">
-					<div class="card-body">
-						<div class="row align-items-center">
-							<div class="col-md-3 text-center mb-3 mb-md-0">
-								<img *ngIf="mentor.avatar" [src]="mentor.avatar" alt="Avatar" class="img-fluid rounded-circle" style="max-width: 150px;">
+		<div class="row">
+			<div class="card pt-3">
+				<div class="card-body">
+					<div class="row align-items-center">
+						<div class="col-md-3 text-center mb-3 mb-md-0">
+							<img *ngIf="mentor.avatar" [src]="mentor.avatar" alt="Avatar" class="img-fluid rounded-circle" style="max-width: 150px;">
+						</div>
+						<div class="col-md-9">
+							<h2>{{mentor.fname}} {{mentor.lname}}</h2>
+							<div class="mb-2 fst-italic" *ngIf="mentor?.title?.length">
+								<span *ngFor="let t of mentor.title; let last = last">
+									{{t}}{{!last ? ', ' : ''}}
+								</span>
 							</div>
-							<div class="col-md-9">
-								<h2>{{mentor.fname}} {{mentor.lname}}</h2>
-								<div class="mb-2 fst-italic" *ngIf="mentor?.title?.length">
-									<span *ngFor="let t of mentor.title; let last = last">
-										{{t}}{{!last ? ', ' : ''}}
-									</span>
-								</div>
-								<div class="mb-2">
-									<strong>Organization: </strong> {{mentor.organization}}
-								</div>
-								<div class="mb-2">
-									<strong>Degrees: </strong>
-									<span *ngFor="let d of mentor.degree; let last = last">
-										{{d}}{{!last ? ', ' : ''}}
-									</span>
-								</div>
-								<div class="mb-2">
-									<strong>Location:</strong> {{mentor.city}}, {{mentor.state}}
-								</div>
-								<div class="mb-2">
-									<strong>Sectors: </strong>
-									<span *ngIf="mentor?.sectors?.length; else noSectors">
-										<span *ngFor="let s of mentor.sectors; let last = last">
-											{{s.sector_name}}{{!last ? ', ' : ''}}
-										</span>
-									</span>
-									<ng-template #noSectors>
-										<span class="fst-italic">Not Provided</span>
-									</ng-template>
-								</div>
-								<div class="mb-2" *ngIf="mentor?.linkedin">
-									<strong>LinkedIn: </strong>
-									<a [href]="mentor.linkedin" target="_blank">{{mentor.linkedin}}</a>
-								</div>
-								<div class="col-12">
-									<button class="btn btn-purple" type="button" (click)="toggleMeetPerson()">I would like to contact this person</button>
-								</div>	
-
-								@if(visibleStudentComment)
-								{
-									<div class="row mt-3">
-										<div class="col-12"><label for="student_comments" class="col-form-label">Please provide any additional information.  This is optional.</label></div>
-										<div class="col-12">
-											<textarea formControlName="student_comments" type="text" class="form-control" id="student_comments" rows="3"></textarea>
-										</div>
-										<div class="col-12 mt-2">
-											<button type="button" class="btn btn-sm btn-primary m-2" (click)="submitForm()">Submit</button>
-											<button type="button" class="btn btn-sm btn-danger m-2" (click)="cancelMeetPerson()">Cancel</button>
-										</div>
-									</div>
-								}
-								@if(this.visibleSuccessAlert)
-								{
-									<div class="row mt-3">
-										<div class="col-12">
-											<ngb-alert type="success" (closed)="closeSuccessAlert()"><strong>Success:</strong> Request successfully submitted</ngb-alert>
-										</div>
-									</div>
-								}
-								@if(this.visibleErrorAlert)
-								{
-									<div class="row mt-3">
-										<div class="col-12">
-											<ngb-alert type="danger" (closed)="closeErrorAlert()"><strong>Error:</strong> {{errorMessage}}</ngb-alert>
-										</div>
-									</div>
-								}
+							<div class="mb-2">
+								<strong>Organization: </strong> {{mentor.organization}}
 							</div>
+							<div class="mb-2">
+								<strong>Degrees: </strong>
+								<span *ngFor="let d of mentor.degree; let last = last">
+									{{d}}{{!last ? ', ' : ''}}
+								</span>
+							</div>
+							<div class="mb-2">
+								<strong>Location:</strong> {{mentor.city}}, {{mentor.state}}
+							</div>
+							<div class="mb-2">
+								<strong>Sectors: </strong>
+								<span *ngIf="mentor?.sectors?.length; else noSectors">
+									<span *ngFor="let s of mentor.sectors; let last = last">
+										{{s.sector_name}}{{!last ? ', ' : ''}}
+									</span>
+								</span>
+								<ng-template #noSectors>
+									<span class="fst-italic">Not Provided</span>
+								</ng-template>
+							</div>
+							<div class="mb-2" *ngIf="mentor?.linkedin">
+								<strong>LinkedIn: </strong>
+								<a [href]="mentor.linkedin" target="_blank">{{mentor.linkedin}}</a>
+							</div>
+							<div class="col-12">
+								<button class="btn btn-purple" type="button" (click)="toggleMeetPerson()">I would like to contact this person</button>
+							</div>	
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="card pt-3">
-					<div class="card-body">
-						<h5 class="card-title">Preceptor Projects</h5>
-						@if(projects.length)
-						{
-							<ul class="list-group list-group-flush">
-								@for (project of projects; track project.id) {
-									<li class="list-group-item">
-										<strong>{{project.project_title}}</strong>
-										<div *ngIf="project.project_description">
-											<small class="text-muted">{{project.project_description}}</small>
-										</div>
-										<div><small class="text-secondary fst-italic">Last Updated: {{ project.updated_at | date:'longDate' }}</small></div>
-										<!-- Add more fields as needed based on your IviewMentorProjectResponse model -->
-									</li>
-								}
-							</ul>
-						}
-						@else
-						{
-							<div class="fst-italic">No projects found for this preceptor.</div>
-						}
-					</div>
+		</div>
+		<div class="row">
+			<div class="card pt-3">
+				<div class="card-body">
+					<h5 class="card-title">Preceptor Projects</h5>
+					@if(projects.length)
+					{
+						<ul class="list-group list-group-flush">
+							@for (project of projects; track project.id) {
+								<li class="list-group-item">
+									<strong>{{project.project_title}}</strong>
+									<div *ngIf="project.project_description">
+										<small class="text-muted">{{project.project_description}}</small>
+									</div>
+									<div><small class="text-secondary fst-italic">Last Updated: {{ project.updated_at | date:'longDate' }}</small></div>
+								</li>
+							}
+						</ul>
+					}
+					@else
+					{
+						<div class="fst-italic">No projects found for this preceptor.</div>
+					}
 				</div>
 			</div>
-		</form>
+		</div>
 	</section>
 }
 @else

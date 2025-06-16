@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { ViewMentorComponent } from './view-mentor/view-mentor.component';
 import { ViewMentorProjectComponent } from './view-mentor-project/view-mentor-project.component';
 import { AlternateViewComponent } from './alternate-view/alternate-view.component';
+import { RequestConnectionComponent } from './request-connection/request-connection.component';
 
 export const routes: Routes = [
 	{path: '', component: IndexComponent, data: {useAuthTemplate: false}},
@@ -21,6 +22,7 @@ export const routes: Routes = [
 	{path: 'alternate-view', component: AlternateViewComponent, data: {useAuthTemplate: true}},
 	{path: 'view-mentor/:id', component: ViewMentorComponent, data: {useAuthTemplate: true}},
 	{path: 'view-mentor-project/:id', component: ViewMentorProjectComponent, data: {useAuthTemplate: true}},
+	{path: 'request-connection', component: RequestConnectionComponent, data: {useAuthTemplate: true}},
 	{path: 'profile', component: ProfileComponent, data: {useAuthTemplate: true}},
 	{
 		path: 'connections',

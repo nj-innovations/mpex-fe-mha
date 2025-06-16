@@ -10,13 +10,13 @@
 {
 	<div class="row">
 		<div class="col-12 mt-2">
-			<button class="btn btn-purple me-3" type="button" (click)="alternateView(1)">
+			<button class="btn btn-purple me-3" type="button" (click)="alternateView(environment.student_role_id)">
 				View as a Student
 			</button>
-			<button class="btn btn-purple me-3" type="button" (click)="alternateView(2)">
+			<button class="btn btn-purple me-3" type="button" (click)="alternateView(environment.mentor_role_id)">
 				View as a Professional
 			</button>
-			<button class="btn btn-danger" type="button" (click)="alternateView(3)">
+			<button class="btn btn-danger" type="button" (click)="alternateView(environment.client_admin_role_id)">
 				Return to Admin View
 			</button>
 		</div>

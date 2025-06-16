@@ -62,7 +62,6 @@ export class SidebarComponent {
 		for (let i = 0; i < m;  i++) {
 			this.activeLink[i] = (i == j) ? false : true;
 		}
-		console.log(this.activeLink);
 	}
 
 	Logout(): void {

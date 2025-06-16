@@ -18,31 +18,32 @@ import { AlternateViewService } from './alternate-view.service';
 export class AlternateViewComponent {
 	isPageLoading = false;
 	faSpinner = faSpinner;
+	environment = environment;
 
 	constructor(public indexService: IndexService,public alertsService: AlertsService,
 		public sessionsSerivce: LocalStorageService, public router: Router,
 		public altViewService: AlternateViewService
 	) {}
 
-	alternateView(i: number): void {
+	alternateView(role_id: string): void {
 		this.isPageLoading = true;
-		this.indexService.AuthenicatedUser().subscribe({
+		this.altViewService.AuthChangeRole(role_id).subscribe({
 			next: (response: IloginResponse) => {
-				if(response.role == environment.client_admin_role_id){
-					if(i == 1){
-						this.sessionsSerivce.setValue('role', environment.student_role_id);
-					}
-					if(i == 2){
-						this.sessionsSerivce.setValue('role', environment.mentor_role_id);
-					}
-					if(i == 3){
-						this.sessionsSerivce.setValue('role', environment.client_admin_role_id);
-					}
-					this.altViewService.setFooter(i);
-					this.router.navigate(['/', 'home']);
-				} else {
-					this.alertsService.addErrorAlert('You are not authorized to access this page');
+				let i = 0;
+				this.sessionsSerivce.setValue('role', response.role);
+				switch (role_id){
+					case environment.student_role_id:
+						i = 1
+						break;
+					case environment.mentor_role_id:
+						i = 2
+						break;
+					case environment.client_admin_role_id:
+						i = 3;
+						break
 				}
+				this.altViewService.setFooter(i);
+				this.router.navigate(['/', 'home']);
 				this.isPageLoading = false;
 			},
 			error: (error: string) => {

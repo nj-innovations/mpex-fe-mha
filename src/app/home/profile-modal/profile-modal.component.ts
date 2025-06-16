@@ -7,7 +7,7 @@ import { IgetMentorProjects, IgetMentorsSector } from '../requests/IgetMentorsRe
 import { HelperService } from '../../core/helper.service';
 import { Mentor } from '../../models/Mentor';
 import { AlertsService } from '../../core/alerts/alerts.service';
-import { IstudentConnectionResponse } from '../requests/IstudentConnectionResponse';
+import { IstudentConnectionResponse } from '../../request-connection/requests/IstudentConnectionResponse';
 import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse';
 import { MentorProject } from '../../models/MentorProject';
 //import { IgetMentorProjectsResponse } from '../requests/IgetMentorProjectsResponse_old';

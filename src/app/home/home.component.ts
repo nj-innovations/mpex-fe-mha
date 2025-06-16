@@ -49,47 +49,47 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-			forkJoin({
-				mentors: this.homeService.getMentors(),
-				projects: this.projectService.getAllMentorProjects()
-			}).subscribe({
-				next: ({ mentors, projects }) => {
-					this.mentors = mentors.filter((r) => r.open_to_precepting == 'Y')
-					.map((mentor) => new Mentor(
-						mentor.fname,
-						mentor.lname,
-						mentor.guid,
-						mentor.organization,
-						mentor.title,
-						mentor.degree,
-						mentor.open_to_precepting,
-						mentor.avatar,
-						mentor.projects,
-						mentor.linkedin,
-						mentor.state,
-						mentor.city,
-						mentor.sectors
-					));
+		forkJoin({
+			mentors: this.homeService.getMentors(),
+			projects: this.projectService.getAllMentorProjects()
+		}).subscribe({
+			next: ({ mentors, projects }) => {
+				this.mentors = mentors.filter((r) => r.open_to_precepting == 'Y')
+				.map((mentor) => new Mentor(
+					mentor.fname,
+					mentor.lname,
+					mentor.guid,
+					mentor.organization,
+					mentor.title,
+					mentor.degree,
+					mentor.open_to_precepting,
+					mentor.avatar,
+					mentor.projects,
+					mentor.linkedin,
+					mentor.state,
+					mentor.city,
+					mentor.sectors
+				));
 
-					projects.map((project) => {
-						const mentor = this.mentors.find(m => m.guid === project.mentor_guid);
-						this.mentorProjects.push({
-							id: project.id,
-							project_title: project.project_title,
-							title: mentor ? this.helperService.ArrayToCSV(mentor.title) : '',
-							preceptor: mentor ? `${mentor.fname} ${mentor.lname}` : '',
-							organization: mentor ? mentor.organization : '',
-							user_degree: mentor ? this.helperService.ArrayToCSV(mentor.degree) : '',
-							mentor_guid: project.mentor_guid
-						});
+				projects.map((project) => {
+					const mentor = this.mentors.find(m => m.guid === project.mentor_guid);
+					this.mentorProjects.push({
+						id: project.id,
+						project_title: project.project_title,
+						title: mentor ? this.helperService.ArrayToCSV(mentor.title) : '',
+						preceptor: mentor ? `${mentor.fname} ${mentor.lname}` : '',
+						organization: mentor ? mentor.organization : '',
+						user_degree: mentor ? this.helperService.ArrayToCSV(mentor.degree) : '',
+						mentor_guid: project.mentor_guid
 					});
-					this.isPageLoading = false;
-				},
-				error: (error: string) => {
-					this.isPageLoading = false;
-					this.alertsService.addErrorAlert(error);
-				}
-			});
+				});
+				this.isPageLoading = false;
+			},
+			error: (error: string) => {
+				this.isPageLoading = false;
+				this.alertsService.addErrorAlert(error);
+			}
+		});
 
 
 		this.homeForm = new FormGroup({
