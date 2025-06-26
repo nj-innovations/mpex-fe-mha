@@ -24,16 +24,10 @@ export interface IusersRequest {
 	'is_preceptor': string;
 	'open_to_precepting': string;
 	'open_to_mentoring': string;
+	'mentor_guid': string;
 	'approved_at': string;
 	'approved_by': string;
 	'sectors': IsectorsRequest[];
-	'mentor_projects': ImentorProjectRequest[];
-}
-
-export interface ImentorProjectRequest
-{
-	'id': string;
-	'project': string;
 }
 
 export interface IsectorsRequest

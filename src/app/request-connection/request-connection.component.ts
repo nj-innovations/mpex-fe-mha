@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { ViewMentorProjectService } from '../view-mentor-project/view-mentor-project.service';
 import { IviewMentorProjectResponse } from '../view-mentor-project/requests/IviewMentorProjectResponse';
-import { finalize, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { HomeService } from '../home/home.service';
 import { IgetMentorsResponse } from '../home/requests/IgetMentorsResponse';
 import { RouterModule } from '@angular/router';
@@ -32,9 +32,9 @@ export class RequestConnectionComponent implements OnInit {
 	project_title = '';
 	project_id = '';
 
-	constructor(private alertsService: AlertsService, private router: Router,
-		private route: ActivatedRoute, public projectService: ViewMentorProjectService,
-		private homeService: HomeService, public connectionService: RequestConnectionService
+	constructor(private alertsService: AlertsService, private route: ActivatedRoute,
+		public projectService: ViewMentorProjectService, private homeService: HomeService,
+		public connectionService: RequestConnectionService
 	) {}
 
 	ngOnInit() {

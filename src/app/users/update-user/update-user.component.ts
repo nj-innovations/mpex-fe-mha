@@ -9,10 +9,13 @@ import { IusersRequest } from '../requests/IuserRequest';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { PermissionsService } from '../../core/permissions.service';
 import { UsersService } from '../users.service';
-import { IgetClientAdminUserDropdown, IgetRoleDropdown } from '../requests/IgetClientAdminUserDropdown';
+import { IgetRoleDropdown } from '../requests/IgetClientAdminUserDropdown';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
 import { AvatarUploadComponent } from '../../core/avatar-upload/avatar-upload.component';
 import { MentorProjectsComponent } from '../../mentor-projects/mentor-projects.component';
+import { MentorProjectsService } from '../../mentor-projects/mentor-projects.service';
+import { finalize, forkJoin } from 'rxjs';
+import { IgetMentorProjectByMentor } from '../../mentor-projects/requests/IgetMentorProjectByMentor';
 
 @Component({
     selector: 'app-update-user',
@@ -31,16 +34,18 @@ export class UpdateUserComponent implements OnInit {
 	faFileCirclePlus = faFileCirclePlus;
 	faSpinner = faSpinner;
 	//dropdowns!: IgetClientAdminUserDropdown;
-	isPageLoading = 0;
+	isPageLoading = true;
 	faFileXmark = faFileXmark;
 	faCirclePlus = faCirclePlus;
 	faCircleMinus = faCircleMinus;
 	degrees: string[] = [];
 	titles: string[] = [];
 	sectorCheckBoxes: sectorCheckBoxes[] = [];
+	mentorProjects: IgetMentorProjectByMentor[] = [];
 
 	constructor(public usersService: UsersService, private alertsService: AlertsService,
-		private route: ActivatedRoute, public permissions: PermissionsService, private router: Router) {
+		private route: ActivatedRoute, public permissions: PermissionsService, private router: Router,
+		public projectService: MentorProjectsService) {
 	}
 
 	ngOnInit() {
@@ -60,62 +65,72 @@ export class UpdateUserComponent implements OnInit {
 		});
 
 		this.id = parseInt(this.route.snapshot.params['id']!);
-		this.usersService.getDropdowns().subscribe({
-			next: (data: IgetClientAdminUserDropdown) => {
-				this.rolesRS = data.roles.map((r) => {
-					if(r.role_name == 'Mentor'){
-						r.role_name = 'Preceptor';
-					}
-					if(r.role_name == 'Client Admin'){
-						r.role_name = 'Admin';
-					}
-					return r;
-				});
-				for(const element of data['sectors']){
-					this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.id, 'checked': false})
-				}
-				this.usersService.getUser(this.id).subscribe({
-					next: (data: IusersRequest) => {
-						this.user = data;
-						const open_to_precepting = (this.user.open_to_precepting == 'Y') ? true : false;
 
-						let patchValues = {
-							'fname': this.user.fname, 'lname': this.user.lname, 'email': this.user.email,
-							'organization': this.user.organization,  'city': this.user.city,
-							'state': this.user.state, 'linkedin': this.user.linkedin,
-							'role': this.user.role_id, 'open_to_precepting': open_to_precepting,
-							'capacity': this.user.capacity
+		if(this.id){
+			forkJoin({
+				getDropdowns: this.usersService.getDropdowns(),
+				getUser: this.usersService.getUser(this.id),
+				getMentorProjects: this.projectService.getMentorProjectByMentor(this.id)
+			}).pipe(
+				finalize(() => this.isPageLoading = false)
+			).subscribe({
+				next: (response) => {
+					this.rolesRS = response.getDropdowns.roles.map((r) => {
+						if(r.role_name == 'Mentor'){
+							r.role_name = 'Preceptor';
 						}
-						if(this.user.title !== null){
-							this.titles = this.user.title;
+						if(r.role_name == 'Client Admin'){
+							r.role_name = 'Admin';
 						}
-						if(this.user.degree !== null){
-							this.degrees = this.user.degree;
-						}
-		
-						this.usersForm.patchValue(patchValues);
-						for(const s of data.sectors){
-							let i = this.sectorCheckBoxes.findIndex((q) => {
-								return q.value == s.sector_id;
-							})
-							this.sectorCheckBoxes[i].checked = true;
-						}
-					},
-					error: (error: string) => {
-						this.alertsService.addErrorAlert(error);
-					},
-					complete: () => {
-						this.isPageLoading++;
+						return r;
+					});
+					for(const element of response.getDropdowns.sectors){
+						this.sectorCheckBoxes.push({'label': element.sector_name, 'value': element.id, 'checked': false})
 					}
-				});
-			},
-			error: (error: string) => {
-				this.alertsService.addErrorAlert(error);
-			},
-			complete: () => {
-				this.isPageLoading++;
-			}
-		});
+					this.user = response.getUser;
+					const open_to_precepting = (this.user.open_to_precepting == 'Y') ? true : false;
+					let patchValues = {
+						'fname': this.user.fname, 'lname': this.user.lname, 'email': this.user.email,
+						'organization': this.user.organization,  'city': this.user.city,
+						'state': this.user.state, 'linkedin': this.user.linkedin,
+						'role': this.user.role_id, 'open_to_precepting': open_to_precepting,
+						'capacity': this.user.capacity
+					}
+					if(this.user.title !== null){
+						this.titles = this.user.title;
+					}
+					if(this.user.degree !== null){
+						this.degrees = this.user.degree;
+					}
+		
+					this.usersForm.patchValue(patchValues);
+					for(const s of response.getDropdowns.sectors){
+						let i = this.sectorCheckBoxes.findIndex((q) => {
+							return q.value == s.id;
+						})
+						this.sectorCheckBoxes[i].checked = true;
+					}
+					this.mentorProjects = response.getMentorProjects;
+				},
+				error: (error: string) => {
+					this.alertsService.addErrorAlert(error);
+				}
+			});
+		} else {
+			this.alertsService.addErrorAlert('Invalid User ID');
+			this.router.navigate(['/users']);
+		}
+
+		switch (this.route.snapshot.queryParams['msg']) {
+			case '1':
+				this.alertsService.addSuccessAlert('Project Successfully Created');
+				break;
+			case '2':
+				this.alertsService.addSuccessAlert('Project Successfully Updated');
+				break;
+			default:
+				break;
+		}
 	}
 
 	deleteTitle(i: number): void {

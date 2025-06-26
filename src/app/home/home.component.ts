@@ -5,20 +5,16 @@ import { AlertsService } from '../core/alerts/alerts.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../environments/environment';
-import { NgbCollapseModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ProfileModalComponent } from './profile-modal/profile-modal.component';
-import { ProfileModalService } from './profile-modal/profile-modal.service';
+import { NgbCollapseModule, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HelperService } from '../core/helper.service';
 import { LocalStorageService } from '../core/local-storage.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SearchMentorModalService } from './search-mentor-modal/search-mentor-modal.service';
 import { Mentor } from '../models/Mentor';
 import { IdropdownsResponse } from '../index/requests/IdropdownsResponse';
-import { MentorProject } from '../models/MentorProject';
-import { IgetMentorsResponse } from './requests/IgetMentorsResponse';
 import { Router } from '@angular/router';
 import { ViewMentorProjectService } from '../view-mentor-project/view-mentor-project.service';
-import { forkJoin, Observable, shareReplay } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Component({
 	selector: 'app-home',

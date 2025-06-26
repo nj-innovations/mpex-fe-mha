@@ -15,7 +15,7 @@ export class ViewMentorProjectService {
 	constructor(private http: HttpClient) { }
 
 	getMentorProjectsByGuid(mentor_guid: string): Observable<IviewMentorProjectResponse[]> {
-		return this.http.get<IviewMentorProjectResponse[]>(environment.apiUrl + '/mentor_projects/base?mentor_guid=' + mentor_guid).pipe(
+		return this.http.get<IviewMentorProjectResponse[]>(environment.apiUrl + '/mentor_projects/base/studentuser?mentor_guid=' + mentor_guid).pipe(
 			map((response: IviewMentorProjectResponse[]) => {
 				return response;
 			}),
@@ -27,7 +27,7 @@ export class ViewMentorProjectService {
    
 	getAllMentorProjects(): Observable<IviewMentorProjectResponse[]> {
 		if (!this.allMentorProjectsCache$) {
-			this.allMentorProjectsCache$ = this.http.get<IviewMentorProjectResponse[]>(environment.apiUrl + '/mentor_projects/base').pipe(
+			this.allMentorProjectsCache$ = this.http.get<IviewMentorProjectResponse[]>(environment.apiUrl + '/mentor_projects/base/studentuser').pipe(
 				catchError((error) => {
 					return throwError(() => new Error(error.error?.message || 'Mentor Projects API error'));
 				}),
@@ -38,14 +38,15 @@ export class ViewMentorProjectService {
 	}
 	
 	getMentorProject(guid: string): Observable<IviewMentorProjectResponse> {
-		return this.http.get<IviewMentorProjectResponse>(environment.apiUrl + '/mentor_projects/base/' + guid).pipe(
+		return this.http.get<IviewMentorProjectResponse>(environment.apiUrl + '/mentor_projects/base/studentuser/' + guid).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
 		)		
 	}
+	
 	getRequirements(mentor_project_id: string): Observable<IgetRequirementsResponse[]>{
-		return this.http.get<IgetRequirementsResponse[]>(environment.apiUrl + '/mentor_projects/requirements/?mentor_project_id=' + mentor_project_id).pipe(
+		return this.http.get<IgetRequirementsResponse[]>(environment.apiUrl + '/mentor_projects/requirements/studentuser/?mentor_project_id=' + mentor_project_id).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -53,7 +54,7 @@ export class ViewMentorProjectService {
 	}
 
 	getResponsibilities(mentor_project_id: string): Observable<IgetResponsibilitiesResponse[]>{
-		return this.http.get<IgetResponsibilitiesResponse[]>(environment.apiUrl + '/mentor_projects/responsibilities/?mentor_project_id=' + mentor_project_id).pipe(
+		return this.http.get<IgetResponsibilitiesResponse[]>(environment.apiUrl + '/mentor_projects/responsibilities/studentuser/?mentor_project_id=' + mentor_project_id).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	

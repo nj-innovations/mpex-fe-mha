@@ -6,7 +6,7 @@ import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { MentorProjectsService } from '../mentor-projects.service';
 import { IstringMessageResponse } from '../../core/requests/IstringMessageResponse';
-import { ImentorProjectRequest } from '../../users/requests/IuserRequest';
+//import { ImentorProjectRequest } from '../../users/requests/IuserRequest';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { ImentorProjectRequest } from '../../users/requests/IuserRequest';
     styleUrl: './delete-mentor-project-modal.component.css'
 })
 export class DeleteMentorProjectModalComponent {
-	@Input() project?: ImentorProjectRequest;
+	@Input() project?: any;
 	faThumbsUp = faThumbsUp;
 	faThumbsDown = faThumbsDown;
 	alertMessage = '';

@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 import { AlertsService } from '../core/alerts/alerts.service';
 import { PermissionsService } from '../core/permissions.service';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
-import { ImentorProjectRequest } from '../users/requests/IuserRequest';
+//import { ImentorProjectRequest } from '../users/requests/IuserRequest';
 import { UsersService } from '../users/users.service';
+import { IgetMentorProjectByMentor } from './requests/IgetMentorProjectByMentor';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { UsersService } from '../users/users.service';
     styleUrl: './mentor-projects.component.css'
 })
 export class MentorProjectsComponent implements OnInit {
-	@Input() mentorProjects: ImentorProjectRequest[] = [];
+	@Input() mentorProjects: IgetMentorProjectByMentor[] = [];
 	@Input() user_id = 0;
 	faFilePen = faFilePen;
 	faFileCirclePlus = faFileCirclePlus;
@@ -45,7 +46,7 @@ export class MentorProjectsComponent implements OnInit {
 		this.router.navigate(['/mentor_projects/update/' + id]);
 	}
 
-	deleteMentorProject(project: ImentorProjectRequest){
+	deleteMentorProject(project: IgetMentorProjectByMentor){
 		this.deleteModalRef = this.modalService.open(DeleteMentorProjectModalComponent, {
 			ariaLabelledBy: 'Delete Project',
 			size: 'lg'
@@ -57,7 +58,8 @@ export class MentorProjectsComponent implements OnInit {
 				let i = this.mentorProjects.findIndex((x) => {
 					return x.id == project.id
 				});
-				this.mentorProjects.splice(i, 1);	
+				this.mentorProjects.splice(i, 1);
+				this.alertsService.addSuccessAlert('Project deleted successfully');
 			},
 			(error: string) => {
 				if(error != ''){

@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { IstringMessageResponse } from '../../../core/requests/IstringMessageResponse';
 import { MyProjectsService } from '../../my-projects.service';
-import { IgetMyProjectsRequirements } from '../../requests/IgetMyProjectsResponse';
+//import { IgetMyProjectsRequirements } from '../../requests/IgetMyProjectsResponse';
 import { ImentorProjectRequirements } from '../../../mentor-projects/requests/ImentorProjectRequirements';
 
 
@@ -18,7 +18,7 @@ import { ImentorProjectRequirements } from '../../../mentor-projects/requests/Im
 	styleUrl: './update-my-projects-requirement.component.css'
 })
 export class UpdateMyProjectsRequirementComponent implements OnInit {
-	@Input() requirement?: IgetMyProjectsRequirements;
+	@Input() requirement?: any;
 	@Output() messageEvent = new EventEmitter<any>();
 	myProjectRequirementForm!: FormGroup;
 	faFileXmark = faFileXmark;

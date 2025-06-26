@@ -4,7 +4,7 @@ import { faCirclePlus, faCircleMinus, faFileXmark, faFilePen, faFileCirclePlus }
 import { NgbActiveModal, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IgetMyProjectsResponse, IgetMyProjectsRequirements } from '../requests/IgetMyProjectsResponse';
+import { IgetMyProjectsResponse } from '../requests/IgetMyProjectsResponse';
 import { UpdateMyProjectsRequirementComponent } from './update-my-projects-requirement/update-my-projects-requirement.component';
 import { MyProjectsService } from '../my-projects.service';
 import { IstoreMyProjectsResponse } from '../requests/IstoreMyProjectsResponse';
@@ -12,14 +12,14 @@ import { ImentorProjectRequirements } from '../../mentor-projects/requests/Iment
 
 @Component({
 	selector: 'app-update-my-projects-modal',
-	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule, UpdateMyProjectsRequirementComponent],
+	imports: [CommonModule, ReactiveFormsModule, NgbAlertModule, FontAwesomeModule],
 	templateUrl: './update-my-projects-modal.component.html',
 	styleUrl: './update-my-projects-modal.component.css'
 })
 export class UpdateMyProjectsModalComponent {
 	project!: IgetMyProjectsResponse;
 	projectForm!: FormGroup;
-	requirements: IgetMyProjectsRequirements[] = [];
+	//requirements: IgetMyProjectsRequirements[] = [];
 	alertMessage = '';
 	user_id = 0;
 	faFileXmark = faFileXmark;
@@ -60,7 +60,7 @@ export class UpdateMyProjectsModalComponent {
 	}
 
 	saveRequirement(): void {
-		this.alertMessage = '';
+		/* this.alertMessage = '';
 		if(this.project != undefined){
 			this.projectService.createMyProjectRequirements(this.project.id, this.projectForm.value.new_requirement).subscribe({
 				next: (data: ImentorProjectRequirements) => {
@@ -71,7 +71,7 @@ export class UpdateMyProjectsModalComponent {
 					this.alertMessage = 'Unable to save Requirement';
 				}
 			});
-		}
+		} */
 	}
 
 	closeAlert(): void {
@@ -79,13 +79,13 @@ export class UpdateMyProjectsModalComponent {
 	}
 
 	receiveMessage(event: any) {
-		console.log(event);
+		/* console.log(event);
 		const i = this.project.requirements.findIndex((c) => c.requirement_id == event.id);
 		if(event.mode == 'delete'){
 			this.project.requirements.splice(i, 1);
 		}
 		if(event.mode == 'update'){
 			this.project.requirements[i].requirement = event.requirement;
-		}
+		} */
 	}
 }

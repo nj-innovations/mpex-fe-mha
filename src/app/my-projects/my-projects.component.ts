@@ -30,7 +30,6 @@ export class MyProjectsComponent implements OnInit {
 		this.projectService.getProjects().subscribe({
 			next: (response: IgetMyProjectsResponse[]) => {
 				this.myProjects = response;
-				console.log(response);
 				this.isPageLoading = false;
 			},
 			error: (error: string) => {
@@ -49,6 +48,7 @@ export class MyProjectsComponent implements OnInit {
 	}
 
 	deleteProject(index: number) {
+		this.alertsService.clearAlerts();
 		this.deleteModalRef = this.modalService.open(DeleteMyProjectsModalComponent, {
 			ariaLabelledBy: 'Delete Project',
 			size: 'lg'
@@ -57,6 +57,7 @@ export class MyProjectsComponent implements OnInit {
 
 		this.deleteModalRef.result.then(
 			(result: string) => {
+				this.alertsService.addSuccessAlert('Project deleted successfully');
 				this.myProjects.splice(index, 1);
 			},
 			(error: string) => {

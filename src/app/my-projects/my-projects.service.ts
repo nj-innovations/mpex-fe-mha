@@ -7,6 +7,7 @@ import { IstringMessageResponse } from '../core/requests/IstringMessageResponse'
 import { IstoreMyProjectsRequest } from './requests/IstoreMyProjectsRequest';
 import { IstoreMyProjectsResponse } from './requests/IstoreMyProjectsResponse';
 import { ImentorProjectRequirements } from '../mentor-projects/requests/ImentorProjectRequirements';
+import { MentorProjectDropdowns } from '../mentor-projects/mentor-projects.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,24 +17,23 @@ export class MyProjectsService {
 	constructor(private http: HttpClient) { }
 
 	getProjects(): Observable<IgetMyProjectsResponse[]> {
-		return this.http.get<IgetMyProjectsResponse[]>(environment.apiUrl + '/mentoruser/mentor_projects')
-		.pipe(map(
-			(response: IgetMyProjectsResponse[]) => {
-				return response;
-			}
-		)
-		,catchError (
-			(error) => {
+		return this.http.get<IgetMyProjectsResponse[]>(environment.apiUrl + '/mentor_projects/base/mentoruser').pipe(
+			catchError ((error) => {
 				return throwError(() => new Error(error.error.message))
-			}
-		));
+			})
+		);
+	}
+
+	getSingleProject(id: string): Observable<IgetMyProjectsResponse> {
+		return this.http.get<IgetMyProjectsResponse>(environment.apiUrl + '/mentor_projects/base/mentoruser/' + id).pipe(
+			catchError ((error) => {
+				return throwError(() => new Error(error.error.message))
+			})
+		);
 	}
 
 	createMyProject(postvars: IstoreMyProjectsRequest): Observable<IstoreMyProjectsResponse> {
-		return this.http.post<IstoreMyProjectsResponse>(environment.apiUrl + '/mentoruser/mentor_projects', postvars).pipe(
-			map((response: IstoreMyProjectsResponse) => {
-				return response;
-			}),
+		return this.http.post<IstoreMyProjectsResponse>(environment.apiUrl + '/mentor_projects/base/mentoruser', postvars).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -41,10 +41,7 @@ export class MyProjectsService {
 	}
 
 	updateMyProject(id: string, putvars: IstoreMyProjectsRequest): Observable<IstoreMyProjectsResponse> {
-		return this.http.put<IstoreMyProjectsResponse>(environment.apiUrl + '/mentoruser/mentor_projects/' + id, putvars).pipe(
-			map((response: IstoreMyProjectsResponse) => {
-				return response;
-			}),
+		return this.http.put<IstoreMyProjectsResponse>(environment.apiUrl + '/mentor_projects/base/mentoruser/' + id, putvars).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -52,10 +49,7 @@ export class MyProjectsService {
 	}
 
 	deleteMyProject(id: string): Observable<IstringMessageResponse> {
-		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentoruser/mentor_projects/' + id).pipe(
-			map((response: IstringMessageResponse) => {
-				return response;
-			}),
+		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/base/mentoruser/' + id).pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -65,9 +59,6 @@ export class MyProjectsService {
 	updateMyProjectRequirements(id: string, req: string): Observable<ImentorProjectRequirements> {
 		let putVars = {'requirement_text': req};
 		return this.http.put<ImentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id, putVars).pipe(
-			map((response: ImentorProjectRequirements) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -78,9 +69,6 @@ export class MyProjectsService {
 		let postVars = {'requirement_text': req};
 		return this.http.post<ImentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/'
 			+ mentor_project_id, postVars).pipe(
-			map((response: ImentorProjectRequirements) => {
-				return response;
-			}),
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
@@ -89,9 +77,14 @@ export class MyProjectsService {
 
 	deleteMyProjectRequirements(id: string): Observable<IstringMessageResponse> {
 		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id).pipe(
-			map((response: IstringMessageResponse) => {
-				return response;
-			}),
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)		
+	}
+
+	getMentorProjectDropdowns(): Observable<MentorProjectDropdowns> {
+		return this.http.get<MentorProjectDropdowns>(environment.apiUrl + '/dropdowns/mentoruser?mode=mentor_project_dropdowns').pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	
