@@ -5,17 +5,20 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { MentorProjectDropdowns } from '../../mentor-projects/mentor-projects.service';
-import { IgetMentorProjectResponse } from '../../mentor-projects/update-mentor-project/requests/IgetMentorProjectResponse';
 import { IgetRequirementsResponse } from '../../mentor-projects/update-mentor-project/requests/IgetRequirementsResponse';
 import { IgetResponsibilitiesResponse } from '../../mentor-projects/update-mentor-project/requests/IgetResponsibilitiesResponse';
 import { AlertsService } from '../../core/alerts/alerts.service';
 import { MyProjectsService } from '../my-projects.service';
 import { forkJoin, finalize } from 'rxjs';
 import { IgetMyProjectsResponse } from '../requests/IgetMyProjectsResponse';
+import { MyProjectsRequirementsComponent } from '../my-projects-requirements/my-projects-requirements.component';
+import { MyProjectsResponsibilitiesComponent } from '../my-projects-responsibilities/my-projects-responsibilities.component';
 
 @Component({
 	selector: 'app-my-projects-update',
-	imports: [CommonModule, RouterModule, ReactiveFormsModule, FontAwesomeModule],
+	imports: [CommonModule, RouterModule, ReactiveFormsModule, FontAwesomeModule, MyProjectsRequirementsComponent,
+		MyProjectsResponsibilitiesComponent
+	],
 	templateUrl: './my-projects-update.component.html',
 	styleUrl: './my-projects-update.component.css'
 })
@@ -48,8 +51,8 @@ export class MyProjectsUpdateComponent implements OnInit {
 		this.isPageLoading = false;
 
 		forkJoin({
-			//getResponsibilities: this.updateService.getResponsibilities(this.id),
-			//getRequirements: this.updateService.getRequirements(this.id),
+			getResponsibilities: this.projectService.getResponsibilities(this.id),
+			getRequirements: this.projectService.getRequirements(this.id),
 			getDropdowns: this.projectService.getMentorProjectDropdowns(),
 			getMentorProject: this.projectService.getSingleProject(this.id)
 		}).pipe(
@@ -58,8 +61,8 @@ export class MyProjectsUpdateComponent implements OnInit {
 			next: (response) => {
 				this.myProject = response.getMentorProject;
 				//this.user_id = this.myProject.
-				//this.projectResponsibilities = response.getResponsibilities;
-				//this.projectRequirements = response.getRequirements;
+				this.projectResponsibilities = response.getResponsibilities;
+				this.projectRequirements = response.getRequirements;
 				response.getDropdowns.mentor_project_dropdowns.forEach(dropdown => {
 					if (dropdown.id === 'payment') {
 						this.paymentRS = dropdown.items;

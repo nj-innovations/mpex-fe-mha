@@ -6,8 +6,9 @@ import { IgetMyProjectsResponse } from './requests/IgetMyProjectsResponse';
 import { IstringMessageResponse } from '../core/requests/IstringMessageResponse';
 import { IstoreMyProjectsRequest } from './requests/IstoreMyProjectsRequest';
 import { IstoreMyProjectsResponse } from './requests/IstoreMyProjectsResponse';
-import { ImentorProjectRequirements } from '../mentor-projects/requests/ImentorProjectRequirements';
 import { MentorProjectDropdowns } from '../mentor-projects/mentor-projects.service';
+import { IgetResponsibilitiesResponse } from '../mentor-projects/update-mentor-project/requests/IgetResponsibilitiesResponse';
+import { IgetRequirementsResponse } from '../mentor-projects/update-mentor-project/requests/IgetRequirementsResponse';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,12 +17,36 @@ export class MyProjectsService {
 
 	constructor(private http: HttpClient) { }
 
+	getMentorProjectDropdowns(): Observable<MentorProjectDropdowns> {
+		return this.http.get<MentorProjectDropdowns>(environment.apiUrl + '/dropdowns/mentoruser?mode=mentor_project_dropdowns').pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)		
+	}
+
 	getProjects(): Observable<IgetMyProjectsResponse[]> {
 		return this.http.get<IgetMyProjectsResponse[]>(environment.apiUrl + '/mentor_projects/base/mentoruser').pipe(
 			catchError ((error) => {
 				return throwError(() => new Error(error.error.message))
 			})
 		);
+	}
+
+	getResponsibilities(mentor_project_id: string): Observable<IgetResponsibilitiesResponse[]>{
+		return this.http.get<IgetResponsibilitiesResponse[]>(environment.apiUrl + '/mentor_projects/responsibilities/mentoruser/?mentor_project_id=' + mentor_project_id).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
+	}
+
+	getRequirements(mentor_project_id: string): Observable<IgetRequirementsResponse[]>{
+		return this.http.get<IgetRequirementsResponse[]>(environment.apiUrl + '/mentor_projects/requirements/mentoruser/?mentor_project_id=' + mentor_project_id).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)
 	}
 
 	getSingleProject(id: string): Observable<IgetMyProjectsResponse> {
@@ -50,41 +75,6 @@ export class MyProjectsService {
 
 	deleteMyProject(id: string): Observable<IstringMessageResponse> {
 		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/base/mentoruser/' + id).pipe(
-			catchError((error) => {
-				return throwError(() => new Error(error.error.message))
-			})	
-		)		
-	}
-
-	updateMyProjectRequirements(id: string, req: string): Observable<ImentorProjectRequirements> {
-		let putVars = {'requirement_text': req};
-		return this.http.put<ImentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id, putVars).pipe(
-			catchError((error) => {
-				return throwError(() => new Error(error.error.message))
-			})	
-		)		
-	}
-
-	createMyProjectRequirements(mentor_project_id: string, req: string): Observable<ImentorProjectRequirements> {
-		let postVars = {'requirement_text': req};
-		return this.http.post<ImentorProjectRequirements>(environment.apiUrl + '/mentoruser/mentor_project_requirements/'
-			+ mentor_project_id, postVars).pipe(
-			catchError((error) => {
-				return throwError(() => new Error(error.error.message))
-			})	
-		)		
-	}
-
-	deleteMyProjectRequirements(id: string): Observable<IstringMessageResponse> {
-		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentoruser/mentor_project_requirements/' + id).pipe(
-			catchError((error) => {
-				return throwError(() => new Error(error.error.message))
-			})	
-		)		
-	}
-
-	getMentorProjectDropdowns(): Observable<MentorProjectDropdowns> {
-		return this.http.get<MentorProjectDropdowns>(environment.apiUrl + '/dropdowns/mentoruser?mode=mentor_project_dropdowns').pipe(
 			catchError((error) => {
 				return throwError(() => new Error(error.error.message))
 			})	

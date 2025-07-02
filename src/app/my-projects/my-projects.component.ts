@@ -4,8 +4,6 @@ import { AlertsService } from '../core/alerts/alerts.service';
 import { LocalStorageService } from '../core/local-storage.service';
 import { MyProjectsService } from './my-projects.service';
 import { IgetMyProjectsResponse } from './requests/IgetMyProjectsResponse';
-import { UpdateMyProjectsModalComponent } from './update-my-projects-modal/update-my-projects-modal.component';
-import { IstoreMyProjectsResponse } from './requests/IstoreMyProjectsResponse';
 import { DeleteMyProjectsModalComponent } from './delete-my-projects-modal/delete-my-projects-modal.component';
 import { Router } from '@angular/router';
 
