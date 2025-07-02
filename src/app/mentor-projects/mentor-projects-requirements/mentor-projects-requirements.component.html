@@ -8,14 +8,43 @@
 					<fa-icon class="circle-delete" [icon]="faCircleMinus" class="fa-icon-spacer text-danger"
 						size="lg" role="button" (click)="deleteRequirement(t.id)">
 					</fa-icon>
+					<fa-icon [icon]="faEdit" class="fa-icon-spacer text-primary ms-2"
+						size="lg" role="button" (click)="startEditRequirement(t)">
+					</fa-icon>
 					{{t.requirement}}
 				</div>
 			}
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="Input new requirement and click Add" aria-label="New Requirement" 
-					aria-describedby="new_requirement_button-addon" formControlName="new_requirement" id="new_requirement">
-				<button class="btn btn-primary" type="button" (click)="addRequirement()"
-					[disabled]="projectForm.value.new_requirement==null">Add</button>
+			
+			<!-- Edit Requirement Section -->
+			@if(editingRequirement)
+			{
+				<div class="mb-3" *ngIf="editingRequirement">
+					<textarea class="form-control mb-2" placeholder="Edit requirement"
+						aria-label="Edit Requirement"
+						formControlName="edit_requirement"
+						id="edit_requirement"
+						rows="3"></textarea>
+					<div>
+						<button class="btn btn-success btn-sm me-2" type="button" (click)="saveEditRequirement()"
+						[disabled]="projectForm.value.edit_requirement==''">Save Update</button>
+						<button class="btn btn-secondary btn-sm" type="button" (click)="cancelEditRequirement()">Cancel</button>
+					</div>
+				</div>
+			}
+
+			<!-- Add Requirement Section -->
+			<div class="mb-3 mt-3">
+				<textarea class="form-control mb-2" placeholder="Input new requirement and click Add"
+					aria-label="New Requirement" 
+					aria-describedby="new_requirement_button-addon"
+					formControlName="new_requirement"
+					id="new_requirement"
+					rows="3">
+				</textarea>
+				<div>
+					<button class="btn btn-primary" type="button" (click)="addRequirement()"
+						[disabled]="projectForm.value.new_requirement==null">Save New Requirement</button>
+				</div>
 			</div>
 			@if(visibleConfirm)
 			{

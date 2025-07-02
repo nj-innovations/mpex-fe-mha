@@ -8,14 +8,41 @@
 					<fa-icon class="circle-delete" [icon]="faCircleMinus" class="fa-icon-spacer text-danger"
 						size="lg" role="button" (click)="deleteResponsibility(t.id)">
 					</fa-icon>
+					<fa-icon [icon]="faEdit" class="fa-icon-spacer text-primary ms-2"
+						size="lg" role="button" (click)="startEditResponsibility(t)">
+					</fa-icon>
 					{{t.responsibility}}
 				</div>
 			}
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="Input new responsibility and click Add" aria-label="New Responsibility" 
-					aria-describedby="new_responsibility_button-addon" formControlName="new_responsibility" id="new_responsibility">
-				<button class="btn btn-primary" type="button" (click)="addResponsibility()"
-					[disabled]="projectForm.value.new_responsibility==null">Add</button>
+			<!-- Edit Responsibility Section -->
+			@if(editingResponsibility)
+			{
+				<div class="mb-3" *ngIf="editingResponsibility">
+					<textarea class="form-control mb-2" placeholder="Edit Responsibility"
+						aria-label="Edit Responsibility"
+						formControlName="edit_responsibility"
+						id="edit_responsibility"
+						rows="3"></textarea>
+					<div>
+						<button class="btn btn-success btn-sm me-2" type="button" (click)="saveEditResponsibility()"
+						[disabled]="projectForm.value.edit_responsibility==''">Save Update</button>
+						<button class="btn btn-secondary btn-sm" type="button" (click)="cancelEditResponsibility()">Cancel</button>
+					</div>
+				</div>
+			}
+
+			<!-- Add Responsibility Section -->
+			<div class="mb-3 mt-3">
+				<textarea class="form-control mb-2" placeholder="Input new responsibility and click Add"
+					aria-label="New Responsibility"
+					aria-describedby="new_responsibility_button-addon"
+					formControlName="new_responsibility"
+					id="new_responsibility"
+					rows="3"></textarea>
+				<div>
+					<button class="btn btn-primary" type="button" (click)="addResponsibility()"
+						[disabled]="projectForm.value.new_responsibility==null">Save New Responsibility</button>
+				</div>
 			</div>
 			@if(visibleConfirm)
 			{

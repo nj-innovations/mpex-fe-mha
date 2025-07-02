@@ -37,6 +37,15 @@ export class UpdateMentorProjectService {
 			})	
 		)
 	}
+	
+	updateRequirement(id: string, req: string): Observable<IgetRequirementsResponse> {
+		let putVars = {'requirement_text': req};
+		return this.http.put<IgetRequirementsResponse>(environment.apiUrl + '/mentor_projects/requirements/clientadmin/' + id, putVars).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)		
+	}
 
 	deleteRequirement(requirement_id: string): Observable<IstringMessageResponse>{
 		return this.http.delete<IstringMessageResponse>(environment.apiUrl + '/mentor_projects/requirements/clientadmin/' + requirement_id).pipe(
@@ -61,5 +70,14 @@ export class UpdateMentorProjectService {
 				return throwError(() => new Error(error.error.message))
 			})	
 		)
+	}
+
+	updateResponsibility(id: string, req: string): Observable<IgetResponsibilitiesResponse> {
+		let putVars = {'responsibility_text': req};
+		return this.http.put<IgetResponsibilitiesResponse>(environment.apiUrl + '/mentor_projects/responsibilities/clientadmin/' + id, putVars).pipe(
+			catchError((error) => {
+				return throwError(() => new Error(error.error.message))
+			})	
+		)		
 	}
 }

@@ -25,7 +25,7 @@ export class MyProjectsRequirementsComponent implements OnInit {
 	faThumbsUp = faThumbsUp;
 	faThumbsDown = faThumbsDown;
 	editingRequirement: IgetRequirementsResponse | null = null;
-	
+
 	constructor(private projectService: MyProjectsRequirementsService, private alertsService: AlertsService){ 
 	}
 	
